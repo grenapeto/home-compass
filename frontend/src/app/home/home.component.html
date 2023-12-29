@@ -1,0 +1,57 @@
+﻿<div class="p-4">
+    <div class="container">
+        <h1>Hi {{account?.firstName}}!</h1>
+        <p>You're logged in with Angular 15 & JWT!!</p>
+
+        <!-- Cards and Tab Container -->
+        <div class="row">
+            <!-- Latest Recipes Card -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Latest Recipes
+                    </div>
+                    <div class="card-body">
+                        <!-- Content for latest recipes -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grocery List Card -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Add to Grocery List
+                    </div>
+                    <div class="card-body">
+                        <!-- Content for adding to grocery list -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Overview Card -->
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-header">
+                        Inventory Overview
+                    </div>
+                    <div class="card-body">
+                        <!-- Content for inventory overview -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button for Adding a Recipe -->
+        <div class="mt-4">
+            <div class="d-flex justify-content-start">
+                <button mat-raised-button color="primary" routerLink="/add-recipe">Add a Recipe</button>
+                <!-- Additional buttons can be added here if needed -->
+            </div>
+            <div class="content p-3">
+                <!-- Form or content for adding a recipe -->
+            </div>
+        </div>
+
+    </div>
+</div>
