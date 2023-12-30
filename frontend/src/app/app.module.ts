@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
@@ -13,8 +12,13 @@ import { AccountService } from './_services';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
-import { RecipeFormComponent } from './recipe-form/recipe-form.component';;
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// angular material
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -22,14 +26,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        MatButtonModule
-,
-        BrowserAnimationsModule    ],
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule   ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
-        RecipeFormComponent
+        RecipeFormComponent,
+        RecipeListComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
