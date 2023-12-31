@@ -1,6 +1,6 @@
 ﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
@@ -28,13 +28,16 @@ import { MatButtonModule } from '@angular/material/button';
         AppRoutingModule,
         MatButtonModule,
         BrowserAnimationsModule,
-        MatPaginatorModule   ],
+        MatPaginatorModule,
+        FormsModule,
+        ReactiveFormsModule   ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
         RecipeFormComponent,
-        RecipeListComponent
+        RecipeListComponent,
+        
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

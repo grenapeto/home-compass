@@ -1,4 +1,6 @@
-import { Component, OnInit, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, map, tap } from 'rxjs/operators';
 import { IngredientService } from '../services/ingredient.service';
@@ -13,7 +15,8 @@ export class RecipeFormComponent implements OnInit {
   ingredientSuggestions$: Observable<any[]> = of([]);
   private searchTerms = new Subject<string>();
   selectedIngredients: any[] = [];
-
+  currentSuggestions: any[] = [];
+  
   constructor(private fb: FormBuilder, private ingredientService: IngredientService) {
     this.recipeForm = this.fb.group({
       name: [''],
