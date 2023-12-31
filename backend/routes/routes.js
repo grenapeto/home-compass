@@ -1,5 +1,5 @@
 import express from 'express';
-import morgan from 'morgan'; // Import Morgan
+import {morganMiddleware} from '../config/logger.js'; // Import Morgan
 import authController from '../controllers/authController.js';
 import recipesController from '../controllers/recipesController.js';
 import inventoryController from '../controllers/inventoryController.js';
@@ -9,7 +9,7 @@ import groceryListsController from '../controllers/groceryListsController.js';
 
 const router = express.Router();
 
-router.use(morgan('dev'));
+// router.use(morganMiddleware);
 
 // User registration
 router.post('/register', authController.register);
