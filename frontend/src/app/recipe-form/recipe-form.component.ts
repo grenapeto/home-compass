@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit, FormBuilder, FormArray } from '@angular/forms';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, map, tap } from 'rxjs/operators';
 import { IngredientService } from '../services/ingredient.service';
@@ -13,7 +12,7 @@ export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
   ingredientSuggestions$: Observable<any[]> = of([]);
   private searchTerms = new Subject<string>();
-  currentSuggestions: any[] = [];
+  selectedIngredients: any[] = [];
 
   constructor(private fb: FormBuilder, private ingredientService: IngredientService) {
     this.recipeForm = this.fb.group({
@@ -22,7 +21,8 @@ export class RecipeFormComponent implements OnInit {
       instructions: [''],
       cookTime: [''],
       portions: [''],
-      picture: ['']
+      picture: [''],
+      ingredientsAdded: this.fb.array([]), // Assuming you have a separate array for added ingredients
     });
   }
 
@@ -32,7 +32,7 @@ export class RecipeFormComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => term ? this.ingredientService.getIngredients(term) : of([])),
       map(items => items.length > 0 ? items : [{ name: 'Create new ingredient' }]),
-      tap(suggestions => this.currentSuggestions = suggestions), // Keep track of the current suggestions
+      tap(suggestions => this.currentSuggestions = suggestions),
       catchError(error => {
         console.error(error);
         return of([]);
@@ -44,7 +44,7 @@ export class RecipeFormComponent implements OnInit {
     if (term) {
       this.searchTerms.next(term);
     } else {
-      this.ingredientSuggestions$ = of([]); // Hide suggestions when input is empty
+      this.ingredientSuggestions$ = of([]);
     }
   }
 
@@ -61,26 +61,32 @@ export class RecipeFormComponent implements OnInit {
   }
 
   selectSuggestion(index: number, suggestion: any) {
-    if (suggestion.name === 'Create new ingredient') {
-      // Logic to handle the creation of a new ingredient
-      const newIngredientName = this.ingredients.at(index).value;
-      this.ingredientService.addIngredient({ name: newIngredientName }).subscribe(
-        addedIngredient => {
-          this.ingredients.at(index).setValue(addedIngredient.name);
-          this.ingredientSuggestions$ = of([]); // Hide suggestions after adding a new ingredient
-        },
-        error => console.error('Error adding ingredient:', error)
-      );
-    } else {
-      this.ingredients.at(index).setValue(suggestion.name);
-      this.ingredientSuggestions$ = of([]); // Hide suggestions after selection
-    }
+    // Handle selection logic
+    this.selectedIngredients[index] = { name: suggestion.name, amount: '', unit: '' };
+    this.addIngredientToForm(index);
   }
 
   onEnter(index: number): void {
     if (this.currentSuggestions.length > 0) {
       this.selectSuggestion(index, this.currentSuggestions[0]);
     }
+  }
+
+  addIngredientToForm(index: number): void {
+    const selectedIngredient = this.selectedIngredients[index];
+
+    // Add logic to handle adding ingredient to the list below the "Add Ingredient" button
+    // For demonstration purposes, let's assume you have a separate array to store added ingredients
+    // You may need to adapt this part based on your actual data structure and requirements
+    const addedIngredients = this.recipeForm.get('ingredientsAdded') as FormArray;
+    addedIngredients.push(this.fb.group({
+      name: [selectedIngredient.name],
+      amount: [selectedIngredient.amount],
+      unit: [selectedIngredient.unit],
+    }));
+
+    // Optional: Clear the selected ingredient to start fresh
+    this.selectedIngredients[index] = { name: '', amount: '', unit: '' };
   }
 
   onSubmit() {
