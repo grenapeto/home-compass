@@ -15,10 +15,15 @@ import { HomeComponent } from './home';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+
 
 // angular material
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
     imports: [
@@ -30,13 +35,17 @@ import { MatButtonModule } from '@angular/material/button';
         BrowserAnimationsModule,
         MatPaginatorModule,
         FormsModule,
-        ReactiveFormsModule   ],
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatListModule
+      ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
         RecipeFormComponent,
         RecipeListComponent,
+        RecipeDetailComponent,
         
     ],
     providers: [
