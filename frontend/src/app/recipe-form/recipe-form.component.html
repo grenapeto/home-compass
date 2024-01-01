@@ -13,6 +13,7 @@
       <label class="form-label">Ingredients</label>
       <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="mb-2 position-relative">
         <div class="d-flex align-items-center">
+          <input type="hidden" formControlName="id">
           <!-- Ingredient Name Input -->
           <input type="text" formControlName="name" class="form-control mr-2" placeholder="Name">
 
@@ -24,9 +25,7 @@
 
           <!-- Add Ingredient Button -->
           <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
-
-          <!-- Remove Ingredient Button -->
-          <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredient(i)">Remove</button>
+      
         </div>
       </div>
     </div>
@@ -35,8 +34,10 @@
     <div *ngIf="recipeForm.get('ingredientsAdded')?.value.length > 0">
       <h3>Selected Ingredients:</h3>
       <ul>
-        <li *ngFor="let ingredient of recipeForm.get('ingredientsAdded')?.value">
-          {{ ingredient.name }}: {{ ingredient.amount }} {{ ingredient.unit }}
+        <li *ngFor="let ingredient of recipeForm.get('ingredientsAdded')?.value; let i = index">
+          {{ ingredient.id }} {{ ingredient.name }}: {{ ingredient.amount }} {{ ingredient.unit }}
+          <!-- Remove Ingredient Button -->
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredientById(i)">Remove</button>
         </li>
       </ul>
     </div>
