@@ -1,68 +1,64 @@
 <div class="container mt-4">
-    <h2>Add a Recipe</h2>
-    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-        <!-- Recipe Name -->
-        <div class="mb-3">
-            <label for="name" class="form-label">Recipe Name</label>
-            <input type="text" id="name" class="form-control" formControlName="name">
-        </div>
-        <!-- Ingredients -->
-        <div formArrayName="ingredients" class="mb-3">
-            <label class="form-label">Ingredients</label>
-            <div *ngFor="let ingredient of ingredients.controls; let i = index" class="mb-2 position-relative">
-                <div class="d-flex align-items-center">
-                    <input type="text" [formControlName]="i" (input)="search(ingredient.value)" (keydown.enter)="onEnter(i)"
-                        class="form-control mr-2">
+  <h2>Add a Recipe</h2>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <!-- Recipe Name -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Recipe Name</label>
+      <input type="text" id="name" class="form-control" formControlName="name">
+    </div>
+    <!-- Ingredients -->
+    <div formArrayName="ingredients" class="mb-3">
+      <label class="form-label">Ingredients</label>
+      <div *ngFor="let ingredient of ingredients.controls; let i = index" class="mb-2 position-relative">
+        <div class="d-flex align-items-center">
+          <input type="text" [formControlName]="i" class="form-control mr-2" style="width: 30%;">
 
-                    <!-- Suggestions List -->
-                    <ul class="list-group position-absolute" style="z-index: 1000; width: 100%;" *ngIf="ingredient.value">
-                        <li class="list-group-item list-group-item-action"
-                            *ngFor="let suggestion of ingredientSuggestions$ | async"
-                            (click)="selectSuggestion(i, suggestion)">
-                            {{ suggestion.name }}
-                        </li>
-                    </ul>
-
-                    <!-- Amount and Unit Fields -->
-                    <div *ngIf="selectedIngredients[i]">
-                        <input type="text" placeholder="Amount" class="form-control mr-2" [(ngModel)]="selectedIngredients[i].amount">
-                        <input type="text" placeholder="Unit" class="form-control mr-2" [(ngModel)]="selectedIngredients[i].unit">
-                        <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
-                    </div>
-                </div>
+          <!-- Amount and Unit Fields -->
+          <div class="d-flex">
+            <div class="mr-2" style="width: 30%;">
+              <input type="text" placeholder="Amount" class="form-control" formControlName="amount" />
             </div>
-            <div *ngIf="selectedIngredients.length > 0" class="mb-2">
-                <p>Selected Ingredients:</p>
-                <ul>
-                    <li *ngFor="let selectedIngredient of selectedIngredients; let i = index">
-                        {{ selectedIngredient.name }} - {{ selectedIngredient.amount }} {{ selectedIngredient.unit }}
-                        <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredient(i)">Delete</button>
-                    </li>
-                </ul>
+            <div  class="mr-2" style="width: 30%;">
+              <input type="text" placeholder="Unit" class="form-control" formControlName="unit" />
             </div>
-            <button type="button" class="btn btn-link" (click)="addIngredient()">+ Add Ingredient</button>
+            <div >
+              <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
+            </div>
+          </div>
         </div>
-        <!-- Instructions -->
-        <div class="mb-3">
-            <label class="form-label">Instructions</label>
-            <textarea class="form-control" formControlName="instructions"></textarea>
-        </div>
-        <!-- Cooking Time -->
-        <div class="mb-3">
-            <label class="form-label">Time to Cook (minutes)</label>
-            <input type="number" class="form-control" formControlName="cookTime">
-        </div>
-        <!-- Portions -->
-        <div class="mb-3">
-            <label class="form-label">Portions</label>
-            <input type="number" class="form-control" formControlName="portions">
-        </div>
-        <!-- Pictures -->
-        <div class="mb-3">
-            <label class="form-label">Recipe Picture</label>
-            <input type="file" class="form-control" formControlName="picture">
-        </div>
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      </div>
+      <div *ngIf="selectedIngredients.length > 0" class="mb-2">
+        <p>Selected Ingredients:</p>
+        <ul>
+          <li *ngFor="let selectedIngredient of selectedIngredients; let i = index">
+            {{ selectedIngredient.name }} - {{ selectedIngredient.amount }} {{ selectedIngredient.unit }}
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredient(i)">Delete</button>
+          </li>
+        </ul>
+      </div>
+      <!-- <button type="button" class="btn btn-link" (click)="addIngredient()">+ Add Ingredient</button> -->
+    </div>
+    <!-- Instructions -->
+    <div class="mb-3">
+      <label class="form-label">Instructions</label>
+      <textarea class="form-control" formControlName="instructions"></textarea>
+    </div>
+    <!-- Cooking Time -->
+    <div class="mb-3">
+      <label class="form-label">Time to Cook (minutes)</label>
+      <input type="number" class="form-control" formControlName="cookTime">
+    </div>
+    <!-- Portions -->
+    <div class="mb-3">
+      <label class="form-label">Portions</label>
+      <input type="number" class="form-control" formControlName="portions">
+    </div>
+    <!-- Pictures -->
+    <div class="mb-3">
+      <label class="form-label">Recipe Picture</label>
+      <input type="file" class="form-control" formControlName="picture">
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </div>
