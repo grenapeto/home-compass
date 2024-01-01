@@ -20,7 +20,15 @@ const getRecipe = async (req, res) => {
 };
 
 const createRecipe = async (req, res) => {
-  const recipe = new Recipe(req.body);
+  // Transforming only the ingredientsAdded field
+  const { ingredientsAdded, ...otherData } = req.body;
+  const transformedData = {
+    ...otherData,
+    ingredients: ingredientsAdded // renaming ingredientsAdded to ingredients
+  };
+
+  const recipe = new Recipe(transformedData);
+
   try {
     const newRecipe = await recipe.save();
     res.status(201).json(newRecipe);
@@ -28,6 +36,7 @@ const createRecipe = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 const updateRecipe = async (req, res) => {
   try {

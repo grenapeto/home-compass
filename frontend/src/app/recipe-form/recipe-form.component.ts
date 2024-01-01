@@ -38,7 +38,7 @@ export class RecipeFormComponent implements OnInit {
     const uniqueId = new Date().getTime();
     this.ingredients.push(
       this.fb.group({
-        id:[uniqueId],
+        id: [uniqueId],
         name: [''],
         amount: [''],
         unit: [''],
@@ -47,12 +47,12 @@ export class RecipeFormComponent implements OnInit {
   }
 
   // Method to remove an ingredient from the form array
- removeIngredientById(index: number): void{
-  const addedIngredientsById = this.recipeForm.get('ingredientsAdded') as FormArray;
-  if (index >= 0 && index < addedIngredientsById.length) {
-    addedIngredientsById.removeAt(index);
+  removeIngredientById(index: number): void {
+    const addedIngredientsById = this.recipeForm.get('ingredientsAdded') as FormArray;
+    if (index >= 0 && index < addedIngredientsById.length) {
+      addedIngredientsById.removeAt(index);
+    }
   }
- }
 
   // Method to add an ingredient to the 'ingredientsAdded' array
   addIngredientToForm(index: number): void {
@@ -67,7 +67,7 @@ export class RecipeFormComponent implements OnInit {
 
     // Optional: Clear the ingredient fields after adding
     this.ingredients.at(index).reset();
-  
+
   }
 
   // Method to handle form submission
@@ -76,8 +76,8 @@ export class RecipeFormComponent implements OnInit {
     // Add your submission logic here
     this.recipeService.addNewRecipe(this.recipeForm.value).subscribe(
       response => {
-console.log("Recipe added successfully", response);
-this.router.navigate(['/recipes']);
+        console.log("Recipe added successfully", response);
+        this.router.navigate(['/recipes']);
       },
       error => {
         console.log("Error adding recipe", error)
