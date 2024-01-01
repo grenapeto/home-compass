@@ -13,5 +13,8 @@ export class RecipeService {
     return this.http.get(this.apiUrl);
   }
 
+  addNewRecipe(item: any) {
+    return this.http.post(this.apiUrl, item);
+  }
   // Add other methods for creating, updating, and deleting recipes
 }

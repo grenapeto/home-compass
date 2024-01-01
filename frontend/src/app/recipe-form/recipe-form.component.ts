@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { RecipeService } from '@app/services/recipe.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-form',
@@ -9,7 +11,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private recipeService: RecipeService, private router: Router) {
     // Initialize the form group with all necessary form controls
     this.recipeForm = this.fb.group({
       name: [''], // Recipe name
@@ -72,5 +74,14 @@ export class RecipeFormComponent implements OnInit {
   onSubmit(): void {
     console.log('Form Submitted:', this.recipeForm.value);
     // Add your submission logic here
+    this.recipeService.addNewRecipe(this.recipeForm.value).subscribe(
+      response => {
+console.log("Recipe added successfully", response);
+this.router.navigate(['/recipes']);
+      },
+      error => {
+        console.log("Error adding recipe", error)
+      }
+    )
   }
 }
