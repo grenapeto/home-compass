@@ -8,31 +8,31 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
-  selectedIngredients: any[] = [];
 
   constructor(private fb: FormBuilder) {
+    // Initialize the form group with all necessary form controls
     this.recipeForm = this.fb.group({
-      name: [''],
-      ingredients: this.fb.array([]),
-      instructions: [''],
-      cookTime: [''],
-      portions: [''],
-      picture: [''],
-      ingredientsAdded: this.fb.array([]),
+      name: [''], // Recipe name
+      ingredients: this.fb.array([]), // Ingredients form array
+      instructions: [''], // Cooking instructions
+      cookTime: [''], // Cooking time
+      portions: [''], // Number of portions
+      picture: [''], // Recipe picture
+      ingredientsAdded: this.fb.array([]), // Array for added ingredients
     });
   }
 
-  ngOnInit() {
-    // Initialize the first ingredient field
-    this.addIngredient();
+  ngOnInit(): void {
+    this.addIngredient(); // Initialize with one ingredient field
   }
 
-  get ingredients() {
+  // Getter for ingredients form array
+  get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  addIngredient() {
-    // Add a new ingredient to the form array
+  // Method to add an ingredient to the form array
+  addIngredient(): void {
     this.ingredients.push(
       this.fb.group({
         name: [''],
@@ -42,14 +42,14 @@ export class RecipeFormComponent implements OnInit {
     );
   }
 
-  removeIngredient(index: number) {
-    // Remove the ingredient at the specified index
+  // Method to remove an ingredient from the form array
+  removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
   }
 
+  // Method to add an ingredient to the 'ingredientsAdded' array
   addIngredientToForm(index: number): void {
     const selectedIngredient = this.ingredients.at(index).value;
-
     const addedIngredients = this.recipeForm.get('ingredientsAdded') as FormArray;
     addedIngredients.push(this.fb.group({
       name: [selectedIngredient.name],
@@ -57,14 +57,13 @@ export class RecipeFormComponent implements OnInit {
       unit: [selectedIngredient.unit],
     }));
 
-    // Optional: Clear the fields to start fresh
+    // Optional: Clear the ingredient fields after adding
     this.ingredients.at(index).reset();
-
-    // You can add more logic here if needed
   }
 
-  onSubmit() {
-    console.log(this.recipeForm.value);
-    // Add logic here to handle form submission
+  // Method to handle form submission
+  onSubmit(): void {
+    console.log('Form Submitted:', this.recipeForm.value);
+    // Add your submission logic here
   }
 }

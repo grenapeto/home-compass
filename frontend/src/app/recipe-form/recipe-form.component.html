@@ -1,53 +1,70 @@
 <div class="container mt-4">
   <h2>Add a Recipe</h2>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-    <!-- Recipe Name -->
+
+    <!-- Recipe Name Field -->
     <div class="mb-3">
       <label for="name" class="form-label">Recipe Name</label>
       <input type="text" id="name" class="form-control" formControlName="name">
     </div>
-    <!-- Ingredients -->
-<div formArrayName="ingredients" class="mb-3">
-  <label class="form-label">Ingredients</label>
-  <div *ngFor="let ingredient of ingredients.controls; let i = index" class="mb-2 position-relative">
-    <div class="d-flex align-items-center">
-      <input type="text" formControlName="name" class="form-control mr-2" placeholder="Name">
-      <input type="text" formControlName="amount" class="form-control mr-2" placeholder="Amount">
-      <input type="text" formControlName="unit" class="form-control mr-2" placeholder="Unit">
-      
-      <!-- Add button -->
-      <div>
-        <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
-      </div>
-      
-      <!-- Remove button -->
-      <div>
-        <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredient(i)">Remove</button>
+
+    <!-- Ingredients Section -->
+    <div formArrayName="ingredients" class="mb-3">
+      <label class="form-label">Ingredients</label>
+      <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="mb-2 position-relative">
+        <div class="d-flex align-items-center">
+          <!-- Ingredient Name Input -->
+          <input type="text" formControlName="name" class="form-control mr-2" placeholder="Name">
+
+          <!-- Ingredient Amount Input -->
+          <input type="text" formControlName="amount" class="form-control mr-2" placeholder="Amount">
+
+          <!-- Ingredient Unit Input -->
+          <input type="text" formControlName="unit" class="form-control mr-2" placeholder="Unit">
+
+          <!-- Add Ingredient Button -->
+          <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
+
+          <!-- Remove Ingredient Button -->
+          <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredient(i)">Remove</button>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-    <!-- Instructions -->
+    <!-- Display Selected Ingredients -->
+    <div *ngIf="recipeForm.get('ingredientsAdded')?.value.length > 0">
+      <h3>Selected Ingredients:</h3>
+      <ul>
+        <li *ngFor="let ingredient of recipeForm.get('ingredientsAdded')?.value">
+          {{ ingredient.name }}: {{ ingredient.amount }} {{ ingredient.unit }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Instructions Field -->
     <div class="mb-3">
       <label class="form-label">Instructions</label>
       <textarea class="form-control" formControlName="instructions"></textarea>
     </div>
-    <!-- Cooking Time -->
+
+    <!-- Cooking Time Field -->
     <div class="mb-3">
       <label class="form-label">Time to Cook (minutes)</label>
       <input type="number" class="form-control" formControlName="cookTime">
     </div>
-    <!-- Portions -->
+
+    <!-- Portions Field -->
     <div class="mb-3">
       <label class="form-label">Portions</label>
       <input type="number" class="form-control" formControlName="portions">
     </div>
-    <!-- Pictures -->
+
+    <!-- Recipe Picture Field -->
     <div class="mb-3">
       <label class="form-label">Recipe Picture</label>
       <input type="file" class="form-control" formControlName="picture">
     </div>
+
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
