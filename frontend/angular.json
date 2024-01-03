@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-15-example": {
+    "home-compass": { 
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,8 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-15-example",
+            "outputPath": "dist/home-compass",
             "index": "src/index.html",
+            "baseHref": "/home-compass/",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
@@ -70,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-15-example:build:production"
+              "browserTarget": "home-compass:build:production"
             },
             "development": {
-              "browserTarget": "angular-15-example:build:development"
+              "browserTarget": "home-compass:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-15-example:build"
+            "browserTarget": "home-compass:build"
           }
         },
         "test": {
