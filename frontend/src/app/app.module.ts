@@ -32,6 +32,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AddProductComponent } from './add-product/add-product.component';
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { InventoryDetailComponent } from './inventory-detail/inventory-detail.component';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { InventoryListComponent } from './inventory-list/inventory-list.componen
         MatCheckboxModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatIconModule
+        MatIconModule,
+        MatDialogModule
       ],
     declarations: [
         AppComponent,
@@ -64,6 +67,7 @@ import { InventoryListComponent } from './inventory-list/inventory-list.componen
         AddProductComponent,
         BarcodeScannerComponent,
         InventoryListComponent,
+        InventoryDetailComponent,
         
     ],
     providers: [
