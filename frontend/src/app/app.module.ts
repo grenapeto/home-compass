@@ -31,6 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddProductComponent } from './add-product/add-product.component';
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
         RecipeDetailComponent,
         AddProductComponent,
         BarcodeScannerComponent,
+        InventoryListComponent,
         
     ],
     providers: [
