@@ -1,42 +1,40 @@
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Recipe Lists</h2>
+    <h2 class="mb-4 text-center">Inventory Lists</h2>
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div *ngIf="inventory.length === 0" class="alert alert-warning text-center">
           No inventory found.
         </div>
         <table class="table" *ngIf="inventory.length > 0">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Prep time</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let inventory of inventory.slice(currentPage * pageSize, (currentPage + 1) * pageSize); let i = index">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ inventory.name }}</td>
-              <td>{{ inventory.instructions[0] }}</td>
-              <td>{{ inventory.prepTime }}</td>
-              <td>
-                <button class="btn btn-primary btn-sm">View</button>
-                <button class="btn btn-secondary btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Earliest Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inventory of inventory.slice(currentPage * pageSize, (currentPage + 1) * pageSize); let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ inventory.name }}</td>
+                <td>{{ inventory.items.length }}</td>
+                <td>{{ getEarliestExpiry(inventory.items) }}</td>
+                <td>
+                  <button class="btn btn-secondary btn-sm">Edit</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteInventory(i)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         <mat-paginator
       [length]="inventory.length"
       [pageSize]="pageSize"
       (page)="onPageChange($event)"
     ></mat-paginator>
     <div class="d-flex justify-content-center">
-      <button mat-raised-button color="primary" routerLink="/add-inventory">Add a Recipe</button>
-      <button mat-raised-button color="primary" routerLink="/inventory-detail">Recipe Detail</button>
+      <button mat-raised-button color="primary" routerLink="/add-inventory">Add Inventory</button>
+      <button mat-raised-button color="primary" routerLink="/inventory-detail">Inventory Detail</button>
       <!-- Additional buttons can be added here if needed -->
   </div>
   
