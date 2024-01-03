@@ -22,7 +22,7 @@ export class RecipeFormComponent implements OnInit {
   ) {
     // Initialize the form group with all necessary form controls
     this.recipeForm = this.fb.group({
-      name: [''], // Recipe name
+      name: ['', Validators.required], // Recipe name
       ingredients: this.fb.array([]), // Ingredients form array
       instructions: [''], // Cooking instructions
       cookTime: [''], // Cooking time
@@ -93,7 +93,9 @@ export class RecipeFormComponent implements OnInit {
   }
   // Method to handle form submission
   onSubmit(): void {
+    if (this.recipeForm.valid) {
     console.log('Form Submitted:', this.recipeForm.value);
+    
     // Add your submission logic here
     this.recipeService.addNewRecipe(this.recipeForm.value).subscribe(
       (response) => {
@@ -123,4 +125,14 @@ export class RecipeFormComponent implements OnInit {
       }
     );
   }
+  else {
+    this.snackBar.open('Please fill in recipe name field', 'Close', {
+    duration: 3000,
+    horizontalPosition: 'center',
+    verticalPosition: 'bottom',
+    panelClass: ['mat-toolbar', 'mat-warn'],
+  });
 }
+}
+}
+
