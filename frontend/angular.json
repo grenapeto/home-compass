@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "dist/home-compass",
             "index": "src/index.html",
-            "baseHref": "http://192.168.99.101/home-compass",
+            "baseHref": "http://192.168.99.101/home-compass/",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
