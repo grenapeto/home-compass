@@ -24,7 +24,7 @@ export class RecipeFormComponent implements OnInit {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required], // Recipe name
       ingredients: this.fb.array([]), // Ingredients form array
-      instructions: ['', Validators.required, Validators.minLength(4)], // Cooking instructions
+      instructions: ['', [Validators.required, Validators.minLength(4)]],// Cooking instructions
       cookTime: ['', Validators.required], // Cooking time
       portions: ['', Validators.required], // Number of portions
       picture: [''], // Recipe picture
@@ -47,9 +47,9 @@ export class RecipeFormComponent implements OnInit {
     this.ingredients.push(
       this.fb.group({
         id: [uniqueId],
-        name: ['', Validators.required],
-        amount: ['', Validators.required],
-        unit: ['', Validators.required],
+        name: [''],
+        amount: [''],
+        unit: [''],
       })
     );
   }
@@ -64,33 +64,48 @@ export class RecipeFormComponent implements OnInit {
     }
   }
 
+// Method to add validators to an ingredient dynamically
+private addValidatorsToIngredient(ingredient: FormGroup): void {
+  ingredient.get('name')?.setValidators(Validators.required);
+  ingredient.get('amount')?.setValidators(Validators.required);
+  ingredient.get('unit')?.setValidators(Validators.required);
+  ingredient.updateValueAndValidity(); // Update validity status after adding validators
+}
+
  
  // Method to add an ingredient to the 'ingredientsAdded' array
-  addIngredientToForm(index: number): void {
-    const currentIngredient = this.ingredients.at(index);
-  
-    if (currentIngredient.valid) {
-      const selectedIngredient = currentIngredient.value;
-      const addedIngredients = this.recipeForm.get('ingredientsAdded') as FormArray;
-  
-      addedIngredients.push(this.fb.group({
-        index: [index],
-        name: [selectedIngredient.name],
-        amount: [selectedIngredient.amount],
-        unit: [selectedIngredient.unit],
-      }));
-  
-      // Optionally reset the current ingredient fields or add a new ingredient form
-      currentIngredient.reset(); // This will clear the current fields
-     } else {
-         this.snackBar.open('Please fill in all fields of the current ingredient', 'Close', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        panelClass: ['mat-toolbar', 'mat-warn'],
-      });
-    }
+ addIngredientToForm(index: number): void {
+  const currentIngredient = this.ingredients.at(index) as FormGroup;
+
+  // Add validators dynamically
+  this.addValidatorsToIngredient(currentIngredient);
+
+  if (currentIngredient.valid) {
+    const selectedIngredient = currentIngredient.value;
+    const addedIngredients = this.recipeForm.get('ingredientsAdded') as FormArray;
+
+    addedIngredients.push(this.fb.group({
+      index: [index],
+      name: [selectedIngredient.name],
+      amount: [selectedIngredient.amount],
+      unit: [selectedIngredient.unit],
+    }));
+
+    // Reset current ingredient fields and clear validators for the next entry
+    currentIngredient.reset();
+    Object.keys(currentIngredient.controls).forEach(key => {
+      currentIngredient.get(key)?.clearValidators();
+      currentIngredient.get(key)?.updateValueAndValidity();
+    });
+  } else {
+    this.snackBar.open('Please fill in all fields of the current ingredient', 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['mat-toolbar', 'mat-warn'],
+    });
   }
+}
   // Method to handle form submission
   onSubmit(): void {
     if (this.recipeForm.valid) {
