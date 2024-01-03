@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { RecipeService } from '@app/services/recipe.service';
 import { Router } from '@angular/router';
 
+import { Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-recipe-form',
   templateUrl: './recipe-form.component.html',
@@ -45,9 +47,9 @@ export class RecipeFormComponent implements OnInit {
     this.ingredients.push(
       this.fb.group({
         id: [uniqueId],
-        name: [''],
-        amount: [''],
-        unit: [''],
+        name: ['', Validators.required],
+        amount: ['', Validators.required],
+        unit: ['', Validators.required],
       })
     );
   }
