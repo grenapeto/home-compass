@@ -24,9 +24,9 @@ export class RecipeFormComponent implements OnInit {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required], // Recipe name
       ingredients: this.fb.array([]), // Ingredients form array
-      instructions: [''], // Cooking instructions
-      cookTime: [''], // Cooking time
-      portions: [''], // Number of portions
+      instructions: ['', Validators.required, Validators.minLength(4)], // Cooking instructions
+      cookTime: ['', Validators.required], // Cooking time
+      portions: ['', Validators.required], // Number of portions
       picture: [''], // Recipe picture
       ingredientsAdded: this.fb.array([]), // Array for added ingredients
     });
@@ -126,7 +126,7 @@ export class RecipeFormComponent implements OnInit {
     );
   }
   else {
-    this.snackBar.open('Please fill in recipe name field', 'Close', {
+    this.snackBar.open('Please fill in all fields', 'Close', {
     duration: 3000,
     horizontalPosition: 'center',
     verticalPosition: 'bottom',

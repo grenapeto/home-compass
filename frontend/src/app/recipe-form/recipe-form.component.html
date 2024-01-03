@@ -11,7 +11,8 @@
     <!-- Ingredients Section -->
     <div formArrayName="ingredients" class="mb-3">
       <label class="form-label">Ingredients</label>
-      <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="mb-2 position-relative">
+      <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i"
+        class="mb-2 position-relative">
         <div class="d-flex align-items-center">
           <input type="hidden" formControlName="id">
           <!-- Ingredient Name Input -->
@@ -25,7 +26,7 @@
 
           <!-- Add Ingredient Button -->
           <button type="button" class="btn btn-success btn-sm" (click)="addIngredientToForm(i)">Add</button>
-      
+
         </div>
       </div>
     </div>
@@ -37,7 +38,7 @@
         <li *ngFor="let ingredient of recipeForm.get('ingredientsAdded')?.value; let i = index">
           {{ ingredient.id }} {{ ingredient.name }}: {{ ingredient.amount }} {{ ingredient.unit }}
           <!-- Remove Ingredient Button -->
-            <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredientById(i)">Remove</button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredientById(i)">Remove</button>
         </li>
       </ul>
     </div>
@@ -45,7 +46,13 @@
     <!-- Instructions Field -->
     <div class="mb-3">
       <label class="form-label">Instructions</label>
-      <textarea class="form-control" formControlName="instructions"></textarea>
+      <textarea class="form-control" name="instructions" formControlName="instructions" required minlength="4"></textarea>
+      <div *ngIf="recipeForm.get('instructions')?.invalid && (recipeForm.get('instructions')?.dirty || recipeForm.get('instructions')?.touched)" class="alert">
+        <div *ngIf="recipeForm.get('instructions')?.errors?.required">Instructions are required.</div>
+        <div *ngIf="recipeForm.get('instructions')?.errors?.minlength">
+          Instructions must be at least 4 characters long.
+        </div>
+      </div>
     </div>
 
     <!-- Cooking Time Field -->
