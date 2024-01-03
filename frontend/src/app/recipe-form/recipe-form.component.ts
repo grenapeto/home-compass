@@ -64,25 +64,33 @@ export class RecipeFormComponent implements OnInit {
     }
   }
 
-  // Method to add an ingredient to the 'ingredientsAdded' array
+ 
+ // Method to add an ingredient to the 'ingredientsAdded' array
   addIngredientToForm(index: number): void {
-    const selectedIngredient = this.ingredients.at(index).value;
-    const addedIngredients = this.recipeForm.get(
-      'ingredientsAdded'
-    ) as FormArray;
-    addedIngredients.push(
-      this.fb.group({
+    const currentIngredient = this.ingredients.at(index);
+  
+    if (currentIngredient.valid) {
+      const selectedIngredient = currentIngredient.value;
+      const addedIngredients = this.recipeForm.get('ingredientsAdded') as FormArray;
+  
+      addedIngredients.push(this.fb.group({
         index: [index],
         name: [selectedIngredient.name],
         amount: [selectedIngredient.amount],
         unit: [selectedIngredient.unit],
-      })
-    );
-
-    // Optional: Clear the ingredient fields after adding
-    this.ingredients.at(index).reset();
+      }));
+  
+      // Optionally reset the current ingredient fields or add a new ingredient form
+      currentIngredient.reset(); // This will clear the current fields
+     } else {
+         this.snackBar.open('Please fill in all fields of the current ingredient', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['mat-toolbar', 'mat-warn'],
+      });
+    }
   }
-
   // Method to handle form submission
   onSubmit(): void {
     console.log('Form Submitted:', this.recipeForm.value);
