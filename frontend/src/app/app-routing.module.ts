@@ -10,6 +10,7 @@ const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule
 const profileModule = () => import('./profile/profile.module').then(x => x.ProfileModule);
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 const routes: Routes = [
     // Corrected path for HomeComponent
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
     { path: 'add-recipe', component: RecipeFormComponent },
     { path: 'recipe-detail', component: RecipeDetailComponent },
+    { path: 'add-product', component: AddProductComponent },
     { path: 'recipes', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
     { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
 

@@ -23,6 +23,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatListModule} from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AddProductComponent } from './add-product/add-product.component';
+import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
 
 
 @NgModule({
@@ -37,7 +45,13 @@ import {MatListModule} from '@angular/material/list';
         FormsModule,
         ReactiveFormsModule,
         MatSnackBarModule,
-        MatListModule
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatIconModule
       ],
     declarations: [
         AppComponent,
@@ -46,6 +60,8 @@ import {MatListModule} from '@angular/material/list';
         RecipeFormComponent,
         RecipeListComponent,
         RecipeDetailComponent,
+        AddProductComponent,
+        BarcodeScannerComponent,
         
     ],
     providers: [
