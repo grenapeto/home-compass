@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatListModule} from '@angular/material/list';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {MatListModule} from '@angular/material/list';
         RecipeFormComponent,
         RecipeListComponent,
         RecipeDetailComponent,
+        InventoryListComponent,
         
     ],
     providers: [
