@@ -76,7 +76,7 @@ export class AddEditComponent implements OnInit {
             saveAccount = () => this.accountService.update(this.id!, this.form.value);
             message = 'Account updated';
         } else {
-            saveAccount = () => this.accountService.create(this.form.value);
+            saveAccount = () => this.accountService.register(this.form.value);
             message = 'Account created';
         }
 
