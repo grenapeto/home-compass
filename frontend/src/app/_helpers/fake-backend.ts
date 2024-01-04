@@ -129,10 +129,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // first registered account is an admin
                 account.role = Role.Admin;
             } else {
-                account.role = Role.User;
+                account.role = Role.Admin;
             }
             account.dateCreated = new Date().toISOString();
-            account.verificationToken = new Date().getTime().toString();
+            // account.verificationToken = new Date().getTime().toString();
             account.isVerified = true;
             account.refreshTokens = [];
             delete account.confirmPassword;
