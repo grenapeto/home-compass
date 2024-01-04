@@ -7,13 +7,12 @@ import { map, finalize } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { Account } from '@app/_models';
 
-const baseUrl = `${environment.apiUrl}`; // Adjust based on your API URL
+const baseUrl = `${environment.apiUrl}`;
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private accountSubject: BehaviorSubject<Account | null>;
     public account: Observable<Account | null>;
-    private refreshTokenTimeout?: any;
 
     constructor(
         private router: Router,
@@ -28,26 +27,23 @@ export class AccountService {
     }
 
     login(email: string, password: string) {
-        return this.http.post<any>(`${baseUrl}/login`, { email, password })
-            .pipe(map(token => {
-                // Store the JWT token as needed
-                localStorage.setItem('jwtToken', token);
-                this.startRefreshTokenTimer(); // Implement if you have token refreshing logic
-                return token; // You may want to adjust how the account information is managed
+        return this.http.post<any>(`${baseUrl}/login`, { email, password }, { withCredentials: true })
+            .pipe(map(account => {
+                this.accountSubject.next(account);
+                this.startRefreshTokenTimer();
+                return account;
             }));
     }
 
     logout() {
-        // Assuming your backend has a route for logging out
-        this.http.post<any>(`${baseUrl}/logout`, {}).subscribe();
+        this.http.post<any>(`${baseUrl}/revoke-token`, {}, { withCredentials: true }).subscribe();
         this.stopRefreshTokenTimer();
         this.accountSubject.next(null);
         this.router.navigate(['/account/login']);
     }
 
     refreshToken() {
-        // Update this method based on how your backend handles token refreshing
-        return this.http.post<any>(`${baseUrl}/refresh-token`, {})
+        return this.http.post<any>(`${baseUrl}/refresh-token`, {}, { withCredentials: true })
             .pipe(map((account) => {
                 this.accountSubject.next(account);
                 this.startRefreshTokenTimer();
@@ -59,12 +55,15 @@ export class AccountService {
         return this.http.post(`${baseUrl}/register`, account);
     }
 
+    verifyEmail(token: string) {
+        return this.http.post(`${baseUrl}/verify-email`, { token });
+    }
+
     forgotPassword(email: string) {
         return this.http.post(`${baseUrl}/forgot-password`, { email });
     }
 
     validateResetToken(token: string) {
-        // Update this method if your backend has corresponding functionality
         return this.http.post(`${baseUrl}/validate-reset-token`, { token });
     }
 
@@ -73,20 +72,23 @@ export class AccountService {
     }
 
     getAll() {
-        // Update or remove if your backend does not support this
-        return this.http.get<Account[]>(`${baseUrl}`);
+        return this.http.get<Account[]>(baseUrl);
     }
 
     getById(id: string) {
-        // Update or remove if your backend does not support this
         return this.http.get<Account>(`${baseUrl}/${id}`);
     }
 
+    create(params: any) {
+        return this.http.post(baseUrl, params);
+    }
+
     update(id: string, params: any) {
-        // Update or remove if your backend does not support this
         return this.http.put(`${baseUrl}/${id}`, params)
             .pipe(map((account: any) => {
+                // update the current account if it was updated
                 if (account.id === this.accountValue?.id) {
+                    // publish updated account to subscribers
                     account = { ...this.accountValue, ...account };
                     this.accountSubject.next(account);
                 }
@@ -95,17 +97,27 @@ export class AccountService {
     }
 
     delete(id: string) {
-        // Update or remove if your backend does not support this
         return this.http.delete(`${baseUrl}/${id}`)
             .pipe(finalize(() => {
-                if (id === this.accountValue?.id) {
+                // auto logout if the logged in account was deleted
+                if (id === this.accountValue?.id)
                     this.logout();
-                }
             }));
     }
 
+    // helper methods
+
+    private refreshTokenTimeout?: any;
+
     private startRefreshTokenTimer() {
-        // Implement if you have token refreshing logic
+        // parse json object from base64 encoded jwt token
+        const jwtBase64 = this.accountValue!.jwtToken!.split('.')[1];
+        const jwtToken = JSON.parse(atob(jwtBase64));
+
+        // set a timeout to refresh the token a minute before it expires
+        const expires = new Date(jwtToken.exp * 1000);
+        const timeout = expires.getTime() - Date.now() - (60 * 1000);
+        this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
     }
 
     private stopRefreshTokenTimer() {
