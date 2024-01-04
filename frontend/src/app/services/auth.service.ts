@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://localhost:3000'; // Replace with your backend URL
+  private baseUrl = 'https://localhost:3000/api/'; // Replace with your backend URL
 
   constructor(private http: HttpClient) { }
 
