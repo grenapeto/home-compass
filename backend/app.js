@@ -12,7 +12,7 @@ const app = express();
 
 // Enable CORS with specific origin (Your Angular app's URL)
 app.use(cors({
-  origin: process.env.FRONTEND_URL
+  origin: 'http://localhost:4200'
 }));
 
 // Built-in body parsing middleware (replaces bodyParser)
