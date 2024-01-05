@@ -40,12 +40,12 @@ router.delete('/ingredients/:id', ingredientsController.deleteIngredient);
 // Inventory routes
 router.get('/inventory', inventoryController.getAllInventoryItems);
 router.get('/inventory/:id', inventoryController.getInventoryItem);
-delete('inventory/:id/items/:itemId', async (req, res) => {
-    const { _id, itemId } = req.params;
+router.delete('inventory/:id/items/:itemId', async (req, res) => {
+    const { inventoryId, itemId } = req.params;
   
     try {
       const result = await Inventory.findByIdAndUpdate(
-        _id,
+        inventoryId,
         { $pull: { items: { _id: itemId } } },
         { new: true }
       );
