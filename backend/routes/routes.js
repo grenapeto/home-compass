@@ -6,6 +6,7 @@ import inventoryController from '../controllers/inventoryController.js';
 import ingredientsController from '../controllers/ingredientsController.js';
 import mealPlansController from '../controllers/mealPlansController.js';
 import groceryListsController from '../controllers/groceryListsController.js';
+import Inventory from '../schemas/inventorySchema.js';
 
 const router = express.Router();
 
@@ -40,7 +41,7 @@ router.delete('/ingredients/:id', ingredientsController.deleteIngredient);
 // Inventory routes
 router.get('/inventory', inventoryController.getAllInventoryItems);
 router.get('/inventory/:id', inventoryController.getInventoryItem);
-router.delete('inventory/:id/items/:itemId', async (req, res) => {
+router.delete('/inventory/:id/items/:itemId', async (req, res) => {
     const { inventoryId, itemId } = req.params;
   
     try {
