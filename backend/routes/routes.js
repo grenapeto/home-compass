@@ -40,6 +40,21 @@ router.delete('/ingredients/:id', ingredientsController.deleteIngredient);
 // Inventory routes
 router.get('/inventory', inventoryController.getAllInventoryItems);
 router.get('/inventory/:id', inventoryController.getInventoryItem);
+delete('inventory/:id/items/:itemId', async (req, res) => {
+    const { _id, itemId } = req.params;
+  
+    try {
+      const result = await Inventory.findByIdAndUpdate(
+        _id,
+        { $pull: { items: { _id: itemId } } },
+        { new: true }
+      );
+  
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 router.post('/inventory', inventoryController.createInventoryItem);
 router.put('/inventory/:id', inventoryController.updateInventoryItem);
 router.delete('/inventory/:id', inventoryController.deleteInventoryItem);

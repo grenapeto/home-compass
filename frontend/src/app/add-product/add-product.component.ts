@@ -19,6 +19,7 @@ export class AddProductComponent implements OnInit {
       name: ['', Validators.required],
       category: [''],
       quantity: [1, [Validators.required, Validators.min(1)]],
+      unit:[''],
       expiryDates: this.fb.array([this.createExpiryDateControl()])
     });
 
