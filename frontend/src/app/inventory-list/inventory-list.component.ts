@@ -39,7 +39,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit {
 
   openDialog(inventoryItem: any): void {
     const dialogRef = this.dialog.open(InventoryDetailComponent, {
-      width: '650px',
+      width: '800px',
       data: inventoryItem,
     });
 

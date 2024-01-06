@@ -27,4 +27,5 @@ export class InventoryService {
 const deletePackageUrl = `${this.apiUrl}/${itemId}/items/${packageId}`;
 return this.http.delete<void>(deletePackageUrl);
   }
+  
 }
