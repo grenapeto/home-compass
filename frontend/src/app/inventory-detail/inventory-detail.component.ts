@@ -16,12 +16,10 @@ export class InventoryDetailComponent {
     return this.datePipe.transform(this.data.expirationDate, 'dd.MM.yyyy')!;
   }
 
-  deleteItemById(index: number): void {
+  deleteItemById(inventorytoDelete: string, itemToDelete: string): void {
 
+    this.inventoryService.deleteInventoryItemById(inventorytoDelete, itemToDelete).subscribe(
 
-
-
-    this.inventoryService.deleteInventoryItemById(itemIdToDelete).subscribe(
       () => {
         console.log('Item deleted from the database');
         // Additional logic if needed
@@ -29,7 +27,7 @@ export class InventoryDetailComponent {
       (error) => {
         console.error('Error deleting item from the database', error);
         // Handle errors as needed
-      }
+      })
   }
 
 }

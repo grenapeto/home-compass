@@ -15,7 +15,7 @@
         <td>{{ item.amount }}</td>
         <td>{{ item.unit }}</td>
         <td>{{ item.expirationDate }}</td>
-        <td><button (click)="deleteItemById(i)">Delete</button></td>
+        <td><button (click)="deleteItemById(data._id, item._id)" class=" btn btn-danger btn-sm">Delete item</button></td>
       </tr>
     </tbody>
   </table>

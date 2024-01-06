@@ -22,4 +22,9 @@ export class InventoryService {
     const deleteUrl = `${this.apiUrl}/${itemId}`;
     return this.http.delete<void>(deleteUrl);
   }
+
+  deleteInventoryItemById(itemId: string, packageId: string): Observable<void> {
+const deletePackageUrl = `${this.apiUrl}/${itemId}/items/${packageId}`;
+return this.http.delete<void>(deletePackageUrl);
+  }
 }

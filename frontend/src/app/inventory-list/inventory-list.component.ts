@@ -8,7 +8,7 @@ import { InventoryDetailComponent } from '../inventory-detail/inventory-detail.c
 @Component({
   selector: 'app-inventory-list',
   templateUrl: './inventory-list.component.html',
-  styleUrls: ['./inventory-list.component.less'],
+  styleUrls: ['./inventory-list.component.css'],
 })
 export class InventoryListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,7 +39,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit {
 
   openDialog(inventoryItem: any): void {
     const dialogRef = this.dialog.open(InventoryDetailComponent, {
-      width: '450px',
+      width: '650px',
       data: inventoryItem,
     });
 
