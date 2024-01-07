@@ -23,7 +23,7 @@
         </td>
         <td>
           <span *ngIf="!item.editMode">{{ formatExpirationDate(item.expirationDate) }}</span>
-          <input *ngIf="item.editMode" [(ngModel)]="item.expirationDate" class="edit-input"/>
+          <input *ngIf="item.editMode" [(ngModel)]="item.expirationDate" class="edit-input" type="date"/>
         </td>
         <td>
           <button *ngIf="!item.editMode" (click)="toggleEditMode(item)" class="btn btn-info btn-sm">Edit Item</button>

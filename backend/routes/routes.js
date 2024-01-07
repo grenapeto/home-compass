@@ -60,6 +60,7 @@ router.post('/inventory', inventoryController.createInventoryItem);
 router.put('/inventory/:id', inventoryController.updateInventoryItem);
 router.delete('/inventory/:id', inventoryController.deleteInventoryItem);
 
+
 // Meal plans routes
 router.get('/mealplans', mealPlansController.getAllMealPlans);
 router.get('/mealplans/:id', mealPlansController.getMealPlan);

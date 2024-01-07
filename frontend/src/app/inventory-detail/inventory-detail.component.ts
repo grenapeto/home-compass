@@ -18,6 +18,7 @@ export class InventoryDetailComponent {
 
   formatExpirationDate(expirationDate: Date | string): string {
     return this.datePipe.transform(expirationDate, 'dd.MM.yyyy')!;
+    
   }
 
   toggleEditMode(item: any): void {
