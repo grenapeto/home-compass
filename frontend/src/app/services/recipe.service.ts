@@ -16,5 +16,9 @@ export class RecipeService {
   addNewRecipe(item: any) {
     return this.http.post(this.apiUrl, item);
   }
+
+  getRecipeDetails(recipeId: string) {
+    return this.http.get(`${this.apiUrl}/${recipeId}`);
+  }
   // Add other methods for creating, updating, and deleting recipes
 }

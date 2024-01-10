@@ -23,7 +23,7 @@
             <td>{{ recipe.prepTime }}</td>
             <td>
               
-              <button class="btn btn-primary btn-sm" routerLink="/recipe-detail" (click)="openDialog(recipe)">ViewDetail</button>
+              <button class="btn btn-primary btn-sm" (click)="openDialog(recipe._id)">View Detail</button>
               <button class="btn btn-secondary btn-sm">Edit</button>
               <button class="btn btn-danger btn-sm">Delete</button>
             </td>
@@ -37,7 +37,7 @@
   ></mat-paginator>
   <div class="d-flex justify-content-center">
     <button mat-raised-button color="primary" routerLink="/add-recipe" class="btn">Add a Recipe</button>
-    <button mat-raised-button color="primary" routerLink="/recipe-detail" class="btn">Recipe Detail</button>
+    <button mat-raised-button color="primary" class="btn">Recipe Detail</button>
     <!-- Additional buttons can be added here if needed -->
 </div>
 
