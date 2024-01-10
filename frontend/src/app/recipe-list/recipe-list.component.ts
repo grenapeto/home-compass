@@ -1,7 +1,9 @@
-// recipe-list.component.ts
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { RecipeDetailComponent } from '../recipe-detail/recipe-detail.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,7 +16,7 @@ export class RecipeListComponent implements OnInit, AfterViewInit {
   pageSize = 5;
   currentPage = 0;
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.recipeService.getAllRecipes().subscribe(
@@ -41,5 +43,16 @@ export class RecipeListComponent implements OnInit, AfterViewInit {
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
+  }
+
+  openDialog(recipe: any): void {
+    const dialogRef = this.dialog.open(RecipeDetailComponent, {
+      width: '800px',
+      data: recipe,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog was closed.');
+    });
   }
 }

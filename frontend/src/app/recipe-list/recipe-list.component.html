@@ -22,7 +22,8 @@
             <td>{{ recipe.instructions[0] }}</td>
             <td>{{ recipe.prepTime }}</td>
             <td>
-              <button class="btn btn-primary btn-sm">View</button>
+              
+              <button class="btn btn-primary btn-sm" routerLink="/recipe-detail" (click)="openDialog(recipe)">ViewDetail</button>
               <button class="btn btn-secondary btn-sm">Edit</button>
               <button class="btn btn-danger btn-sm">Delete</button>
             </td>
