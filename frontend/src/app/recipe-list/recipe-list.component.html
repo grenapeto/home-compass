@@ -20,7 +20,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ recipe.name }}</td>
             <td>{{ recipe.instructions[0] }}</td>
-            <td>{{ recipe.prepTime }}</td>
+            <td>{{ recipe.prepTime }} mins</td>
             <td>
               
               <button class="btn btn-primary btn-sm" (click)="openDialog(recipe._id)">View Detail</button>

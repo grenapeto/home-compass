@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h1 class="text-center mt-4">{{ recipe.name }}</h1>
+    <h1 class="text-center mt-5 mb-5">{{ recipe.name }}</h1>
   </div>
   <div class="row">
     <div class="col">
@@ -23,6 +23,11 @@
           </tr>
         </tbody>
       </table>
+
+      </div>
+      <div class="col">
+
+
       <h2 class="text-center">Instructions</h2>
       <table class="table">
         <tbody>
@@ -34,13 +39,13 @@
       </table>
 
 
-      <div>
-        <h2>preptime</h2>
-        <p>{{ recipe.prepTime }}</p>
+        <h2>Preparation Time</h2>
+        <p>{{ recipe.prepTime }} mins</p>
+     
+        <h2>Portion</h2>
+        <p>{{ recipe.portions }}</p>
+      
       </div>
-          
-       
-    </div>
   </div>
 
-</div>
+
