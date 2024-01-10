@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { InventoryService } from '@app/services/inventory.service';
+import { RecipeService } from '@app/services/recipe.service';
+
 
 @Component({
   selector: 'app-inventory-detail',
@@ -13,7 +15,8 @@ export class InventoryDetailComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private datePipe: DatePipe,
-    private inventoryService: InventoryService
+    private inventoryService: InventoryService,
+    private recipeService: RecipeService
   ) {}
 
   formatExpirationDate(expirationDate: Date | string): string {

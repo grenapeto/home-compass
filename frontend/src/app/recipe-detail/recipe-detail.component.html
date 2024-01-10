@@ -3,44 +3,44 @@
     <h1 class="text-center mt-4">{{ recipe.name }}</h1>
   </div>
   <div class="row">
-   <div class="col">
-    <h2 class="text-center">Ingredients</h2>
-    <mat-list>
-        <mat-list-item >
-          <span matListItemTitle>Title</span>
-          <span matListItemLine>Second line</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle>Title</span>
-          <span>Second line</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle>Title</span>
-          Second line
-        </mat-list-item>
-      </mat-list>
-   </div>
     <div class="col">
-        <h2 class="text-center">Details</h2>
-        <mat-list>
-            <mat-list-item>
-              <span matListItemTitle>Title</span>
-              <span matListItemLine>Second line</span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>Title</span>
-              <span>Second line</span>
-            </mat-list-item>
-            <mat-list-item>
-              <span matListItemTitle>Title</span>
-              Second line
-            </mat-list-item>
-          </mat-list>
+      <h2 class="text-center">Ingredients</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Unit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of recipe.ingredients; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.amount }}</td>
+            <td>{{ ingredient.unit }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 class="text-center">Instructions</h2>
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let instruction of recipe.instructions; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ instruction }}</td>  
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div>
+        <h2>preptime</h2>
+        <p>{{ recipe.prepTime }}</p>
+      </div>
+          
+       
     </div>
   </div>
-  <div class="row mt-4">
-    <h2 class="text-center">Instructions</h2>
-    <p></p>
-  </div>
-</div>
 
+</div>
