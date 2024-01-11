@@ -24,6 +24,18 @@ router.post('/password-reset', authController.requestPasswordReset);
 // Password reset
 router.post('/password-reset/:token', authController.resetPassword);
 
+// Get all accounts
+router.get('/accounts', authController.getAllUsers);
+
+// Get account by ID
+router.get('/accounts/:id', authController.getUserById);
+
+// Update an account
+router.put('/accounts/:id', authController.updateUser);
+
+// Delete an account
+router.delete('/accounts/:id', authController.deleteUser);
+
 // Recipes routes
 router.get('/recipes', recipesController.getAllRecipes);
 router.get('/recipes/:id', recipesController.getRecipe);
