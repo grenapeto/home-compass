@@ -13,7 +13,7 @@ import { InventoryDetailComponent } from '../inventory-detail/inventory-detail.c
 export class InventoryListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   inventory: any = [];
-  pageSize = 5;
+  pageSize = 10;
   currentPage = 0;
 
   constructor(
