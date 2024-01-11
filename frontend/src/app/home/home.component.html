@@ -1,20 +1,38 @@
 ﻿<div class="p-4">
     <div class="container">
-        <h1>Hi {{account?.firstName}}!</h1>
-        <p>You're logged in with Angular 15 & JWT!!</p>
+        <h1>Hi {{ account?.firstName }}!</h1>
 
         <!-- Cards and Tab Container -->
         <div class="row">
             <!-- Latest Recipes Card -->
             <div class="col-md-6">
+               <!-- Display the last 5 recipes from RecipeListComponent -->
+        <div class="row mt-3">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        Latest Recipes
+                        Last 5 Recipes
                     </div>
                     <div class="card-body">
-                        <!-- Content for latest recipes -->
+                        <table class="table" *ngIf="recipes.length > 0">
+                            
+                            <tbody>
+                                <tr *ngFor="let recipe of recipes.slice(0, 5); let i = index">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ recipe.name }}</td>
+                                
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" (click)="openDialog(recipe._id)">View Detail</button>
+                                        <button class="btn btn-secondary btn-sm">Edit</button>
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+        </div>
             </div>
 
             <!-- Grocery List Card -->
