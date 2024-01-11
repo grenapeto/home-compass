@@ -61,4 +61,9 @@ export class RecipeListComponent implements OnInit, AfterViewInit {
         console.error('Error fetching recipe details!', error);
   });
   }
-}
+
+  
+  }
+
+
+
