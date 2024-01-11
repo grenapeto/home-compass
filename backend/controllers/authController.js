@@ -86,78 +86,9 @@ const resetPassword = async (req, res) => {
   }
 };
 
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({});
-    // Map the user details to return only necessary information
-    const userDtos = users.map(user => {
-      return {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        // Add other fields you want to return
-      };
-    });
-    res.json(userDtos);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-const getUserById = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    const userDto = {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-      // Add other fields you want to return
-    };
-    res.json(userDto);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Update fields from req.body
-    Object.assign(user, req.body);
-    await user.save();
-
-    res.json({ message: 'User updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-const deleteUser = async (req, res) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json({ message: 'User deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 export default {
   register,
   login,
   requestPasswordReset,
-  resetPassword,
-  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser
+  resetPassword
 };

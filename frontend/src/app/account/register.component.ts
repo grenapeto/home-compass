@@ -22,7 +22,9 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            username: ['', Validators.required], // Adjusted to include username
+            title: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             confirmPassword: ['', Validators.required],
@@ -32,12 +34,16 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 
     onSubmit() {
         this.submitted = true;
+
+        // reset alerts on submit
         this.alertService.clear();
 
+        // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
