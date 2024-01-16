@@ -1,0 +1,52 @@
+<div class="container mb-5">
+    <div class="row">
+      <h1 class="text-center mt-5 mb-5">{{ recipe.name }}</h1>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2 class="text-center">Ingredients</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ingredient of recipe.ingredients; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ ingredient.name }}</td>
+              <td>{{ ingredient.amount }}</td>
+              <td>{{ ingredient.unit }}</td>
+            </tr>
+          </tbody>
+        </table>
+  
+        </div>
+        <div class="col">
+  
+  
+        <h2 class="text-center">Instructions</h2>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let instruction of recipe.instructions; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ instruction }}</td>  
+            </tr>
+          </tbody>
+        </table>
+  
+  
+          <h2>Preparation Time</h2>
+          <p>{{ recipe.prepTime }} mins</p>
+       
+          <h2>Portion</h2>
+          <p>{{ recipe.portions }}</p>
+        
+        </div>
+    </div>
+  
+  
+  
