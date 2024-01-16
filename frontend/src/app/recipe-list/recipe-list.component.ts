@@ -72,6 +72,14 @@ export class RecipeListComponent implements OnInit, AfterViewInit {
         });
   
         dialogRef.afterClosed().subscribe((result) => {
+          this.recipeService.getAllRecipes().subscribe(
+            (data: any) => {
+              this.recipes = data;
+            },
+            (error) => {
+              console.error('There was an error!', error);
+            }
+          );
           console.log('Dialog was closed.');
         });
       },

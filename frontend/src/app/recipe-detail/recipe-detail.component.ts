@@ -18,4 +18,5 @@ export class RecipeDetailComponent {
   ) {
     this.recipe = data; // Initialize the recipe property with the data
   }
+
 }

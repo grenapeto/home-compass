@@ -1,6 +1,10 @@
 <div class="container mb-5">
     <div class="row">
-      <h1 class="text-center mt-5 mb-5" (blur)="updateDatabase(recipe._id, 'name', $event.target.textContent)">{{ recipe.name }}</h1>
+      <h1 contenteditable="true" (blur)="updateDatabase(recipe._id, 'name', $any($event.target).textContent)"
+      >
+        {{ recipe.name }}
+      </h1>
+      
     </div>
     <div class="row">
       <div class="col">

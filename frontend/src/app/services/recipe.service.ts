@@ -38,8 +38,9 @@ export class RecipeService {
   //
 
 
-updateRecipeDetails(recipeId: string, updatedRecipe: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${recipeId}`, updatedRecipe);
-  }
+// New method for updating a recipe
+updateRecipeDetail(recipeId: string, updatedRecipe: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${recipeId}`, updatedRecipe);
+}
 
 }
