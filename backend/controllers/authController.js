@@ -4,6 +4,26 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
+const handleErrorResponse = (res, statusCode, message) => {
+  res.status(statusCode).json({ message });
+};
+
+const sendMail = async (user, resetToken) => {
+  const transporter = nodemailer.createTransport({
+    // Transporter configuration (SMTP settings, etc.)
+  });
+
+  const mailOptions = {
+    to: user.email,
+    subject: 'Password Reset',
+    text: `To reset your password, please click the following link or paste it into your browser: \n\n` +
+          `http://<your_frontend_url>/reset-password/${resetToken}\n\n` +
+          `If you did not request this, please ignore this email and your password will remain unchanged.`
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
 const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -11,7 +31,7 @@ const register = async (req, res) => {
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 
@@ -20,12 +40,12 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !await user.isValidPassword(password)) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return handleErrorResponse(res, 401, 'Invalid credentials');
     }
-    const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 
@@ -34,7 +54,7 @@ const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return handleErrorResponse(res, 404, 'User not found');
     }
 
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -42,22 +62,10 @@ const requestPasswordReset = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     await user.save();
 
-    const transporter = nodemailer.createTransport({
-      // Transporter configuration (SMTP settings, etc.)
-    });
-
-    const mailOptions = {
-      to: user.email,
-      subject: 'Password Reset',
-      text: `To reset your password, please click the following link or paste it into your browser: \n\n` +
-            `http://<your_frontend_url>/reset-password/${resetToken}\n\n` +
-            `If you did not request this, please ignore this email and your password will remain unchanged.`
-    };
-
-    await transporter.sendMail(mailOptions);
+    await sendMail(user, resetToken);
     res.json({ message: 'Password reset email sent' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 
@@ -72,7 +80,7 @@ const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+      return handleErrorResponse(res, 400, 'Password reset token is invalid or has expired.');
     }
 
     user.password = password;
@@ -82,7 +90,7 @@ const resetPassword = async (req, res) => {
 
     res.json({ message: 'Password has been reset successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 

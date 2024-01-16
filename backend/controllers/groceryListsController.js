@@ -1,11 +1,15 @@
 import GroceryList from '../schemas/groceryListSchema.js';
 
+const handleErrorResponse = (res, statusCode, message) => {
+  res.status(statusCode).json({ message });
+};
+
 const getAllGroceryLists = async (req, res) => {
   try {
     const groceryLists = await GroceryList.find();
     res.json(groceryLists);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 
@@ -13,25 +17,22 @@ const getGroceryList = async (req, res) => {
   try {
     const groceryList = await GroceryList.findById(req.params.id);
     if (!groceryList) {
-      return res.status(404).json({ message: 'Grocery list not found' });
+      return handleErrorResponse(res, 404, 'Grocery list not found');
     }
     res.json(groceryList);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 
 const createGroceryList = async (req, res) => {
-  const groceryList = new GroceryList({
-    dateCreated: req.body.dateCreated,
-    items: req.body.items
-  });
+  const groceryList = new GroceryList({ ...req.body });
 
   try {
     const newGroceryList = await groceryList.save();
     res.status(201).json(newGroceryList);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    handleErrorResponse(res, 400, error.message);
   }
 };
 
@@ -43,11 +44,11 @@ const updateGroceryList = async (req, res) => {
       { new: true }
     );
     if (!updatedGroceryList) {
-      return res.status(404).json({ message: 'Grocery list not found' });
+      return handleErrorResponse(res, 404, 'Grocery list not found');
     }
     res.json(updatedGroceryList);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    handleErrorResponse(res, 400, error.message);
   }
 };
 
@@ -55,11 +56,11 @@ const deleteGroceryList = async (req, res) => {
   try {
     const groceryList = await GroceryList.findByIdAndDelete(req.params.id);
     if (!groceryList) {
-      return res.status(404).json({ message: 'Grocery list not found' });
+      return handleErrorResponse(res, 404, 'Grocery list not found');
     }
     res.json({ message: 'Grocery list deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleErrorResponse(res, 500, error.message);
   }
 };
 

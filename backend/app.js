@@ -5,27 +5,29 @@ import cors from 'cors';
 import routes from './routes/routes.js';
 import logger, { morganMiddleware } from './config/logger.js';
 
+// Load environment variables
 dotenv.config();
+
+// Initialize Express application
 const app = express();
 
 // Middleware Configuration
-
-// Enable CORS with specific origin (Your Angular app's URL)
-app.use(cors({
-  origin: 'http://localhost:4200'
-}));
-
-// Built-in body parsing middleware (replaces bodyParser)
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Morgan middleware for logging HTTP requests
-app.use(morganMiddleware);
+app.use(cors({ origin: 'http://localhost:4200' })); // Enable CORS
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(morganMiddleware); // Logging middleware
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {})
-  .then(() => logger.info('Database connected'))
-  .catch(err => logger.error('Database connection error:', err));
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {});
+    logger.info('Database connected');
+  } catch (err) {
+    logger.error('Database connection error:', err);
+  }
+};
+
+connectToDatabase();
 
 // API Routes
 app.use('/api', routes);

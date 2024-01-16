@@ -1,78 +1,70 @@
 import express from 'express';
-import {morganMiddleware} from '../config/logger.js'; // Import Morgan
 import authController from '../controllers/authController.js';
 import recipesController from '../controllers/recipesController.js';
-import inventoryController from '../controllers/inventoryController.js';
 import ingredientsController from '../controllers/ingredientsController.js';
+import inventoryController from '../controllers/inventoryController.js';
 import mealPlansController from '../controllers/mealPlansController.js';
 import groceryListsController from '../controllers/groceryListsController.js';
-import Inventory from '../schemas/inventorySchema.js';
 
 const router = express.Router();
 
-// router.use(morganMiddleware);
-
-// User registration
+// Auth routes
 router.post('/register', authController.register);
-
-// User login
 router.post('/login', authController.login);
-
-// Password reset request
 router.post('/password-reset', authController.requestPasswordReset);
-
-// Password reset
 router.post('/password-reset/:token', authController.resetPassword);
 
 // Recipes routes
-router.get('/recipes', recipesController.getAllRecipes);
-router.get('/recipes/:id', recipesController.getRecipe);
-router.post('/recipes', recipesController.createRecipe);
-router.put('/recipes/:id', recipesController.updateRecipe);
-router.delete('/recipes/:id', recipesController.deleteRecipe);
+router.route('/recipes')
+    .get(recipesController.getAllRecipes)
+    .post(recipesController.createRecipe);
+
+router.route('/recipes/:id')
+    .get(recipesController.getRecipe)
+    .put(recipesController.updateRecipe)
+    .delete(recipesController.deleteRecipe);
 
 // Ingredients routes
-router.get('/ingredients', ingredientsController.getAllIngredients);
-router.get('/ingredients/:id', ingredientsController.getIngredient);
-router.post('/ingredients', ingredientsController.createIngredient);
-router.put('/ingredients/:id', ingredientsController.updateIngredient);
-router.delete('/ingredients/:id', ingredientsController.deleteIngredient);
+router.route('/ingredients')
+    .get(ingredientsController.getAllIngredients)
+    .post(ingredientsController.createIngredient);
+
+router.route('/ingredients/:id')
+    .get(ingredientsController.getIngredient)
+    .put(ingredientsController.updateIngredient)
+    .delete(ingredientsController.deleteIngredient);
 
 // Inventory routes
-router.get('/inventory', inventoryController.getAllInventoryItems);
-router.get('/inventory/:id', inventoryController.getInventoryItem);
-router.delete('/inventory/:id/items/:itemId', async (req, res) => {
-    const { inventoryId, itemId } = req.params;
-  
-    try {
-      const result = await Inventory.findByIdAndUpdate(
-        inventoryId,
-        { $pull: { items: { _id: itemId } } },
-        { new: true }
-      );
-  
-      res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
-router.post('/inventory', inventoryController.createInventoryItem);
-router.put('/inventory/:id', inventoryController.updateInventoryItem);
-router.delete('/inventory/:id', inventoryController.deleteInventoryItem);
+router.route('/inventory')
+    .get(inventoryController.getAllInventoryItems)
+    .post(inventoryController.createInventoryItem);
 
+router.route('/inventory/:id')
+    .get(inventoryController.getInventoryItem)
+    .put(inventoryController.updateInventoryItem)
+    .delete(inventoryController.deleteInventoryItem);
+
+router.put('/inventory/:id/items/:itemId', inventoryController.editInventoryItemById);    
+router.delete('/inventory/:id/items/:itemId', inventoryController.deleteInventoryItemById);
 
 // Meal plans routes
-router.get('/mealplans', mealPlansController.getAllMealPlans);
-router.get('/mealplans/:id', mealPlansController.getMealPlan);
-router.post('/mealplans', mealPlansController.createMealPlan);
-router.put('/mealplans/:id', mealPlansController.updateMealPlan);
-router.delete('/mealplans/:id', mealPlansController.deleteMealPlan);
+router.route('/mealplans')
+    .get(mealPlansController.getAllMealPlans)
+    .post(mealPlansController.createMealPlan);
+
+router.route('/mealplans/:id')
+    .get(mealPlansController.getMealPlan)
+    .put(mealPlansController.updateMealPlan)
+    .delete(mealPlansController.deleteMealPlan);
 
 // Grocery lists routes
-router.get('/grocerylists', groceryListsController.getAllGroceryLists);
-router.get('/grocerylists/:id', groceryListsController.getGroceryList);
-router.post('/grocerylists', groceryListsController.createGroceryList);
-router.put('/grocerylists/:id', groceryListsController.updateGroceryList);
-router.delete('/grocerylists/:id', groceryListsController.deleteGroceryList);
+router.route('/grocerylists')
+    .get(groceryListsController.getAllGroceryLists)
+    .post(groceryListsController.createGroceryList);
+
+router.route('/grocerylists/:id')
+    .get(groceryListsController.getGroceryList)
+    .put(groceryListsController.updateGroceryList)
+    .delete(groceryListsController.deleteGroceryList);
 
 export default router;
