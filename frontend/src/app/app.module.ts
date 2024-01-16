@@ -34,6 +34,8 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InventoryDetailComponent } from './inventory-detail/inventory-detail.component';
+import { RecipeDetailEditComponent } from './recipe-detail-edit/recipe-detail-edit.component';
+import { RecipeListEditComponent } from './recipe-list-edit/recipe-list-edit.component';
 
 
 @NgModule({
@@ -68,6 +70,8 @@ import { InventoryDetailComponent } from './inventory-detail/inventory-detail.co
         BarcodeScannerComponent,
         InventoryListComponent,
         InventoryDetailComponent,
+        RecipeDetailEditComponent,
+        RecipeListEditComponent,
         
     ],
     providers: [
