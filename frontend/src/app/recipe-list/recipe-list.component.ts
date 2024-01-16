@@ -3,7 +3,9 @@ import { RecipeService } from '../services/recipe.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { RecipeDetailComponent } from '../recipe-detail/recipe-detail.component';
+import { RecipeDetailEditComponent } from '../recipe-detail-edit/recipe-detail-edit.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-recipe-list',
@@ -49,6 +51,22 @@ export class RecipeListComponent implements OnInit, AfterViewInit {
     this.recipeService.getRecipeDetails(recipeId).subscribe(
       (details: any) => {
         const dialogRef = this.dialog.open(RecipeDetailComponent, {
+          width: '800px',
+          data: details,
+        });
+  
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog was closed.');
+        });
+      },
+      (error) => {
+        console.error('Error fetching recipe details!', error);
+  });
+  }
+  openDialogEdit(recipeId: string): void {
+    this.recipeService.getRecipeDetails(recipeId).subscribe(
+      (details: any) => {
+        const dialogRef = this.dialog.open(RecipeDetailEditComponent, {
           width: '800px',
           data: details,
         });

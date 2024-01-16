@@ -1,6 +1,6 @@
 <div class="container mb-5">
     <div class="row">
-      <h1 class="text-center mt-5 mb-5">{{ recipe.name }}</h1>
+      <h1 class="text-center mt-5 mb-5" (blur)="updateDatabase(recipe._id, 'name', $event.target.textContent)">{{ recipe.name }}</h1>
     </div>
     <div class="row">
       <div class="col">
@@ -17,9 +17,9 @@
           <tbody>
             <tr *ngFor="let ingredient of recipe.ingredients; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ ingredient.name }}</td>
-              <td>{{ ingredient.amount }}</td>
-              <td>{{ ingredient.unit }}</td>
+              <td contenteditable="true">{{ ingredient.name }}</td>
+              <td contenteditable="true">{{ ingredient.amount }}</td>
+              <td contenteditable="true">{{ ingredient.unit }}</td>
             </tr>
           </tbody>
         </table>
@@ -33,17 +33,17 @@
           <tbody>
             <tr *ngFor="let instruction of recipe.instructions; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ instruction }}</td>  
+              <td contenteditable="true">{{ instruction }}</td>  
             </tr>
           </tbody>
         </table>
   
   
           <h2>Preparation Time</h2>
-          <p>{{ recipe.prepTime }} mins</p>
+          <p contenteditable="true">{{ recipe.prepTime }} mins</p>
        
           <h2>Portion</h2>
-          <p>{{ recipe.portions }}</p>
+          <p contenteditable="true">{{ recipe.portions }}</p>
         
         </div>
     </div>

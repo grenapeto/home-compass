@@ -11,6 +11,7 @@ import { RecipeService } from '@app/services/recipe.service';
 
 export class RecipeDetailEditComponent {
   recipe: any; // Declare the recipe property
+  editMode = false; // Add the editMode property
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -18,4 +19,6 @@ export class RecipeDetailEditComponent {
   ) {
     this.recipe = data; // Initialize the recipe property with the data
   }
+
+  updateDatabase()
 }

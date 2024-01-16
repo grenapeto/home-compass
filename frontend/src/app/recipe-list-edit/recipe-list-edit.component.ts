@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-recipe-list',
+  selector: 'app-recipe-list-edit',
   templateUrl: './recipe-list-edit.component.html',
   styleUrls: ['./recipe-list-edit.component.less']
 })
@@ -47,6 +47,22 @@ export class RecipeListEditComponent implements OnInit, AfterViewInit {
     this.pageSize = event.pageSize;
   }
  
+  openDialog(recipeId: string): void {
+    this.recipeService.getRecipeDetails(recipeId).subscribe(
+      (details: any) => {
+        const dialogRef = this.dialog.open(RecipeDetailEditComponent, {
+          width: '800px',
+          data: details,
+        });
+  
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog was closed.');
+        });
+      },
+      (error) => {
+        console.error('Error fetching recipe details!', error);
+  });
+  }
   }
 
 

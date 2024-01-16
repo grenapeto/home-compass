@@ -35,5 +35,11 @@ export class RecipeService {
   addNewRecipeEdit(item: any) {
     return this.http.post(this.apiUrl, item);
   }
-  
+  //
+
+
+updateRecipeDetails(recipeId: string, updatedRecipe: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${recipeId}`, updatedRecipe);
+  }
+
 }
