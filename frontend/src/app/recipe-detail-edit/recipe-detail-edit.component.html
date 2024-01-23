@@ -1,7 +1,6 @@
 <div class="container mb-5">
     <div class="row">
-      <h1 contenteditable="true" (blur)="updateDatabase(recipe._id, 'name', $any($event.target).textContent)"
-      >
+      <h1 contenteditable="true" (blur)="updateDatabase(recipe._id, 'name', $any($event.target).textContent)">
         {{ recipe.name }}
       </h1>
       
@@ -37,17 +36,17 @@
           <tbody>
             <tr *ngFor="let instruction of recipe.instructions; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td contenteditable="true">{{ instruction }}</td>  
+              <td contenteditable="true" (blur)="updateDatabase(recipe._id, 'instructions', $any($event.target).textContent)">{{ instruction }}</td>  
             </tr>
           </tbody>
         </table>
   
   
           <h2>Preparation Time</h2>
-          <p contenteditable="true">{{ recipe.prepTime }} mins</p>
+          <p contenteditable="true" (blur)="updateDatabase(recipe._id, 'recipe.instructions.prepTime', $any($event.target).textContent)">{{ recipe.prepTime }} mins</p>
        
           <h2>Portion</h2>
-          <p contenteditable="true">{{ recipe.portions }}</p>
+          <p contenteditable="true" (blur)="updateDatabase(recipe._id, 'recipe.instructions.portions', $any($event.target).textContent)">{{ recipe.portions }}</p>
         
         </div>
     </div>
