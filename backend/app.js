@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import routes from './routes/routes.js';
 import logger, { morganMiddleware } from './config/logger.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerOptions from './config/swagger.js'; // Adjust the path as necessary
+
 
 // Load environment variables
 dotenv.config();
@@ -11,11 +15,14 @@ dotenv.config();
 // Initialize Express application
 const app = express();
 
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
 // Middleware Configuration
 app.use(cors({ origin: 'http://localhost:4200' })); // Enable CORS
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(morganMiddleware); // Logging middleware
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // MongoDB Connection
 const connectToDatabase = async () => {
