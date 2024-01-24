@@ -1,30 +1,47 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './routes/routes.js';
-import logger from './config/logger.js';
+import logger, { morganMiddleware } from './config/logger.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerOptions from './config/swagger.js'; // Adjust the path as necessary
 
+
+// Load environment variables
 dotenv.config();
+
+// Initialize Express application
 const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:4200' // Your Angular app's URL
-}));
-app.use(bodyParser.json());
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { })
-  .then(() => logger.info('Database connected'))
-  .catch(err => logger.error(err));
+// Middleware Configuration
+app.use(cors({ origin: 'http://localhost:4200' })); // Enable CORS
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(morganMiddleware); // Logging middleware
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Routes
-app.use('/api', routes); // Line 22
+// MongoDB Connection
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {});
+    logger.info('Database connected');
+  } catch (err) {
+    logger.error('Database connection error:', err);
+  }
+};
 
+connectToDatabase();
+
+// API Routes
+app.use('/api', routes);
+
+// Server Initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
+  logger.info(`Open the API documentation on http://localhost:3000/api-docs.`)
 });

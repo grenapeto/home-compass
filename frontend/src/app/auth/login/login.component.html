@@ -1,0 +1,21 @@
+<div class="login-container">
+    <form class="b-form" [formGroup]="loginForm" class="tui-space_vertical-3">
+      <tui-input formControlName="usernameInput" class="tui-space_vertical-3">
+        Enter your username
+        <input tuiTextfield type="text">
+      </tui-input>
+      <tui-input formControlName="passwordInput">
+        Enter your password
+        <input tuiTextfield type="password">
+      </tui-input>
+      <div class="button-container tui-space_horizontal-3 tui-space_vertical-3">
+        <button appearance="primary" tuiButton type="button" class="tui-space_right-3">
+          Login
+        </button>
+        <button appearance="secondary" routerLink="/register" tuiButton type="button">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+  
