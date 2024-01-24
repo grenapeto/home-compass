@@ -1,15 +1,15 @@
 .inventory-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 60px;
   }
   
-  .inventory-form {
-    min-width: 60%;
+  .inventory-form, .inventory-table {
+    width: 60%;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px;
   }
   
   .inventory-form > * {
@@ -17,6 +17,47 @@
   }
   
   .inventory-table {
-    margin-top: 20px; /* Spacing between form and table */
+    margin-top: 20px;
+  }
+  
+  /* Table Styles */
+  td, th {
+    white-space: nowrap;
+    border-color: transparent;
+    border-right-color: var(--tui-base-04);
+  }
+  
+  td:last-child, th:last-child {
+    border-right-color: transparent;
+  }
+  
+  tbody {
+    border-color: transparent;
+  }
+  
+  tr:nth-child(even) td {
+    background: var(--tui-base-02);
+  }
+  
+  .alive::before, .deceased::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+    margin-right: 0.5rem;
+    background: var(--tui-base-04);
+  }
+  
+  .alive::before {
+    background: var(--tui-success-fill);
+  }
+  
+  .remove {
+    opacity: 0;
+    transition: opacity var(--transition-duration);
+  }
+  
+  tr:hover .remove, tr:focus-within .remove {
+    opacity: 1;
   }
   
