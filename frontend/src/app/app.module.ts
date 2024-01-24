@@ -14,6 +14,8 @@ import { TuiRootModule, TuiDialogModule, TuiAlertModule, TuiNotificationModule }
 import {TuiInputModule, TuiInputNumberModule, TuiSelectModule  } from '@taiga-ui/kit';
 import { TuiButtonModule } from '@taiga-ui/core';
 import {TuiTableModule} from '@taiga-ui/addon-table';
+import {TuiDataListModule} from '@taiga-ui/core';
+import {TuiComboBoxModule, TuiDataListWrapperModule} from '@taiga-ui/kit';
 
 
 @NgModule({
@@ -37,7 +39,10 @@ import {TuiTableModule} from '@taiga-ui/addon-table';
       TuiInputNumberModule,
       TuiSelectModule,
       TuiNotificationModule,
-      TuiTableModule
+      TuiTableModule,
+      TuiDataListModule,
+      TuiComboBoxModule,
+      TuiDataListWrapperModule
 ],
   providers: [],
   bootstrap: [AppComponent]
