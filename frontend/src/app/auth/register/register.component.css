@@ -12,3 +12,23 @@
     min-height:100vh;
     
 }
+
+.register-form {
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .right-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .notifications {
+    width: 30%;
+  }

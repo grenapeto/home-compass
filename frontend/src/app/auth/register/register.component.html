@@ -1,5 +1,5 @@
 <div class="register-container tui-space_vertical-3 tui-align_center">
-    <form class="tui-space_vertical-3">
+    <form class="register-form tui-space_vertical-3">
       <tui-input formControlName="nameInput" class="tui-space_vertical-3">
         Enter your name
         <input tuiTextfield type="text">
@@ -8,14 +8,14 @@
         Enter your username
         <input tuiTextfield type="text">
       </tui-input>
-      <tui-input formControlName="passwordInput" class="tui-space_vertical-3">
+      <tui-input-password formControlName="passwordInput" class="tui-space_vertical-3">
         Enter your password
         <input tuiTextfield type="password">
-      </tui-input>
-      <tui-input formControlName="passwordInput" class="tui-space_vertical-3">
+      </tui-input-password>
+      <tui-input-password formControlName="passwordInput" class="tui-space_vertical-3">
         Repeat your password
         <input tuiTextfield type="password">
-      </tui-input>
+      </tui-input-password>
       <tui-input formControlName="emailInput" class="tui-space_vertical-3">
         Enter your email address
         <input tuiTextfield type="email">
@@ -23,21 +23,41 @@
 
 
       <div class="button-container">
-        <button appearance="secondary" class="tui-space_vertical-3" size="m" style="display:inline-block" routerLink="/register" tuiButton type="button">
+        <button appearance="secondary" class="tui-space_vertical-3" size="m" tuiButton type="button" (click)="register(usernameInput, emailInput, passwordInput)">
           Register
         </button>
-        <p class="tui-space_horizontal-3 tui-space_vertical-4" style="display:inline-block">Already have an account?</p>
-        <button appearance="outline" class="tui-space_vertical-3" size="s" style="display:inline-block" routerLink="/" tuiButton="button">Sign in</button>
-      </div>
         
-     
+        <div class="right-content">
+          <p class="tui-space_horizontal-3 tui-space_vertical-4">Already have an account?</p>
+          <button appearance="outline" class="tui-space_vertical-3" size="s" tuiButton="button" routerLink="/">
+            Sign in
+          </button>
+        </div>
+      </div>
 
-
-
-      <!-- <div class="container existing-account">
-        <p class="tui-space_horizontal-3 tui-space_vertical-3">Already have an account?</p>
-        <button appearance="outline" size="s" routerLink="/" tuiButton="button">Sign in</button>
-      </div> -->
+      <div class="notifications">
+      <tui-notification
+    status="success"
+    class="tui-space_vertical-4">
+    A short simple
+    <code>informative</code>
+    message
+</tui-notification>
+<tui-notification
+    status="error"
+    class="tui-space_vertical-4"
+>
+    A short simple
+    <code>informative</code>
+    message
+</tui-notification>
+<tui-notification status="warning">
+    A short simple
+    <code>informative</code>
+    message
+</tui-notification>
+</div>
+        
     </form>
   </div>
   
