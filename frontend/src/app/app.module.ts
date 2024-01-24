@@ -14,11 +14,13 @@ import { AddItemsComponent } from './inventory/add-items/add-items.component';
 
 
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TuiNotificationModule } from "@taiga-ui/core";
-import {TuiInputModule, TuiInputNumberModule, TuiSelectModule  } from '@taiga-ui/kit';
+import { TuiInputModule, TuiInputNumberModule, TuiSelectModule } from '@taiga-ui/kit';
 import { TuiButtonModule } from '@taiga-ui/core';
-import {TuiTableModule} from '@taiga-ui/addon-table';
-import {TuiDataListModule} from '@taiga-ui/core';
-import {TuiComboBoxModule, TuiDataListWrapperModule} from '@taiga-ui/kit';
+import { TuiTableModule } from '@taiga-ui/addon-table';
+import { TuiDataListModule } from '@taiga-ui/core';
+import { TuiComboBoxModule, TuiDataListWrapperModule } from '@taiga-ui/kit';
+import { TuiInputPasswordModule } from '@taiga-ui/kit';
+import { TuiLetModule } from '@taiga-ui/cdk';
 
 
 @NgModule({
@@ -32,24 +34,26 @@ import {TuiComboBoxModule, TuiDataListWrapperModule} from '@taiga-ui/kit';
   imports: [
     BrowserModule,
     AppRoutingModule,
-      BrowserAnimationsModule,
-      TuiRootModule,
-      TuiDialogModule,
-      TuiAlertModule,
-      TuiInputModule,
-      FormsModule,
-      ReactiveFormsModule,
-      TuiButtonModule,
-      TuiInputNumberModule,
-      TuiSelectModule,
-      TuiNotificationModule,
-      TuiTableModule,
-      TuiDataListModule,
-      TuiComboBoxModule,
-      TuiDataListWrapperModule,
+    BrowserAnimationsModule,
+    TuiRootModule,
+    TuiDialogModule,
+    TuiAlertModule,
+    TuiInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TuiButtonModule,
+    TuiInputNumberModule,
+    TuiSelectModule,
+    TuiNotificationModule,
+    TuiTableModule,
+    TuiDataListModule,
+    TuiComboBoxModule,
+    TuiDataListWrapperModule,
+    TuiInputPasswordModule,
+    TuiLetModule,
       TuiInputPasswordModule,
       HttpClientModule
-],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import {FormControl, Validators} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 interface InventoryItem {
   name: string;
@@ -15,33 +14,37 @@ interface InventoryItem {
   styleUrls: ['./add-items.component.css']
 })
 export class AddItemsComponent {
-  form!: FormGroup;
+  readonly columns = ['name', 'quantity', 'category', 'expirationDate'];
   items: InventoryItem[] = [];
-  categories = ['Fruits', 'Vegetables', 'Dairy', 'Grains', 'Proteins'];
+  addItemsForm = this.fb.group({
+    name: ['', Validators.required],
+    quantity: ['', [Validators.required, Validators.min(1)]],
+    category: ['', Validators.required]
+  });
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      name: '',
-      quantity: '',
-      category: ''
-    });
-  }
+  constructor(private fb: FormBuilder) {}
 
-  addItem() {
-    const newItem: InventoryItem = {
-      ...this.form.value,
-      expirationDate: this.calculateExpirationDate(this.form.value.category)
-    };
-
-    this.items.push(newItem);
-    this.form.reset();
+  addItem(): void {
+    if (this.addItemsForm.valid) {
+      try {
+        const newItem: InventoryItem = {
+          name: this.addItemsForm.value.name!,
+          quantity: +this.addItemsForm.value.quantity!,
+          category: this.addItemsForm.value.category!,
+          expirationDate: this.calculateExpirationDate(this.addItemsForm.value.category!)
+        };
+        this.items.push(newItem);
+        this.addItemsForm.reset();
+      } catch (error) {
+        console.error('Error adding item:', error);
+        // Display the error to the user
+      }
+    }
   }
 
   private calculateExpirationDate(category: string): Date {
-    // Logic to determine expiration date based on category
-    // For simplicity, using a fixed duration (e.g., 7 days from now)
     let expiration = new Date();
-    expiration.setDate(expiration.getDate() + 7);
+    expiration.setDate(expiration.getDate() + 7); // Example logic
     return expiration;
   }
 }
