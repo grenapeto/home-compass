@@ -325,11 +325,131 @@ router.route('/v1/inventory')
     .get(inventoryController.getAllInventoryItems)
     .post(inventoryController.createInventoryItem);
 
+/**
+ * @swagger
+ * /inventory/{id}:
+ *   get:
+ *     tags:
+ *       - Inventory
+ *     summary: Get a single inventory item
+ *     description: Retrieve details of a specific inventory item.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Inventory item details.
+ *       404:
+ *         description: Inventory item not found.
+ *   put:
+ *     tags:
+ *       - Inventory
+ *     summary: Update an inventory item
+ *     description: Update the details of a specific inventory item.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               itemName:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Inventory item updated successfully.
+ *       400:
+ *         description: Bad request.
+ *       404:
+ *         description: Inventory item not found.
+ *   delete:
+ *     tags:
+ *       - Inventory
+ *     summary: Delete an inventory item
+ *     description: Remove a specific inventory item from the system.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Inventory item deleted successfully.
+ *       404:
+ *         description: Inventory item not found.
+ */    
 router.route('/inventory/:id')
     .get(inventoryController.getInventoryItem)
     .put(inventoryController.updateInventoryItem)
     .delete(inventoryController.deleteInventoryItem);
 
+/**
+ * @swagger
+ * /inventory/{id}/items/{itemId}:
+ *   put:
+ *     tags:
+ *       - Inventory
+ *     summary: Edit a specific item in the inventory
+ *     description: Update the details of a specific item in an inventory.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: itemId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               itemName:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Inventory item updated successfully.
+ *       400:
+ *         description: Bad request.
+ *       404:
+ *         description: Inventory item not found.
+ *   delete:
+ *     tags:
+ *       - Inventory
+ *     summary: Delete a specific item from the inventory
+ *     description: Remove a specific item from an inventory.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: itemId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Inventory item deleted successfully.
+ *       404:
+ *         description: Inventory item not found.
+ */
 router.put('/inventory/:id/items/:itemId', inventoryController.editInventoryItemById);
 router.delete('/inventory/:id/items/:itemId', inventoryController.deleteInventoryItemById);
 

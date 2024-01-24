@@ -20,7 +20,7 @@ const swaggerDefinition = {
       description: 'Development server',
     },
   ],
-  tags: [ // Adding tags for each route group
+  tags: [
     {
       name: 'Auth',
       description: 'Authentication related routes'
@@ -50,8 +50,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  // Paths to files containing OpenAPI definitions
-  apis: ['./routes/routes.js'], // Adjust the path according to your project structure
+  apis: ['./routes/routes.js'],
 };
 
 export default options;
