@@ -1,0 +1,29 @@
+<div class="inventory-container">
+    <form class="inventory-form" (ngSubmit)="addItem()">
+      <tui-input formControlName="name" placeholder="Item Name"></tui-input>
+      <tui-input-number formControlName="quantity" placeholder="Quantity"></tui-input-number>
+      <tui-select formControlName="category" placeholder="Select category">
+        <tui-data-list-wrapper [items]="categories"></tui-data-list-wrapper>
+      </tui-select>
+      <button tuiButton type="submit">Add Item</button>
+    </form>
+  </div>
+
+<div class="inventory-table">
+    <table tuiTable class="table">
+        <thead>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Expiration Date</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.expirationDate | date }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

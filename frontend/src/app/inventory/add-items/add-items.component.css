@@ -1,0 +1,22 @@
+.inventory-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+  }
+  
+  .inventory-form {
+    min-width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; /* Adjust the gap as needed */
+  }
+  
+  .inventory-form > * {
+    flex: 1 1 auto;
+  }
+  
+  .inventory-table {
+    margin-top: 20px; /* Spacing between form and table */
+  }
+  
