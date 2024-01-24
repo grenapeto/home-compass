@@ -1,0 +1,14 @@
+.existing-account {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+ 
+}
+
+.register-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    min-height:100vh;
+    
+}

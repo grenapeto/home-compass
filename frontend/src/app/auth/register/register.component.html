@@ -1,35 +1,43 @@
-<div class="login-container tui-space_vertical-3 tui-align_center">
-    <form class="b-form" class="tui-space_vertical-3">
-      <tui-input formControlName="usernameInput" class="button-login">
+<div class="register-container tui-space_vertical-3 tui-align_center">
+    <form class="tui-space_vertical-3">
+      <tui-input formControlName="nameInput" class="tui-space_vertical-3">
+        Enter your name
+        <input tuiTextfield type="text">
+      </tui-input>
+      <tui-input formControlName="usernameInput" class="tui-space_vertical-3">
         Enter your username
         <input tuiTextfield type="text">
       </tui-input>
-      <tui-input formControlName="passwordInput">
+      <tui-input formControlName="passwordInput" class="tui-space_vertical-3">
         Enter your password
         <input tuiTextfield type="password">
       </tui-input>
-      <tui-input formControlName="passwordInput">
-        Enter your password
+      <tui-input formControlName="passwordInput" class="tui-space_vertical-3">
+        Repeat your password
         <input tuiTextfield type="password">
       </tui-input>
-      <tui-input formControlName="passwordInput">
-        Enter your password
-        <input tuiTextfield type="password">
-      </tui-input>
-      <tui-input formControlName="passwordInput">
-        Enter your password
-        <input tuiTextfield type="password">
+      <tui-input formControlName="emailInput" class="tui-space_vertical-3">
+        Enter your email address
+        <input tuiTextfield type="email">
       </tui-input>
 
 
-      <div class="button-container tui-space_horizontal-3 tui-space_vertical-3">
-        <button appearance="primary" tuiButton type="button" class="tui-space_right-3">
-          Login
-        </button>
-        <button appearance="secondary" routerLink="/register" tuiButton type="button">
+      <div class="button-container">
+        <button appearance="secondary" class="tui-space_vertical-3" size="m" style="display:inline-block" routerLink="/register" tuiButton type="button">
           Register
         </button>
+        <p class="tui-space_horizontal-3 tui-space_vertical-4" style="display:inline-block">Already have an account?</p>
+        <button appearance="outline" class="tui-space_vertical-3" size="s" style="display:inline-block" routerLink="/" tuiButton="button">Sign in</button>
       </div>
+        
+     
+
+
+
+      <!-- <div class="container existing-account">
+        <p class="tui-space_horizontal-3 tui-space_vertical-3">Already have an account?</p>
+        <button appearance="outline" size="s" routerLink="/" tuiButton="button">Sign in</button>
+      </div> -->
     </form>
   </div>
   
