@@ -1,5 +1,5 @@
-<div class="register-container tui-space_vertical-3 tui-align_center">
-    <form class="register-form tui-space_vertical-3">
+<div class="register-container">
+    <form class="register-form tui-space_vertical-3" [formGroup]="registerForm">
       <tui-input formControlName="nameInput" class="tui-space_vertical-3">
         Enter your name
         <input tuiTextfield type="text">
@@ -12,7 +12,7 @@
         Enter your password
         <input tuiTextfield type="password">
       </tui-input-password>
-      <tui-input-password formControlName="passwordInput" class="tui-space_vertical-3">
+      <tui-input-password formControlName="repeatPasswordInput" class="tui-space_vertical-3">
         Repeat your password
         <input tuiTextfield type="password">
       </tui-input-password>
@@ -23,7 +23,7 @@
 
 
       <div class="button-container">
-        <button appearance="secondary" class="tui-space_vertical-3" size="m" tuiButton type="button" (click)="register(usernameInput, emailInput, passwordInput)">
+        <button appearance="secondary" class="tui-space_vertical-3" size="m" tuiButton type="button" (click)="register()">
           Register
         </button>
         

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
 constructor(private authService: AuthService) {}
 
-register(username: string, email: string, password: string) : void {
+registerForm = new FormGroup({
+  nameInput: new FormControl(),
+  usernameInput: new FormControl(),
+  emailInput: new FormControl(),
+  passwordInput: new FormControl(),
+  repeatPasswordInput: new FormControl(),
+})
+
+register() : void {
+  const username = this.registerForm.get('usernameInput')?.value;
+  const email = this.registerForm.get('emailInput')?.value;
+  const password = this.registerForm.get('passwordInput')?.value;
+
 this.authService.registerUser(username, email, password).subscribe(
   response => {
     // Handle successful registration here (e.g., show a success message)
