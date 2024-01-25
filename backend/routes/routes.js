@@ -65,8 +65,8 @@ router.post('/v1/register', authController.register);
  *         description: Invalid credentials
  */
 router.post('/v1/login', authController.login);
-router.post('/password-reset', authController.requestPasswordReset);
-router.post('/password-reset/:token', authController.resetPassword);
+router.post('/v1//password-reset', authController.requestPasswordReset);
+router.post('/v1//password-reset/:token', authController.resetPassword);
 
 // Recipes routes
 /**
