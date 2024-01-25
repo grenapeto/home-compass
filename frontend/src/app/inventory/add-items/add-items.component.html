@@ -1,50 +1,43 @@
 <div class="inventory-container">
-    <div class="inventory-form">
-        <form [formGroup]="addItemsForm" (ngSubmit)="addItem()">
-            <tui-input formControlName="name">
-                Item name
-                <input tuiTextfield />
-            </tui-input>
-            <tui-input-number formControlName="quantity" class="tui-space_vertical-3">
-                Quantity
-            </tui-input-number>
-            <tui-input formControlName="category">
-                Select category
-                <input tuiTextfield />
-            </tui-input>
-            <button tuiButton type="submit" class="tui-space_vertical-3">Add Item</button>
+    <!-- Form Section Container -->
+    <div class="form-section-container">
+        <form [formGroup]="addItemsForm" (ngSubmit)="addItem()" class="inventory-form">
+
+            <!-- Barcode Section -->
+            <div class="barcode-section">
+                <tui-input formControlName="barcode">
+                    Barcode
+                    <input tuiTextfield type="text" />
+                </tui-input>
+                <button tuiButton type="button" class="tui-space_vertical-3">
+                    <img src="path-to-scanner-icon.png" alt="Scan Barcode" />
+                </button>
+            </div>
+
+            <!-- Rest of the Form -->
+            <div class="form-section">
+                <tui-input formControlName="name">
+                    Item name
+                    <input tuiTextfield />
+                </tui-input>
+                <tui-input-number formControlName="quantity" class="tui-space_vertical-3">
+                    Quantity
+                </tui-input-number>
+                <tui-input formControlName="category">
+                    Select category
+                    <input tuiTextfield />
+                </tui-input>
+
+                <!-- Dynamic Expiration Date Fields -->
+                <div *ngFor="let dateControl of expirationDates; let i = index">
+                    <tui-input-date formControlName="dateControl" class="tui-space_vertical-3">
+                        Expiration Date {{i + 1}}
+                    </tui-input-date>
+                </div>
+
+                <button tuiButton type="submit" class="tui-space_vertical-3">Add Item</button>
+            </div>
+
         </form>
     </div>
-
-
-    <div class="inventory-table" *ngIf="items.length > 0; else noItemsTemplate">
-        <table tuiTable [columns]="columns">
-            <thead>
-                <tr tuiThGroup>
-                    <th *tuiHead="'name'" tuiTh>Name</th>
-                    <th *tuiHead="'quantity'" tuiTh>Quantity</th>
-                    <th *tuiHead="'category'" tuiTh>Category</th>
-                    <th *tuiHead="'expirationDate'" tuiTh>Expiration Date</th>
-                    <th *tuiHead="'actions'" tuiTh [sorter]="null"></th>
-                </tr>
-            </thead>
-            <tbody *tuiLet="items | tuiTableSort as sortedItems" tuiTbody [data]="sortedItems">
-                <tr *ngFor="let item of sortedItems; let index = index" tuiTr>
-                    <td *tuiCell="'name'" tuiTd>{{ index + 1 }}. {{ item.name }}</td>
-                    <td *tuiCell="'quantity'" tuiTd>{{ item.quantity }}</td>
-                    <td *tuiCell="'category'" tuiTd>{{ item.category }}</td>
-                    <td *tuiCell="'expirationDate'" tuiTd>{{ item.expirationDate | date }}</td>
-                    <td *tuiCell="'actions'" tuiTd>
-                        <!-- Add your action buttons here -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-      
-      <ng-template #noItemsTemplate>
-        <div class="no-items">
-          You did not add any items yet.
-        </div>
-      </ng-template>
-    </div>
+</div>

@@ -1,63 +1,79 @@
 .inventory-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 60px;
-  }
-  
-  .inventory-form, .inventory-table {
-    width: 60%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .inventory-form > * {
-    flex: 1 1 auto;
-  }
-  
-  .inventory-table {
-    margin-top: 20px;
-  }
-  
-  /* Table Styles */
-  td, th {
-    white-space: nowrap;
-    border-color: transparent;
-    border-right-color: var(--tui-base-04);
-  }
-  
-  td:last-child, th:last-child {
-    border-right-color: transparent;
-  }
-  
-  tbody {
-    border-color: transparent;
-  }
-  
-  tr:nth-child(even) td {
-    background: var(--tui-base-02);
-  }
-  
-  .alive::before, .deceased::before {
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 100%;
-    margin-right: 0.5rem;
-    background: var(--tui-base-04);
-  }
-  
-  .alive::before {
-    background: var(--tui-success-fill);
-  }
-  
-  .remove {
-    opacity: 0;
-    transition: opacity var(--transition-duration);
-  }
-  
-  tr:hover .remove, tr:focus-within .remove {
-    opacity: 1;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  width: 60%; /* Set the width of the container */
+  margin-left: auto; /* Center align the container */
+  margin-right: auto;
+}
+
+.form-section-container, .table-section-container {
+  width: 100%;
+}
+
+.inventory-form {
+  display: flex;
+  gap: 20px;
+}
+
+.barcode-section, .form-section {
+  flex: 1;
+}
+
+.barcode-section {
+  flex-basis: 25%; /* Adjust the width as needed */
+}
+
+.form-section {
+  flex-basis: 75%; /* Adjust the width as needed */
+}
+
+.inventory-table {
+  margin-top: 20px;
+}
+
+/* Table Styles */
+td,
+th {
+  white-space: nowrap;
+  border-color: transparent;
+  border-right-color: var(--tui-base-04);
+}
+
+td:last-child,
+th:last-child {
+  border-right-color: transparent;
+}
+
+tbody {
+  border-color: transparent;
+}
+
+tr:nth-child(even) td {
+  background: var(--tui-base-02);
+}
+
+.alive::before,
+.deceased::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 100%;
+  margin-right: 0.5rem;
+  background: var(--tui-base-04);
+}
+
+.alive::before {
+  background: var(--tui-success-fill);
+}
+
+.remove {
+  opacity: 0;
+  transition: opacity var(--transition-duration);
+}
+
+tr:hover .remove,
+tr:focus-within .remove {
+  opacity: 1;
+}
