@@ -42,7 +42,7 @@ const login = async (req, res) => {
     if (!user || !await user.isValidPassword(password)) {
       return handleErrorResponse(res, 401, 'Invalid credentials');
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '7d' });
     res.json({ token });
   } catch (error) {
     handleErrorResponse(res, 500, error.message);
