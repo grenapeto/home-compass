@@ -1,29 +1,26 @@
 <div class="register-container">
   <form class="register-form tui-space_vertical-3" [formGroup]="registerForm">
-    <tui-input formControlName="nameInput" class="tui-space_vertical-3">
+    <tui-input formControlName="nameInput" id="nameInput" required class="tui-space_vertical-3">
       Enter your name
       <input tuiTextfield type="text" />
     </tui-input>
-    <tui-input formControlName="usernameInput" class="tui-space_vertical-3">
+    <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="alert">
+  <div *ngIf="nameInput.errors?.['required']">Name is required.</div>
+</div>
+    <tui-input formControlName="usernameInput" required class="tui-space_vertical-3">
       Enter your username
       <input tuiTextfield type="text" />
     </tui-input>
 
-    <tui-input formControlName="emailInput" class="tui-space_vertical-3">
+    <tui-input formControlName="emailInput" required class="tui-space_vertical-3">
       Enter your email address
       <input tuiTextfield type="email" />
     </tui-input>
-    <tui-input-password
-      formControlName="passwordInput"
-      class="tui-space_vertical-3"
-    >
+    <tui-input-password formControlName="passwordInput" required class="tui-space_vertical-3">
       Enter your password
       <input tuiTextfield type="password" />
     </tui-input-password>
-    <tui-input-password
-      formControlName="repeatPasswordInput"
-      class="tui-space_vertical-3"
-    >
+    <tui-input-password formControlName="repeatPasswordInput" required class="tui-space_vertical-3">
       Repeat your password
       <input tuiTextfield type="password" />
     </tui-input-password>

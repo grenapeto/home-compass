@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -15,20 +16,20 @@ export class RegisterComponent {
 constructor(private authService: AuthService, private router: Router) {}
 
 registerForm = new FormGroup({
-  nameInput: new FormControl(),
-  usernameInput: new FormControl(),
-  emailInput: new FormControl(),
-  passwordInput: new FormControl(),
-  repeatPasswordInput: new FormControl(),
+  nameInput: new FormControl('', Validators.required),
+  usernameInput: new FormControl('', Validators.required),
+  emailInput: new FormControl('', [Validators.required, Validators.email]),
+  passwordInput: new FormControl('', Validators.required),
+  repeatPasswordInput: new FormControl('', Validators.required),
 })
 
 successNotification = false;
 errorNotification = false;
 
 register() : void {
-  const username = this.registerForm.get('usernameInput')?.value;
-  const email = this.registerForm.get('emailInput')?.value;
-  const password = this.registerForm.get('passwordInput')?.value;
+  const username = this.registerForm.get('usernameInput')?.value ?? '';
+  const email = this.registerForm.get('emailInput')?.value ?? '';
+  const password = this.registerForm.get('passwordInput')?.value ?? '';
 
 this.authService.registerUser(username, email, password).subscribe(
   response => {
