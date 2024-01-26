@@ -37,7 +37,7 @@
       <input tuiTextfield type="password" />
     </tui-input-password>
 <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('repeatPasswordInput')?.invalid && (registerForm.get('repeatPasswordInput')?.dirty || registerForm.get('repeatPasswordInput')?.touched)" class="alert">
-      <div *ngIf="registerForm.get('repeatPasswordInput')?.hasError('required')">Passwords don't match.</div>
+      <div>Passwords don't match.</div>
     </div>
 
     <div class="button-container">

@@ -25,10 +25,10 @@ export class RegisterComponent {
   successNotification = false;
   errorNotification = false;
 
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('passwordInput');
-    const repeatPassword = control.get('repeatPasswordInput');
-  
+  passwordMatchValidator() {
+    const password = this.registerForm.get('passwordInput');
+    const repeatPassword =this.registerForm.get('repeatPasswordInput');
+  console.log(password, repeatPassword);
     if (!password || !repeatPassword || password.value === repeatPassword.value) {
       return null; // Passwords match
     } else {
