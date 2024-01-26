@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { InventoryService, InventoryItem, SubItem } from '../../services/inventory.service';
-import {TuiDay} from '@taiga-ui/cdk';
+import { HttpClient } from '@angular/common/http';
+import { BarcodeScannerService } from '../../services/barcode-scanner.service';
+import { TuiDay } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-add-inventory',
   templateUrl: './add-items.component.html',
   styleUrls: ['./add-items.component.css'],
 })
-export class AddItemsComponent {
+export class AddItemsComponent implements OnInit {
   readonly columns = ['name', 'quantity', 'category', 'expirationDate'];
   inventoryItems: InventoryItem[] = [];
   addItemsForm: FormGroup;
-  expirationDates: FormControl[] = [];
+  expirationDates: TuiDay[] = []; // Use TuiDay array instead of FormControl
 
   constructor(
     private fb: FormBuilder,
-    private inventoryService: InventoryService
+    private httpClient: HttpClient,
+    private inventoryService: InventoryService,
+    private barcodeScannerService: BarcodeScannerService
   ) {
     this.addItemsForm = this.fb.group({
-      barcode: [''], // Assuming no specific validation for barcode
+      barcode: [''], // Provide a default value
       name: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
       category: ['', Validators.required],
@@ -28,20 +32,59 @@ export class AddItemsComponent {
     this.addItemsForm.get('quantity')?.valueChanges.subscribe((value) => {
       this.updateExpirationDates(value);
     });
+
+    // Listen for changes in the barcode field after 10 characters
+    this.addItemsForm.get('barcode')?.valueChanges.subscribe((barcode) => {
+      if (barcode && barcode.length >= 10) {
+        this.searchProductByBarcode(barcode);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.barcodeScannerService.barcodeScanned$.subscribe((barcode) => {
+      // Provide a default empty string value if barcode is null
+      this.addItemsForm.get('barcode')?.setValue(barcode || '');
+      this.searchProductByBarcode(barcode || ''); // Also update this line
+    });
+  }
+
+  searchProductByBarcode(barcode: string): void {
+    if (barcode.length >= 10) {
+      const apiEndpoint = `https://world.openfoodfacts.org/api/v2/product/${barcode}.json`;
+
+      this.httpClient.get(apiEndpoint).subscribe(
+        (response: any) => {
+          if (response.status === 1) {
+            const product = response.product;
+            this.addItemsForm.get('name')?.setValue(product.product_name);
+
+            // Remove the "en:" prefix from the category
+            const category = product.categories_hierarchy[0];
+            if (category.startsWith('en:')) {
+              this.addItemsForm.get('category')?.setValue(category.substr(3));
+            } else {
+              this.addItemsForm.get('category')?.setValue(category);
+            }
+          } else {
+            console.error('Product not found');
+          }
+        },
+        (error) => {
+          console.error('Error fetching product data:', error);
+          // Handle the error as needed
+        }
+      );
+    }
   }
 
   addItem(): void {
-    if (
-      this.addItemsForm.valid &&
-      this.expirationDates.every((dateControl) => dateControl.valid)
-    ) {
-      const subItems: SubItem[] = this.expirationDates.map(
-        (dateControl, index) => ({
-          expirationDate: dateControl.value.date,
-          amount: 1, // Assuming each subitem is counted as 1 unit
-          // Add 'unit' if necessary
-        })
-      );
+    if (this.addItemsForm.valid) {
+      const subItems: SubItem[] = this.expirationDates.map((dateControl, index) => ({
+        expirationDate: new Date(dateControl.toString()), // Convert TuiDay to JavaScript Date
+        amount: 1, // Assuming each subitem is counted as 1 unit
+        // Add 'unit' if necessary
+      }));
 
       const newItem: InventoryItem = {
         name: this.addItemsForm.value.name,
@@ -65,8 +108,6 @@ export class AddItemsComponent {
   }
 
   updateExpirationDates(quantity: number): void {
-    this.expirationDates = Array.from({ length: quantity }, () =>
-      new FormControl('', Validators.required)
-    );
+    this.expirationDates = Array.from({ length: quantity }, () => TuiDay.currentLocal());
   }
 }

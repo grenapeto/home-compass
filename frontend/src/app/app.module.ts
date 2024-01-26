@@ -30,12 +30,16 @@ import { TuiLetModule } from '@taiga-ui/cdk';
 import { TuiInputDateModule } from '@taiga-ui/kit';
 import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
 
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
+import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    AddItemsComponent,
+    BarcodeScannerComponent,
+    AddItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,7 @@ import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
     TuiInputPasswordModule,
     TuiInputDateModule,
     TuiTablePaginationModule,
+    BarcodeScannerLivestreamModule
   ],
   providers: [],
   bootstrap: [AppComponent],
