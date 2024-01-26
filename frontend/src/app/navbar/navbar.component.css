@@ -1,0 +1,34 @@
+/* styles.css or your component-specific stylesheet */
+
+.tui-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #333; /* Add your desired background color */
+    color: #fff; /* Add your desired text color */
+  }
+  
+  .tui-navbar-logo img {
+    max-width: 100px; /* Adjust as needed */
+  }
+  
+  .tui-navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .tui-navbar-links li {
+    font-size: 1rem; /* Adjust as needed */
+  }
+  
+  .tui-navbar-links a {
+    text-decoration: none;
+    color: #fff; /* Add your desired text color */
+  }
+  
+  .tui-navbar-actions {
+    /* Add styles for login/logout buttons or user-related actions */
+  }
+  
