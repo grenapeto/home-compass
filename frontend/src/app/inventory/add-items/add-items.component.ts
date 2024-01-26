@@ -55,7 +55,7 @@ export class AddItemsComponent implements OnInit {
   }
 
   searchProductByBarcode(barcode: string): void {
-    if (barcode.length >= 10) {
+    if (barcode.length >= 13) {
       const apiEndpoint = `https://world.openfoodfacts.org/api/v2/product/${barcode}.json`;
 
       this.httpClient.get(apiEndpoint).subscribe(
@@ -113,6 +113,16 @@ export class AddItemsComponent implements OnInit {
   }
 
   updateExpirationDates(quantity: number): void {
-    this.expirationDates = Array.from({ length: quantity }, () => new TuiDay(2023, 0, 15));
+    // Clear the existing expirationDates array
+    this.expirationDates = [];
+  
+    // Generate a unique expiration date for each item
+    for (let i = 0; i < quantity; i++) {
+      // Calculate a new expiration date, e.g., one day from today for each item
+      const expirationDate = new TuiDay(2023, 0, 15).append({ day: i });
+      
+      // Push the generated expiration date to the array
+      this.expirationDates.push(expirationDate);
+    }
   }
 }
