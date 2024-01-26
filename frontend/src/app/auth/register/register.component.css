@@ -30,5 +30,6 @@
   }
 
   .notifications {
-    width: 30%;
+    text-align:center;
+    justify-content: center;
   }

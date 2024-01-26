@@ -14,5 +14,7 @@ registerUser(username: string, email: string, password: string): Observable<any>
   return this.http.post(`${this.apiUrl}/register`,{ username, email, password })
 }
 
-
+loginUser(email: string, password: string): Observable<any>{
+  return this.http.post(`${this.apiUrl}/login`,{ email, password })
+}
 }

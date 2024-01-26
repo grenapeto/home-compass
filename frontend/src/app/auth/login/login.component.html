@@ -1,7 +1,7 @@
 <div class="login-container">
     <form class="b-form" [formGroup]="loginForm" class="tui-space_vertical-3">
-      <tui-input formControlName="usernameInput" class="tui-space_vertical-3">
-        Enter your username
+      <tui-input formControlName="emailInput" class="tui-space_vertical-3">
+        Enter your email
         <input tuiTextfield type="text">
       </tui-input>
       <tui-input formControlName="passwordInput">
@@ -9,12 +9,17 @@
         <input tuiTextfield type="password">
       </tui-input>
       <div class="button-container tui-space_horizontal-3 tui-space_vertical-3">
-        <button appearance="primary" tuiButton type="button" class="tui-space_right-3">
+        <button appearance="primary" tuiButton type="button" (click)="login()" class="tui-space_right-3">
           Login
         </button>
         <button appearance="secondary" routerLink="/register" tuiButton type="button">
           Register
         </button>
+      </div>
+      <div class="notifications">
+        <tui-notification status="error" *ngIf="errorNotification" class="tui-space_vertical-4">
+         Login failed
+        </tui-notification>
       </div>
     </form>
   </div>
