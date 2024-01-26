@@ -28,7 +28,7 @@
 
                 <!-- Dynamic Expiration Date Fields -->
                 <div *ngFor="let dateControl of expirationDates; let i = index">
-                    <tui-input-date [(ngModel)]="expirationDates[i]" class="tui-space_vertical-3">
+                    <tui-input-date formControlName="expirationDates[i]" class="tui-space_vertical-3">
                         Expiration Date {{i + 1}}
                         <input tuiTextfield />
                     </tui-input-date>

@@ -26,15 +26,17 @@ const getInventoryItem = async (req, res) => {
 };
 
 const createInventoryItem = async (req, res) => {
-  const item = new Inventory({ ...req.body });
+  const { name, items, category, barcode } = req.body; // Extract the barcode
 
   try {
-    const newItem = await item.save();
-    res.status(201).json(newItem);
+    const newItem = new Inventory({ name, items, category, barcode }); // Include the barcode
+    const savedItem = await newItem.save();
+    res.status(201).json(savedItem);
   } catch (error) {
     handleErrorResponse(res, 400, error.message);
   }
 };
+
 
 const editInventoryItemById = async (req, res) => {
   const { inventoryId, itemId } = req.params;

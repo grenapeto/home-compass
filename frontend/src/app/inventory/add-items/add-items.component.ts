@@ -14,7 +14,11 @@ export class AddItemsComponent implements OnInit {
   readonly columns = ['name', 'quantity', 'category', 'expirationDate'];
   inventoryItems: InventoryItem[] = [];
   addItemsForm: FormGroup;
-  expirationDates: TuiDay[] = []; // Use TuiDay array instead of FormControl
+  // Use FormGroup for expiration date controls
+  expirationDateControls: FormGroup[] = [];
+
+  // Use TuiDay array for Tui-input-date
+  expirationDates: TuiDay[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +50,7 @@ export class AddItemsComponent implements OnInit {
       // Provide a default empty string value if barcode is null
       this.addItemsForm.get('barcode')?.setValue(barcode || '');
       this.searchProductByBarcode(barcode || ''); // Also update this line
+      this.expirationDateControls.push(this.fb.group({ expirationDate: [''] }));
     });
   }
 
@@ -81,7 +86,7 @@ export class AddItemsComponent implements OnInit {
   addItem(): void {
     if (this.addItemsForm.valid) {
       const subItems: SubItem[] = this.expirationDates.map((dateControl, index) => ({
-        expirationDate: new Date(dateControl.toString()), // Convert TuiDay to JavaScript Date
+        expirationDate: new Date(dateControl.day, dateControl.month, dateControl.year), // Convert TuiDay to JavaScript Date
         amount: 1, // Assuming each subitem is counted as 1 unit
         // Add 'unit' if necessary
       }));
@@ -108,6 +113,6 @@ export class AddItemsComponent implements OnInit {
   }
 
   updateExpirationDates(quantity: number): void {
-    this.expirationDates = Array.from({ length: quantity }, () => TuiDay.currentLocal());
+    this.expirationDates = Array.from({ length: quantity }, () => new TuiDay(2023, 0, 15));
   }
 }
