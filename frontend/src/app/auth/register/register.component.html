@@ -4,27 +4,41 @@
       Enter your name
       <input tuiTextfield type="text" />
     </tui-input>
-    <div *ngIf="registerForm.get('nameInput')!.invalid" class="alert">
-      <div *ngIf="registerForm.get('nameInput')!.errors?.['required']">Name is required.</div>
+    <div *ngIf="registerForm.get('nameInput')?.invalid && (registerForm.get('nameInput')?.dirty || registerForm.get('nameInput')?.touched)" class="alert">
+      <div *ngIf="registerForm.get('nameInput')?.hasError('required')">Name is required.</div>
     </div>
     
     <tui-input formControlName="usernameInput" [required]="true" class="tui-space_vertical-3">
       Enter your username
       <input tuiTextfield type="text" />
     </tui-input>
+    <div *ngIf="registerForm.get('usernameInput')?.invalid && (registerForm.get('usernameInput')?.dirty || registerForm.get('usernameInput')?.touched)" class="alert">
+      <div *ngIf="registerForm.get('usernameInput')?.hasError('required')">Username is required.</div>
+    </div>
 
     <tui-input formControlName="emailInput" [required]="true" class="tui-space_vertical-3">
       Enter your email address
       <input tuiTextfield type="email" />
     </tui-input>
+    <div *ngIf="registerForm.get('emailInput')?.invalid && (registerForm.get('emailInput')?.dirty || registerForm.get('emailInput')?.touched)" class="alert">
+      <div *ngIf="registerForm.get('emailInput')?.hasError('required')">Email is required.</div>
+    </div>
+
     <tui-input-password formControlName="passwordInput" [required]="true" class="tui-space_vertical-3">
       Enter your password
       <input tuiTextfield type="password" />
     </tui-input-password>
+    <div *ngIf="registerForm.get('passwordInput')?.invalid && (registerForm.get('passwordInput')?.dirty || registerForm.get('passwordInput')?.touched)" class="alert">
+      <div *ngIf="registerForm.get('passwordInput')?.hasError('required')">Password is required.</div>
+    </div>
+
     <tui-input-password formControlName="repeatPasswordInput" [required]="true" class="tui-space_vertical-3">
       Repeat your password
       <input tuiTextfield type="password" />
     </tui-input-password>
+<div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('repeatPasswordInput')?.invalid && (registerForm.get('repeatPasswordInput')?.dirty || registerForm.get('repeatPasswordInput')?.touched)" class="alert">
+      <div *ngIf="registerForm.get('repeatPasswordInput')?.hasError('required')">Passwords don't match.</div>
+    </div>
 
     <div class="button-container">
       <button

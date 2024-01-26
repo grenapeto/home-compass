@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Validators } from '@angular/forms';
+import { Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -19,11 +19,25 @@ export class RegisterComponent {
     usernameInput: new FormControl('', Validators.required),
     emailInput: new FormControl('', [Validators.required, Validators.email]),
     passwordInput: new FormControl('', Validators.required),
-    repeatPasswordInput: new FormControl('', Validators.required),
+    repeatPasswordInput: new FormControl('', [Validators.required, this.passwordMatchValidator]),
   });
 
   successNotification = false;
   errorNotification = false;
+
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('passwordInput');
+    const repeatPassword = control.get('repeatPasswordInput');
+  
+    if (!password || !repeatPassword || password.value === repeatPassword.value) {
+      return null; // Passwords match
+    } else {
+      console.log("passwords don't match")
+
+      return { 'passwordMismatch': true }; // Passwords don't match
+    }
+  }
+  
 
   register(): void {
     
