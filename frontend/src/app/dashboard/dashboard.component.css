@@ -1,3 +1,6 @@
+h2:hover{
+    opacity:0.8
+}
 .tiles {
     gap: 1rem;
     grid-auto-rows: minmax(100px, auto);
@@ -43,15 +46,24 @@
     right: 0.75rem;
     top: 1rem;
     background: var(--tui-base-01);
-    opacity: 0;
+    opacity: 0.3;
     cursor: move;
 }
 
-.handle.transition {
-    transition: opacity;
+.handle:hover {
+    opacity: 10;
 }
 
 .tui-tiles:not(._dragged) .tui-tile:hover .handle,
 .tui-tile._dragged .handle {
     opacity: 0.7;
+}
+
+.add-item {
+    background-color:antiquewhite;
+    text-align: center;
+}
+
+.add-item-btn{
+    cursor: pointer;
 }

@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   items = [
-    {w: 2, h: 2, content: 'Item 1'},
-    {w: 1, h: 1, content: 'Item 2'},
+    {w: 2, h: 2, content: 'recipes'},
+    {w: 1, h: 1, content: 'add-item'},
     {w: 2, h: 1, content: 'Item 3'},
     {w: 1, h: 1, content: 'Item 4'},
     {w: 3, h: 1, content: 'Item 5'},

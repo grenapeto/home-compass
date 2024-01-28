@@ -5,12 +5,17 @@
     [height]="item.h"
     [style.order]="order.get(index)"
     [width]="item.w"
-    tuiTile 
+    tuiTile
   >
-    <div class="content">
+  <div class="content" [ngClass]="{'add-item': item.content === 'add-item', 'recipes': item.content === 'recipes'}">
+    <div *ngIf="item.content === 'add-item'; else default">
+        <h2 class="add-item-btn" routerLink="/add-item">Add Item</h2>
+    </div>
+    <div *ngIf="item.content === 'Recipes'; else default">
+        <h2 class="add-item-btn" >List of recipes</h2>
+    </div>
       <tui-svg src="tuiIconDragLarge" tuiTileHandle class="handle"></tui-svg>
-      <tui-svg src="tuiIconDragLarge" tuiTileHandle class="handle"></tui-svg>
-      <ng-template>
+      <ng-template #default>
         <h2 class="title">{{ item.content }}</h2>
         Order - {{ order.get(index) ?? index }} (Debug)
       </ng-template>
