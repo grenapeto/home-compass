@@ -13,10 +13,15 @@
           <!-- Custom content for recipes -->
           <h2>{{ item.content }}</h2>
         </div>
-        <div *ngSwitchCase="'add-item'">
+        <div *ngSwitchCase="'add-item'" class="add-item">
           <!-- Custom content for add-item -->
-          <h2 routerLink="/add-item">{{ item.content }}</h2>
+          <h2 routerLink="/add-item" class="add-item-btn">{{ item.content }}</h2>
         </div>
+        <div *ngSwitchCase="'expiration-date'">
+            <!-- Custom content for add-item -->
+            <h2>{{ item.content }}</h2>
+           <p>dgvd</p>
+          </div>
         <div *ngSwitchDefault>
           <!-- Default content for other types -->
           <h2 class="title">{{ item.content }}</h2>
