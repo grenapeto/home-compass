@@ -14,7 +14,7 @@ getAllIngredients(){
  return this.http.get(`${this.apiUrl}`)
 }
 
-createNewIngredient(name: string){
+createNewIngredient(name: string): Observable<any>{
   return this.http.post(`${this.apiUrl}`, name)
 }
 
@@ -22,12 +22,12 @@ getSingleIngredient(recipeId:string ){
   return this.http.get(`${this.apiUrl}/${recipeId}`)
 }
 
-updateIngredient(ingredientId: string, name: string){
-return this.http.get(`${this.apiUrl}/${ingredientId}`, name)
+updateIngredient(ingredientId: string, name: string): Observable<any>{
+return this.http.put(`${this.apiUrl}/${ingredientId}`, name)
 }
 
 deleteIngredient(ingredientId: string) {
-  return this.http.get(`${this.apiUrl}/${ingredientId}`)
+  return this.http.delete(`${this.apiUrl}/${ingredientId}`)
 }
 }
 

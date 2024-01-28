@@ -1,11 +1,31 @@
 import { Component } from '@angular/core';
+import { RecipesService } from '../services/recipes.service';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  constructor(private recipesService: RecipesService) {}
+
+  readonly columns = ['name', 'actionbuttons'];
+
+  recipesData: any;
+
+  ngOnInit(): void {
+    this.recipesService.getAllRecipes().subscribe(
+      (response) => {
+        console.log('recipes', response);
+        this.recipesData = response; 
+      },
+      (error) => {
+        console.log('no recipes', error);
+      }
+    )
+  }
+
   items = [
     { w: 2, h: 4, content: 'Latest recipes', type: 'recipes' },
     { w: 1, h: 1, content: 'Click here to add item', type: 'add-item'},
@@ -19,4 +39,5 @@ export class DashboardComponent {
 ];
 
 order = new Map<number, number>();
+
 }

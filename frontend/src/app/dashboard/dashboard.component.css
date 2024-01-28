@@ -67,3 +67,11 @@ h2:hover{
 .add-item-btn{
     cursor: pointer;
 }
+
+.table {
+    width: 100%;
+}
+
+.nameColumn{
+    width: 75%;
+}

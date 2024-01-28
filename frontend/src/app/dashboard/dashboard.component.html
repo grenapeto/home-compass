@@ -10,8 +10,30 @@
     <div class="content">
       <div [ngSwitch]="item.type">
         <div *ngSwitchCase="'recipes'">
-          <!-- Custom content for recipes -->
           <h2>{{ item.content }}</h2>
+          <table tuiTable class="table" [columns]="columns">
+            <thead tuiThead>
+                <tr tuiThGroup>
+                    <th tuiTh [resizable]="true" class="nameColumn">
+                        Name
+                    </th>
+                    <th tuiTh>
+                        Action
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody tuiTbody [data]="recipesData">
+                <tr tuiTr *ngFor="let recipe of recipesData">
+                    <td tuiTd *tuiCell="'name'">
+                        {{ recipe.name }}
+                    </td>
+                    <td tuiTd *tuiCell="'actionbuttons'">
+                        action buttons
+                    </td>
+                </tr>
+            </tbody>
+          </table>
         </div>
         <div *ngSwitchCase="'add-item'" class="add-item">
           <!-- Custom content for add-item -->

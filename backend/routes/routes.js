@@ -106,7 +106,7 @@ router.post('/v1//password-reset/:token', authController.resetPassword);
  *       400:
  *         description: Bad request.
  */
-router.route('/recipes')
+router.route('/v1/recipes')
     .get(recipesController.getAllRecipes)
     .post(recipesController.createRecipe);
 
