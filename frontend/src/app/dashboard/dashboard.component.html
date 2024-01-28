@@ -1,2 +1,19 @@
-
-afadsf
+<tui-tiles class="tiles" [debounce]="500" [(order)]="order">
+  <tui-tile
+    *ngFor="let item of items; let index = index"
+    class="tile"
+    [height]="item.h"
+    [style.order]="order.get(index)"
+    [width]="item.w"
+    tuiTile 
+  >
+    <div class="content">
+      <tui-svg src="tuiIconDragLarge" tuiTileHandle class="handle"></tui-svg>
+      <tui-svg src="tuiIconDragLarge" tuiTileHandle class="handle"></tui-svg>
+      <ng-template>
+        <h2 class="title">{{ item.content }}</h2>
+        Order - {{ order.get(index) ?? index }} (Debug)
+      </ng-template>
+    </div>
+  </tui-tile>
+</tui-tiles>
