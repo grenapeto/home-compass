@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
+import { InventoryService } from '../services/inventory.service';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +9,9 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private recipesService: RecipesService) {}
+  constructor(private recipesService: RecipesService, private inventoryService: InventoryService) {}
 
-  readonly columns = ['name', 'actionbuttons'];
+  readonly columns = ['name', 'cookTime', 'actionbuttons'];
 
   recipesData: any;
 

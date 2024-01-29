@@ -18,9 +18,11 @@
                         Name
                     </th>
                     <th tuiTh>
+                      CookTime
+                  </th>
+                    <th tuiTh>
                         Action
                     </th>
-                    
                 </tr>
             </thead>
             <tbody tuiTbody [data]="recipesData">
@@ -28,6 +30,9 @@
                     <td tuiTd *tuiCell="'name'">
                         {{ recipe.name }}
                     </td>
+                    <td tuiTd *tuiCell="'cookTime'">
+                      {{ recipe.cookTime }} minutes
+                  </td>
                     <td tuiTd *tuiCell="'actionbuttons'">
                         action buttons
                     </td>
