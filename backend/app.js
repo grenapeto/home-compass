@@ -17,7 +17,7 @@ const app = express();
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-const allowedOrigins = ['http://localhost:3000', 'https://aragorn:9877'];
+const allowedOrigins = ['http://localhost:4200', 'http://aragorn:9877'];
 
 const corsOptions = {
   origin: function (origin, callback) {
