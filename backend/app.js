@@ -17,8 +17,20 @@ const app = express();
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-// Middleware Configuration
-app.use(cors({ origin: 'https://aragorn:9877' })); // Enable CORS
+const allowedOrigins = ['http://localhost:3000', 'https://aragorn:9877'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(morganMiddleware); // Logging middleware

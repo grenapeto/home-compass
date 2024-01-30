@@ -33,7 +33,7 @@
               "@ericblade/quagga2",
               "lodash.defaultsdeep",
               "text-mask-core"
-           ],
+            ],
             "polyfills": [
               "zone.js"
             ],
@@ -84,11 +84,22 @@
               "namedChunks": false,
               "extractLicenses": true,
               "aot": true
-            },            
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"
@@ -101,6 +112,9 @@
             },
             "development": {
               "buildTarget": "frontend:build:development"
+            },
+            "test": {
+              "buildTarget": "frontend:build:test"
             }
           },
           "defaultConfiguration": "development"

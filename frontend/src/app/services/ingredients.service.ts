@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,26 +9,26 @@ import { Observable } from 'rxjs';
 export class IngredientsService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'http://localhost:3000/api/v1/ingredients';
+  private apiUrl = environment.apiUrl;
 
 getAllIngredients(){
- return this.http.get(`${this.apiUrl}`)
+ return this.http.get(`${this.apiUrl}/ingredients`)
 }
 
 createNewIngredient(name: string): Observable<any>{
-  return this.http.post(`${this.apiUrl}`, name)
+  return this.http.post(`${this.apiUrl}/ingredients`, name)
 }
 
 getSingleIngredient(recipeId:string ){
-  return this.http.get(`${this.apiUrl}/${recipeId}`)
+  return this.http.get(`${this.apiUrl}/ingredients/${recipeId}`)
 }
 
 updateIngredient(ingredientId: string, name: string): Observable<any>{
-return this.http.put(`${this.apiUrl}/${ingredientId}`, name)
+return this.http.put(`${this.apiUrl}/ingredients/${ingredientId}`, name)
 }
 
 deleteIngredient(ingredientId: string) {
-  return this.http.delete(`${this.apiUrl}/${ingredientId}`)
+  return this.http.delete(`${this.apiUrl}/ingredients/${ingredientId}`)
 }
 }
 
