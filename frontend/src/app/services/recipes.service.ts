@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RecipesService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'http://localhost:3000/api/v1/recipes';
+  private apiUrl = 'https://aragorn:3000/api/v1/recipes';
 
   getAllRecipes(){
     return this.http.get(`${this.apiUrl}`)

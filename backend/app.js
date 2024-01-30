@@ -18,7 +18,7 @@ const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Middleware Configuration
-app.use(cors({ origin: 'http://aragorn:9877' })); // Enable CORS
+app.use(cors({ origin: 'https://aragorn:9877' })); // Enable CORS
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(morganMiddleware); // Logging middleware
