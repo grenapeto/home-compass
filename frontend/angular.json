@@ -26,6 +26,14 @@
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "@taiga-ui/core/interfaces",
+              "@taiga-ui/core/mask",
+              "@taiga-ui",
+              "@ericblade/quagga2",
+              "lodash.defaultsdeep",
+              "text-mask-core"
+           ],
             "polyfills": [
               "zone.js"
             ],
