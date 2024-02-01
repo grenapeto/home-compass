@@ -12,17 +12,31 @@ export class BarcodeScannerComponent implements AfterViewInit {
   @ViewChild(BarcodeScannerLivestreamComponent)
   barcodeScanner!: BarcodeScannerLivestreamComponent;
 
+  barcodeValue: string = '';
+
+
   constructor(private barcodeScannerService: BarcodeScannerService) {}
 
   ngAfterViewInit() {
     this.barcodeScanner.start();
+    console.log(`Barcode scanner started`);
+  }
+
+  onStarted(started: any) {
+    console.log(started);
   }
 
   onValueChanges(result: any) {
-    // Handle the scanned barcode here
-    const scannedBarcode = result.codeResult.code;
-    
-    // Emit the scanned barcode using the service
-    this.barcodeScannerService.scanBarcode(scannedBarcode);
+    // Check if a barcode is successfully scanned
+    if (result && result.codeResult && result.codeResult.code) {
+      this.barcodeValue = result.codeResult.code;
+      console.log('Scanned barcode:', this.barcodeValue);
+      
+      // Emit the scanned barcode using the service
+      this.barcodeScannerService.scanBarcode(this.barcodeValue);
+    } else {
+      // Log when a barcode cannot be read or is not detected
+      console.log('Unable to read barcode');
+    }
   }
 }
