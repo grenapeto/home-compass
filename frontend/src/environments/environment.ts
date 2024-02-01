@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://aragorn:9866/api/v1'
+    apiUrl: 'http://aragorn:3000/api/v1'
   };
   
