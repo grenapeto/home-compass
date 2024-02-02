@@ -20,15 +20,10 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const allowedOrigins = ['http://localhost:4200', 'http://192.168.99.101:9876'];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*', // Allow all origins
   optionsSuccessStatus: 200
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json()); // Parse JSON bodies
