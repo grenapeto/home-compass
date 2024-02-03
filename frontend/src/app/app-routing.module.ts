@@ -5,6 +5,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AddItemsComponent } from './inventory/add-items/add-items.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './services/auth.guard';
+import { EditRecipesComponent } from './edit-recipes/edit-recipes.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'add-item', component: AddItemsComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'add-recipe', component: AddRecipeComponent },
+  { path: 'edit-recipes', component: EditRecipesComponent },
   { path: '**', redirectTo: '/home' },
   
 ];

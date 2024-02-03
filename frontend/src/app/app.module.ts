@@ -37,6 +37,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+import { EditRecipesComponent } from './edit-recipes/edit-recipes.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
     AddItemsComponent,
     DashboardComponent,
     NavbarComponent,
+    EditRecipesComponent,
+    AddRecipeComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +81,7 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
     TuiInputDateModule,
     TuiTablePaginationModule,
     BarcodeScannerLivestreamModule,
+    TuiTablePaginationModule
     
   ],
   providers:[

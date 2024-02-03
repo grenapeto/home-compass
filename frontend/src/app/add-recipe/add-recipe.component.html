@@ -1,0 +1,32 @@
+<!-- Form Section Container -->
+<div class="form-section-container">
+    <form [formGroup]="addRecipeForm" (ngSubmit)="postNewRecipe()" class="recipe-form">
+      
+        <div class="image-section">
+            <tui-input formControlName="image">
+                Image
+                <input tuiTextfield type="text" />
+            </tui-input>
+            <app-barcode-scanner></app-barcode-scanner>
+        </div>
+
+
+        <div class="form-section">
+        <tui-input class="input tui-space_vertical-3" formControlName="title">
+            title
+          <input tuiTextfield />
+        </tui-input>
+        <tui-input class="input tui-space_vertical-3" formControlName="ingredients">
+           cooktime
+          <input tuiTextfield />
+        </tui-input>
+        <tui-input class="input tui-space_vertical-3" formControlName="instructions">
+          portions
+            <input tuiTextfield />
+        </tui-input>
+  
+        <button tuiButton type="submit" class="tui-space_vertical-3">Add Recipe</button>
+      </div>
+    </form>
+  </div>
+  

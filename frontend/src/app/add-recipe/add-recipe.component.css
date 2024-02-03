@@ -1,0 +1,13 @@
+.form-section-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    width: 60%; /* Set the width of the container */
+    margin-left: auto; /* Center align the container */
+    margin-right: auto;
+  }
+
+  .form-section {
+    width: 100%;
+   
+  }
