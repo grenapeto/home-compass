@@ -1,18 +1,38 @@
-.form-section-container {
+.recipe-section {
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 60px;
     width: 60%; /* Set the width of the container */
     margin-left: auto; /* Center align the container */
     margin-right: auto;
+}
+.form-section-container {
+  width: 100%;
+
+}
+
+.inventory-form {
+    display: flex;
+    gap: 20px;
   }
 
-  .form-section {
-    width: 100%;
-    flex-basis: 75%;
-   
-  }
-  .image-section {
-    flex-basis: 25%; /* Adjust the width as needed */
-  }
-  
+.form-section,
+.image-section {
+  flex: 1;
+}
+
+.form-section {
+  flex-basis: 75%;
+}
+.image-section {
+  flex-basis: 25%; /* Adjust the width as needed */
+}
+
+.ingredients-section {
+    flex-basis: 50%;
+}
+
+.instructions-section {
+    flex-basis: 50%;
+}

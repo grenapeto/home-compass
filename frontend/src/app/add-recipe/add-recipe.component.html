@@ -1,3 +1,4 @@
+<div class="recipe-section">
 <!-- Form Section Container -->
 <div class="form-section-container">
     <form [formGroup]="addRecipeForm" (ngSubmit)="postNewRecipe()" class="recipe-form">
@@ -10,30 +11,31 @@
             <app-barcode-scanner></app-barcode-scanner>
         </div>
 
-
         <div class="form-section">
-        <tui-input class="input tui-space_vertical-3" formControlName="title">
-            title
-          <input tuiTextfield />
-        </tui-input>
-        <tui-input class="input tui-space_vertical-3" formControlName="ingredients">
+            <tui-input class=" tui-space_vertical-3" formControlName="title">
+                title
+                <input tuiTextfield />
+            </tui-input>
+            <tui-input class=" tui-space_vertical-3" formControlName="ingredients">
            cooktime
-          <input tuiTextfield />
-        </tui-input>
-        <tui-input class="input tui-space_vertical-3" formControlName="instructions">
-          portions
-            <input tuiTextfield />
-        </tui-input>
-  
-      </div>
-      <div>
-        <h2>ingredients</h2>
-    </div>
-      <div>
-        <h2>instructions</h2>
-    </div>
-      <button tuiButton type="submit" class="tui-space_vertical-3">Add Recipe</button>
+                <input tuiTextfield />
+            </tui-input>
+            <tui-input class=" tui-space_vertical-3" formControlName="instructions">
+            portions
+                <input tuiTextfield />
+            </tui-input>
+        </div>
+
+        <div class="ingredients-section">
+            <h2>ingredients</h2>
+        </div>
+
+        <div class="instructions-section">
+            <h2>instructions</h2>
+        </div>
+
+        <button tuiButton type="submit" class="tui-space_vertical-3">Add Recipe</button>
 
     </form>
   </div>
-  
+</div>
