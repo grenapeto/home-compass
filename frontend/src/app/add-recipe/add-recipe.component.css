@@ -9,5 +9,10 @@
 
   .form-section {
     width: 100%;
+    flex-basis: 75%;
    
   }
+  .image-section {
+    flex-basis: 25%; /* Adjust the width as needed */
+  }
+  
