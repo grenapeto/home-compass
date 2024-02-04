@@ -9,7 +9,12 @@
                     Barcode
                     <input tuiTextfield type="text" />
                 </tui-input>
-                <app-barcode-scanner></app-barcode-scanner>
+                <!-- Button to Open Barcode Scanner -->
+                <button tuiButton type="button" appearance="secondary" class="tui-space_vertical-3" (click)="toggleBarcodeScanner()">Scan Barcode</button>
+                <!-- Conditional Barcode Scanner Display -->
+                <ng-container *ngIf="isBarcodeScannerVisible">
+                    <app-barcode-scanner></app-barcode-scanner>
+                </ng-container>
             </div>
 
             <!-- Rest of the Form -->

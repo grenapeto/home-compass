@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { InventoryService, InventoryItem, SubItem } from '../../services/inventory.service';
+import {
+  InventoryService,
+  InventoryItem,
+  SubItem,
+} from '../../services/inventory.service';
 import { HttpClient } from '@angular/common/http';
 import { BarcodeScannerService } from '../../services/barcode-scanner.service';
 import { TuiDay } from '@taiga-ui/cdk';
@@ -14,11 +18,9 @@ export class AddItemsComponent implements OnInit {
   readonly columns = ['name', 'quantity', 'category', 'expirationDate'];
   inventoryItems: InventoryItem[] = [];
   addItemsForm: FormGroup;
-  // Use FormGroup for expiration date controls
   expirationDateControls: FormGroup[] = [];
-
-  // Use TuiDay array for Tui-input-date
   expirationDates: TuiDay[] = [];
+  isBarcodeScannerVisible: boolean = false; // New Property
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +56,10 @@ export class AddItemsComponent implements OnInit {
     });
   }
 
+  toggleBarcodeScanner(): void {
+    this.isBarcodeScannerVisible = !this.isBarcodeScannerVisible;
+  }
+
   searchProductByBarcode(barcode: string): void {
     if (barcode.length >= 13) {
       const apiEndpoint = `https://world.openfoodfacts.org/api/v2/product/${barcode}.json`;
@@ -85,16 +91,23 @@ export class AddItemsComponent implements OnInit {
 
   addItem(): void {
     if (this.addItemsForm.valid) {
-      const subItems: SubItem[] = this.expirationDates.map((dateControl, index) => ({
-        expirationDate: new Date(dateControl.day, dateControl.month, dateControl.year), // Convert TuiDay to JavaScript Date
-        amount: 1, // Assuming each subitem is counted as 1 unit
-        // Add 'unit' if necessary
-      }));
+      const subItems: SubItem[] = this.expirationDates.map(
+        (dateControl, index) => ({
+          expirationDate: new Date(
+            dateControl.day,
+            dateControl.month,
+            dateControl.year
+          ), // Convert TuiDay to JavaScript Date
+          amount: 1, // Assuming each subitem is counted as 1 unit
+          // Add 'unit' if necessary
+        })
+      );
 
       const newItem: InventoryItem = {
         name: this.addItemsForm.value.name,
         items: subItems,
         category: this.addItemsForm.value.category,
+        barcode: this.addItemsForm.value.barcode,
       };
 
       this.inventoryService.createInventoryItem(newItem).subscribe(
@@ -115,12 +128,12 @@ export class AddItemsComponent implements OnInit {
   updateExpirationDates(quantity: number): void {
     // Clear the existing expirationDates array
     this.expirationDates = [];
-  
+
     // Generate a unique expiration date for each item
     for (let i = 0; i < quantity; i++) {
       // Calculate a new expiration date, e.g., one day from today for each item
       const expirationDate = new TuiDay(2023, 0, 15).append({ day: i });
-      
+
       // Push the generated expiration date to the array
       this.expirationDates.push(expirationDate);
     }
