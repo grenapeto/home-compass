@@ -1,3 +1,8 @@
+h2 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400;
+}
 .recipe-section {
     display: flex;
     flex-direction: column;
@@ -9,7 +14,6 @@
 }
 .form-section-container {
   width: 100%;
-
 }
 
 .inventory-form {
@@ -24,6 +28,8 @@
 
 .form-section {
   flex-basis: 75%;
+  text-align: center;
+  margin-bottom:10%
 }
 .image-section {
   flex-basis: 25%; /* Adjust the width as needed */
@@ -31,8 +37,35 @@
 
 .ingredients-section {
     flex-basis: 50%;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
 }
 
 .instructions-section {
     flex-basis: 50%;
+    width: 50%;
+    display:inline-block;
+    text-align: center;
+    margin-bottom:10%
+}
+
+.ingredients-input {
+    width: 25%;
+    display: inline-block;
+ 
+}
+
+.ingredient {
+    text-align: center;
+    width: 100%;
+}
+
+.titleCooktimePortions {
+    width: 30%;
+    display: inline-block;
+}
+
+.btn-add-recipe {
+  text-align: center;
 }
