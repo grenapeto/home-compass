@@ -11,20 +11,16 @@ import { AuthInterceptor } from './interceptors/http-interceptor';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AddItemsComponent } from './inventory/add-items/add-items.component';
-
-import {
-  TuiRootModule,
-  TuiDialogModule,
-  TuiAlertModule,
-  TuiNotificationModule,
-} from '@taiga-ui/core';
-import {
-  TuiInputModule,
-  TuiInputNumberModule,
-  TuiSelectModule,
-} from '@taiga-ui/kit';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { EditRecipesComponent } from './edit-recipes/edit-recipes.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
+import { TuiRootModule, TuiDialogModule, TuiAlertModule, TuiNotificationModule } from '@taiga-ui/core';
+import { TuiInputModule, TuiInputNumberModule, TuiSelectModule } from '@taiga-ui/kit';
 import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
 import { TuiTableModule } from '@taiga-ui/addon-table';
+import {TuiMarkerIconModule} from '@taiga-ui/kit';
 import { TuiDataListModule } from '@taiga-ui/core';
 import { TuiComboBoxModule, TuiDataListWrapperModule } from '@taiga-ui/kit';
 import { TuiInputPasswordModule } from '@taiga-ui/kit';
@@ -32,25 +28,21 @@ import { TuiLetModule } from '@taiga-ui/cdk';
 import { TuiInputDateModule } from '@taiga-ui/kit';
 import { TuiTilesModule } from '@taiga-ui/kit';
 import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { TuiInputFilesModule } from '@taiga-ui/kit';
+import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-scanner.component';
 
-import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
-import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
-import { EditRecipesComponent } from './edit-recipes/edit-recipes.component';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    BarcodeScannerComponent,
-    AddItemsComponent,
     DashboardComponent,
     NavbarComponent,
     EditRecipesComponent,
     AddRecipeComponent,
+    AddItemsComponent,
+    BarcodeScannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,9 +72,10 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
     TuiInputPasswordModule,
     TuiInputDateModule,
     TuiTablePaginationModule,
-    BarcodeScannerLivestreamModule,
-    TuiTablePaginationModule
-    
+    TuiTablePaginationModule,
+    TuiMarkerIconModule,
+    TuiInputFilesModule,
+    BarcodeScannerLivestreamModule
   ],
   providers:[
     {

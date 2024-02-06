@@ -1,65 +1,63 @@
 <div class="recipe-section">
-    <!-- Form Section Container -->
     <div class="form-section-container">
         <form [formGroup]="addRecipeForm" (ngSubmit)="postNewRecipe()" class="recipe-form">
-            <h2>Add Recipe Details</h2>
+            <!-- Top Section for Image and Fields -->
+            <div class="top-section">
+                <div class="image-section">
+                    <tui-input-files class="control tui-space_right-3 tui-space_vertical-3" formControlName="image">
+                        <ng-template let-dragged>
+                            <div *ngIf="dragged; else base" class="content">
+                                <tui-marker-icon mode="link" src="tuiIconDropletLarge"></tui-marker-icon>
+                                <div>Drop it like it's hot!</div>
+                            </div>
+                            <ng-template #base>
+                                <div class="content">
+                                    <tui-marker-icon mode="link" src="tuiIconUploadCloudLarge"></tui-marker-icon>
+                                    <div>
+                                        Drag and drop file here or
+                                        <a tuiLink>click to upload</a>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-template>
+                    </tui-input-files>
+                    <!-- Display uploaded file names -->
+                    <div class="uploaded-files">
+                        <ul *ngIf="addRecipeForm.get('image')?.value">
+                            <li *ngFor="let file of addRecipeForm.get('image')?.value">
+                                {{ file.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-            <div class="image-section">
-                <tui-input formControlName="image">
-                    Image
-                    <input tuiTextfield type="text" />
-                </tui-input>
-                <app-barcode-scanner></app-barcode-scanner>
-            </div>
-
-            <div class="form-section">
-                <div class="titleCooktimePortions-container">
-                    <tui-input class="titleCooktimePortions tui-space_right-2 tui-space_vertical-3" formControlName="title">
-                        title
+                <div class="fields-section">
+                    <tui-input class="tui-space_vertical-3" formControlName="title">
+                        Title
                         <input tuiTextfield />
                     </tui-input>
-                    <tui-input class="titleCooktimePortions tui-space_right-2 tui-space_vertical-3" formControlName="cooktime">
-                        cooktime
+                    <tui-input class="tui-space_vertical-3" formControlName="cooktime">
+                        Cook Time
                         <input tuiTextfield />
                     </tui-input>
-                    <tui-input class="titleCooktimePortions" formControlName="portions">
-                        portions
+                    <tui-input class="tui-space_vertical-3" formControlName="portions">
+                        Portions
                         <input tuiTextfield />
                     </tui-input>
                 </div>
             </div>
 
-            <div class="ingredients-section" formArrayName="ingredients">
-                <h2>Ingredients</h2>
-                <button type="button" (click)="addIngredient()" appearance="secondary" tuiButton type="button">+ Add ingredient</button>
-                <div *ngFor="let ingredient of ingredients().controls; let i = index" [formGroupName]="i" class="ingredient">
-                    <tui-input class="ingredients-input tui-space_right-2 tui-space_vertical-3" formControlName="name">
-                        Name
-                        <input tuiTextfield />
-                    </tui-input>
-                    <tui-input class="ingredients-input tui-space_right-2 tui-space_vertical-3" formControlName="amount">
-                        Amount
-                        <input tuiTextfield />
-                    </tui-input>
-                    <tui-input class="ingredients-input tui-space_vertical-3" formControlName="unit">
-                        Unit
-                        <input tuiTextfield />
-                    </tui-input>
+            <!-- Bottom Section for Ingredients and Instructions -->
+            <div class="bottom-section">
+                <div class="ingredients-section">
+                    <h2>Ingredients</h2>
+                </div>
+                <div class="instructions-section">
+                    <h2>Instructions</h2>
                 </div>
             </div>
 
-            <div class="instructions-section" formArrayName="instructions">
-                <h2>instructions</h2>
-                <button type="button" (click)="addInstruction()" appearance="secondary" tuiButton>+ Add instruction</button>
-                <div *ngFor="let instruction of instructions().controls; let i = index" [formGroupName]="i" class="instruction">
-                    <tui-input class=" tui-space_right-2 tui-space_vertical-3" formControlName="">
-                        Instruction
-                        <input tuiTextfield />
-                    </tui-input>
-                </div>
-            </div>
-
-            <button tuiButton type="submit" class="tui-space_vertical-3 btn-add-recipe">Add Recipe</button>
+            <button tuiButton type="submit" class="tui-space_vertical-3">Add Recipe</button>
         </form>
     </div>
 </div>

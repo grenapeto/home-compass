@@ -5,11 +5,11 @@
 
             <!-- Barcode Section -->
             <div class="barcode-section">
-                <tui-input formControlName="barcode">
+                <tui-input formControlName="barcode" class="tui-space_bottom-3">
                     Barcode
                     <input tuiTextfield type="text" />
                 </tui-input>
-                <app-barcode-scanner></app-barcode-scanner>
+                <app-barcode-scanner (barcodeScanned)="updateBarcodeField($event)"></app-barcode-scanner>
             </div>
 
             <!-- Rest of the Form -->
