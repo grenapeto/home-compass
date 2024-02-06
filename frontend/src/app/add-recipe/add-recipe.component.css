@@ -1,38 +1,58 @@
 .recipe-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 60px;
-    width: 60%; /* Set the width of the container */
-    margin-left: auto; /* Center align the container */
-    margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .form-section-container {
   width: 100%;
-
 }
 
-.inventory-form {
-    display: flex;
-    gap: 20px;
-  }
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-.form-section,
+.top-section {
+  display: flex;
+  width: 100%;
+  align-items: stretch; /* Add this line */
+}
+
 .image-section {
-  flex: 1;
+  flex-basis: 25%;
+  display: flex; /* Add this line */
+  justify-content: center; /* Add this line */
 }
 
-.form-section {
+.fields-section {
   flex-basis: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.image-section {
-  flex-basis: 25%; /* Adjust the width as needed */
+
+.bottom-section {
+  display: flex;
+  width: 100%;
 }
 
 .ingredients-section {
-    flex-basis: 50%;
+  flex-basis: 50%;
 }
 
 .instructions-section {
-    flex-basis: 50%;
+  flex-basis: 50%;
+}
+
+/* Additional CSS for tui-input-files */
+.tui-input-files {
+  height: 100%; /* Add this line */
+  display: flex; /* Add this line */
+  align-items: center; /* Add this line */
 }

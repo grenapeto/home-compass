@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RecipesService } from '../services/recipes.service';
 import { Observable } from 'rxjs';
+import {TuiFileLike} from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-add-recipe',
@@ -19,6 +20,7 @@ export class AddRecipeComponent implements OnInit {
       title: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
+      image: ['']
       // recipes: this.fb.array([]), // If you have an array of recipes
     });
   }
