@@ -42,6 +42,8 @@ export class AddRecipeComponent implements OnInit {
     return this.addRecipeForm.get('instructions') as FormArray;
   }
 
+// CREATE
+
   createIngredient(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
@@ -54,6 +56,8 @@ export class AddRecipeComponent implements OnInit {
       instructions: [''],
     });
   }
+
+  // ADD
   addIngredient(): void {
     this.ingredients().push(this.createIngredient());
     console.log(this.ingredients());
@@ -63,6 +67,19 @@ export class AddRecipeComponent implements OnInit {
     this.instructions().push(this.createInstruction());
     console.log(this.instructions());
   }
+
+// DELETE
+
+removeIngredient(index: number): void {
+  this.ingredients().removeAt(index);
+  console.log(this.ingredients());
+}
+  
+removeInstruction(index: number): void {
+  this.instructions().removeAt(index);
+  console.log(this.instructions());
+}
+  //
 
   ngOnInit(): void {}
 

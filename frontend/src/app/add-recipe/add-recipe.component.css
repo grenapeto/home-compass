@@ -55,6 +55,15 @@ h2 {
   flex-basis: 50%;
 }
 
+.instruction-input {
+  display:inline-block; 
+  width: 90%;
+}
+
+.remove-instruction {
+  display:inline-block; 
+  width: 10%;
+}
 /* Additional CSS for tui-input-files */
 .tui-input-files {
   height: 100%; /* Add this line */

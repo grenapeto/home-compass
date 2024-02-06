@@ -65,16 +65,18 @@
                             Unit
                             <input tuiTextfield />
                         </tui-input>
+                        <tui-svg src="tuiIconClose" (click)="removeIngredient(i)" class="tui-space_left-3"></tui-svg>
                     </div>
                 </div>
                 <div class="instructions-section" formArrayName="instructions">
                     <h2>instructions</h2>
                     <button type="button" (click)="addInstruction()" appearance="secondary" tuiButton>+ Add instruction</button>
                     <div *ngFor="let instruction of instructions().controls; let i = index" [formGroupName]="i" class="instruction">
-                        <tui-input class=" tui-space_right-2 tui-space_vertical-3" formControlName="">
+                        <tui-input class="tui-space_vertical-3 instruction-input" formControlName="" >
                             Instruction
                             <input tuiTextfield />
                         </tui-input>
+                        <tui-svg  src="tuiIconClose" class="remove-instruction" (click)="removeInstruction(i)"></tui-svg>
                     </div>
                 </div>
             </div>
