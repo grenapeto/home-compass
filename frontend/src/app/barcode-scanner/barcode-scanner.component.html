@@ -1,7 +1,0 @@
-<div class="barcode-scanner-container">
-  <barcode-scanner-livestream type="ean" tryHarder="true" (valueChanges)="onValueChanges($event)"
-    (started)="(onStarted)"></barcode-scanner-livestream>
-  <div [hidden]="!barcodeValue">
-    {{ barcodeValue }}
-  </div>
-</div>

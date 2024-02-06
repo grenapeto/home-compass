@@ -6,7 +6,6 @@ import {
   SubItem,
 } from '../../services/inventory.service';
 import { HttpClient } from '@angular/common/http';
-import { BarcodeScannerService } from '../../services/barcode-scanner.service';
 import { TuiDay } from '@taiga-ui/cdk';
 
 @Component({
@@ -14,7 +13,7 @@ import { TuiDay } from '@taiga-ui/cdk';
   templateUrl: './add-items.component.html',
   styleUrls: ['./add-items.component.css'],
 })
-export class AddItemsComponent implements OnInit {
+export class AddItemsComponent {
   readonly columns = ['name', 'quantity', 'category', 'expirationDate'];
   inventoryItems: InventoryItem[] = [];
   addItemsForm: FormGroup;
@@ -26,7 +25,6 @@ export class AddItemsComponent implements OnInit {
     private fb: FormBuilder,
     private httpClient: HttpClient,
     private inventoryService: InventoryService,
-    private barcodeScannerService: BarcodeScannerService
   ) {
     this.addItemsForm = this.fb.group({
       barcode: [''], // Provide a default value
@@ -45,19 +43,6 @@ export class AddItemsComponent implements OnInit {
         this.searchProductByBarcode(barcode);
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.barcodeScannerService.barcodeScanned$.subscribe((barcode) => {
-      // Provide a default empty string value if barcode is null
-      this.addItemsForm.get('barcode')?.setValue(barcode || '');
-      this.searchProductByBarcode(barcode || ''); // Also update this line
-      this.expirationDateControls.push(this.fb.group({ expirationDate: [''] }));
-    });
-  }
-
-  toggleBarcodeScanner(): void {
-    this.isBarcodeScannerVisible = !this.isBarcodeScannerVisible;
   }
 
   searchProductByBarcode(barcode: string): void {

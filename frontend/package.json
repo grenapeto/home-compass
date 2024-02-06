@@ -19,7 +19,6 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@ericblade/quagga2": "^1.8.4",
     "@taiga-ui/addon-charts": "^3.63.0",
     "@taiga-ui/addon-commerce": "^3.63.0",
     "@taiga-ui/addon-doc": "^3.63.0",
@@ -33,7 +32,6 @@
     "@taiga-ui/kit": "^3.63.0",
     "@taiga-ui/layout": "^3.63.0",
     "@taiga-ui/styles": "^3.63.0",
-    "ngx-barcode-scanner": "^14.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
