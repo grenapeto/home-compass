@@ -45,6 +45,10 @@ export class AddItemsComponent {
     });
   }
 
+  updateBarcodeField(scannedBarcode: string): void {
+    this.addItemsForm.get('barcode')?.setValue(scannedBarcode);
+  }
+
   searchProductByBarcode(barcode: string): void {
     if (barcode.length >= 13) {
       const apiEndpoint = `https://world.openfoodfacts.org/api/v2/product/${barcode}.json`;

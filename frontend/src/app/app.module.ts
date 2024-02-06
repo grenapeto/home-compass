@@ -15,11 +15,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EditRecipesComponent } from './edit-recipes/edit-recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
-
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TuiNotificationModule } from '@taiga-ui/core';
 import { TuiInputModule, TuiInputNumberModule, TuiSelectModule } from '@taiga-ui/kit';
 import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
 import { TuiTableModule } from '@taiga-ui/addon-table';
+import {TuiMarkerIconModule} from '@taiga-ui/kit';
 import { TuiDataListModule } from '@taiga-ui/core';
 import { TuiComboBoxModule, TuiDataListWrapperModule } from '@taiga-ui/kit';
 import { TuiInputPasswordModule } from '@taiga-ui/kit';
@@ -27,6 +28,8 @@ import { TuiLetModule } from '@taiga-ui/cdk';
 import { TuiInputDateModule } from '@taiga-ui/kit';
 import { TuiTilesModule } from '@taiga-ui/kit';
 import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
+import { TuiInputFilesModule } from '@taiga-ui/kit';
+import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-scanner.component';
 
 
 @NgModule({
@@ -39,6 +42,7 @@ import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
     EditRecipesComponent,
     AddRecipeComponent,
     AddItemsComponent,
+    BarcodeScannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,9 @@ import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
     TuiInputDateModule,
     TuiTablePaginationModule,
     TuiTablePaginationModule,
+    TuiMarkerIconModule,
+    TuiInputFilesModule,
+    BarcodeScannerLivestreamModule
   ],
   providers:[
     {
