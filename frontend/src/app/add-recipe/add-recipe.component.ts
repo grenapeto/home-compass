@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { RecipesService } from '../services/recipes.service';
 import { Observable } from 'rxjs';
 import { TuiFileLike } from '@taiga-ui/kit';
@@ -46,15 +46,13 @@ export class AddRecipeComponent implements OnInit {
 
   createIngredient(): FormGroup {
     return this.fb.group({
-      name: ['', Validators.required],
-      amount: ['', Validators.required],
-      unit: ['', Validators.required],
+      name: [''],
+      amount: [''],
+      unit: [''],
     });
   }
-  createInstruction(): FormGroup {
-    return this.fb.group({
-      instructions: [''],
-    });
+  createInstruction(): FormControl {
+    return this.fb.control('');
   }
 
   // ADD

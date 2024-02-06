@@ -71,14 +71,14 @@
                 <div class="instructions-section" formArrayName="instructions">
                     <h2>instructions</h2>
                     <button type="button" (click)="addInstruction()" class="button" appearance="secondary" tuiButton>+ Add instruction</button>
-                    <div *ngFor="let instruction of instructions().controls; let i = index" [formGroupName]="i" class="instruction">
-                        <tui-input class="tui-space_vertical-3 instruction-input" formControlName="" >
-                            Instruction
-                            <input tuiTextfield />
+                    <div *ngFor="let instruction of instructions().controls; let i = index" class="instruction">
+                        <tui-input class="tui-space_vertical-3 instruction-input" [formControlName]="i">
+                          Instruction
+                          <input tuiTextfield />
                         </tui-input>
-                        <tui-svg  src="tuiIconClose" class="remove-instruction" (click)="removeInstruction(i)"></tui-svg>
+                        <tui-svg src="tuiIconClose" class="remove-instruction" (click)="removeInstruction(i)"></tui-svg>
+                      </div>
                     </div>
-                </div>
             </div>
 
             <button tuiButton type="submit" class="tui-space_vertical-3 button">Add Recipe</button>
