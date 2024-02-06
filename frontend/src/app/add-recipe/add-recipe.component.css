@@ -49,12 +49,18 @@ h2 {
 
 .ingredients-section {
   flex-basis: 50%;
+  text-align: center;
 }
 
 .instructions-section {
   flex-basis: 50%;
+  text-align: center;
 }
 
+.button {
+  margin: 5% 0%;
+ 
+}
 .instruction-input {
   display:inline-block; 
   width: 90%;
@@ -63,6 +69,11 @@ h2 {
 .remove-instruction {
   display:inline-block; 
   width: 10%;
+  color: red;
+}
+
+.remove-ingredient {
+  color: red;
 }
 /* Additional CSS for tui-input-files */
 .tui-input-files {

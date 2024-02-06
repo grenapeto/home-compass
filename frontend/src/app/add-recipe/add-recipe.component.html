@@ -51,7 +51,7 @@
             <div class="bottom-section">
                 <div class="ingredients-section" formArrayName="ingredients">
                     <h2>Ingredients</h2>
-                    <button type="button" (click)="addIngredient()" appearance="secondary" tuiButton type="button">+ Add ingredient</button>
+                    <button type="button" (click)="addIngredient()" class="button" appearance="secondary" tuiButton type="button">+ Add ingredient</button>
                     <div *ngFor="let ingredient of ingredients().controls; let i = index" [formGroupName]="i" class="ingredient">
                         <tui-input class="ingredients-input tui-space_right-2 tui-space_vertical-3" formControlName="name">
                             Name
@@ -65,12 +65,12 @@
                             Unit
                             <input tuiTextfield />
                         </tui-input>
-                        <tui-svg src="tuiIconClose" (click)="removeIngredient(i)" class="tui-space_left-3"></tui-svg>
+                        <tui-svg src="tuiIconClose" (click)="removeIngredient(i)" class="tui-space_left-3 remove-ingredient"></tui-svg>
                     </div>
                 </div>
                 <div class="instructions-section" formArrayName="instructions">
                     <h2>instructions</h2>
-                    <button type="button" (click)="addInstruction()" appearance="secondary" tuiButton>+ Add instruction</button>
+                    <button type="button" (click)="addInstruction()" class="button" appearance="secondary" tuiButton>+ Add instruction</button>
                     <div *ngFor="let instruction of instructions().controls; let i = index" [formGroupName]="i" class="instruction">
                         <tui-input class="tui-space_vertical-3 instruction-input" formControlName="" >
                             Instruction
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <button tuiButton type="submit" class="tui-space_vertical-3">Add Recipe</button>
+            <button tuiButton type="submit" class="tui-space_vertical-3 button">Add Recipe</button>
         </form>
     </div>
 </div>
