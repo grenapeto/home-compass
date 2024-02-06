@@ -21,6 +21,14 @@
                             </ng-template>
                         </ng-template>
                     </tui-input-files>
+                    <!-- Display uploaded file names -->
+                    <div class="uploaded-files">
+                        <ul *ngIf="addRecipeForm.get('image')?.value">
+                            <li *ngFor="let file of addRecipeForm.get('image')?.value">
+                                {{ file.name }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="fields-section">

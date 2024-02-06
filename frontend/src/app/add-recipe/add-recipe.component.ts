@@ -11,6 +11,7 @@ import {TuiFileLike} from '@taiga-ui/kit';
 })
 export class AddRecipeComponent implements OnInit {
   addRecipeForm: FormGroup;
+  file!: TuiFileLike; // Removed 'readonly' to allow modification
 
   constructor(
     private fb: FormBuilder,
@@ -18,10 +19,21 @@ export class AddRecipeComponent implements OnInit {
   ) {
     this.addRecipeForm = this.fb.group({
       title: ['', Validators.required],
+      cooktime: ['', Validators.required],
+      portions: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
       image: ['']
-      // recipes: this.fb.array([]), // If you have an array of recipes
+      // ... other form controls
+    });
+
+    // Subscribe to changes in the image form control
+    this.addRecipeForm.get('image')?.valueChanges.subscribe(files => {
+      if (files.length > 0) {
+        // Handle file selection. Example: Log the name of the first file
+        console.log("Selected file:", files[0].name);
+        // Add any additional handling here
+      }
     });
   }
 
