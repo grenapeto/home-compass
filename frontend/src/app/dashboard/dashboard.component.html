@@ -34,7 +34,9 @@
                       {{ recipe.cookTime }} minutes
                   </td>
                     <td tuiTd *tuiCell="'actionbuttons'">
-                        action buttons
+                        <button routerLink="/edit-recipes">
+                          Edit
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -47,7 +49,47 @@
         <div *ngSwitchCase="'expiration-date'">
             <!-- Custom content for add-item -->
             <h2>{{ item.content }}</h2>
-           <p>dgvd</p>
+          
+
+            <table tuiTable class="table" [columns]="expColumns">
+              <thead tuiThead>
+                  <tr tuiThGroup>
+                      <th tuiTh [resizable]="true" class="nameExpColumn">
+                          Name
+                      </th>
+                      <th tuiTh>
+                        Expiration Date
+                    </th>
+                      <th tuiTh>
+                          Amount
+                      </th>
+                  </tr>
+              </thead>
+              <tbody tuiTbody [data]="expData">
+                <tr tuiTr *ngFor="let inventoryGroup of expData">
+                  <td tuiTd *tuiCell="'name'">
+                    {{ inventoryGroup.name }}
+                  </td>
+                  <td tuiTd *tuiCell="'expirationDate'">
+                    <ng-container *ngFor="let inventory of inventoryGroup.items">
+                      {{ inventory.expirationDate }}
+                    </ng-container>
+                  </td>
+                  <td tuiTd *tuiCell="'amount'">
+                    <ng-container *ngFor="let inventory of inventoryGroup.items">
+                      {{ inventory.amount }}
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <tui-table-pagination
+            [total]="100"
+            [(page)]="page"
+            [items]="[4, 8, 12]"
+  ></tui-table-pagination>
+   
           </div>
         <div *ngSwitchDefault>
           <!-- Default content for other types -->
