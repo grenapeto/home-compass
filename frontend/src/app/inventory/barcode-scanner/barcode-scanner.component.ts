@@ -30,6 +30,7 @@ export class BarcodeScannerComponent implements AfterViewInit {
 
   onValueChanges(result: any) {
     this.barcodeScanned.emit(result.codeResult.code); // Emit the scanned barcode
+    this.barcodeScanner.stop(); // Stop the scanner
   }
 
   onStarted(started: any) {

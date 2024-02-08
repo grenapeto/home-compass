@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener  } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {
   InventoryService,
@@ -20,6 +20,13 @@ export class AddItemsComponent {
   expirationDateControls: FormGroup[] = [];
   expirationDates: TuiDay[] = [];
   isBarcodeScannerVisible: boolean = false; // New Property
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeScanner();
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -45,8 +52,18 @@ export class AddItemsComponent {
     });
   }
 
+  toggleBarcodeScanner(): void {
+    this.isBarcodeScannerVisible = !this.isBarcodeScannerVisible;
+    // If turning the scanner on, you might want to reset or prepare it here
+  }
+
+  closeScanner(): void {
+    this.isBarcodeScannerVisible = false;
+  }
+
   updateBarcodeField(scannedBarcode: string): void {
     this.addItemsForm.get('barcode')?.setValue(scannedBarcode);
+    this.toggleBarcodeScanner(); // Hide the scanner
   }
 
   searchProductByBarcode(barcode: string): void {
