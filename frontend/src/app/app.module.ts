@@ -26,6 +26,7 @@ import { TuiComboBoxModule, TuiDataListWrapperModule } from '@taiga-ui/kit';
 import { TuiInputPasswordModule } from '@taiga-ui/kit';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { TuiInputDateModule } from '@taiga-ui/kit';
+import {TuiPaginationModule} from '@taiga-ui/kit';
 import { TuiTilesModule } from '@taiga-ui/kit';
 import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
 import { TuiInputFilesModule } from '@taiga-ui/kit';
@@ -75,6 +76,7 @@ import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-sca
     TuiTablePaginationModule,
     TuiMarkerIconModule,
     TuiInputFilesModule,
+    TuiPaginationModule,
     BarcodeScannerLivestreamModule
   ],
   providers:[

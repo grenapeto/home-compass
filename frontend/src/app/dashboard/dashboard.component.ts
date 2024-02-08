@@ -12,20 +12,21 @@ import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
 })
 export class DashboardComponent implements OnInit {
   readonly columns = ['name', 'cookTime', 'actionbuttons'];
-  recipesData: any; 
+  recipesData: any;
   readonly expColumns = ['name', 'expirationDate', 'amount'];
   expData: any; //Prazdny objekt na data z backendu
 
-  sortedExpData: any; // Prazdny objekt na sortovane data, podla expiration date
+  sortedExpData: any[] = []; // Prazdny objekt na sortovane data, podla expiration date
 
-  page = 3;
-  size = 10;
+  page = 0; //Toto definuje na ktorej stranke chces zacinat, my chceme na prvej stranke ;) 
+  size = 3; // Toto definuje kolko veci na jednej stranke chceme zobrazit, mame maly komponent, dajme 5
+  total: number = 0; //Najprv ze to je cislo a zaciname s nulou, potom ho nahradime celkovym poctom inventory
 
   order = new Map<number, number>();
 
   constructor(private recipesService: RecipesService, private inventoryService: InventoryService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.recipesService.getAllRecipes().subscribe(
       (response) => {
         console.log('recipes', response);
@@ -35,19 +36,20 @@ export class DashboardComponent implements OnInit {
         console.log('no recipes', error);
       }
     );
-//Pri nacitani stranky zavola getAllInventoryItems a dostane z backendu vsetky inventory items ktore ulozi do ExpData
+    //Pri nacitani stranky zavola getAllInventoryItems a dostane z backendu vsetky inventory items ktore ulozi do ExpData
     this.inventoryService.getAllInventoryItems().subscribe(
       (response) => {
         console.log('inventory', response);
         this.expData = response;
+        this.total = response.length;// Tu chceme definovat kolko mame realne tych items, tie items dostaneme z backendu a su ulozene do expData
         this.sortInventoryGroupsByExpiration(); //Potom ako do expData ulozi data z backendu, zavola funkciu sortInventoryGroupsByExpiration, aby vysortovalo tie data podla expiration date
+        console.log(`Vysortovane podla expiration date`, this.sortedExpData);
       },
       (error) => {
         console.log('no inventory', error);
       }
     );
   }
-  
 
   sortInventoryGroupsByExpiration(): void {
     if (this.expData) {
@@ -58,17 +60,19 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
-  
 
-    
-
-    getEarliestExpiringItem(items: any[]): any {
-      if (!items || items.length === 0) {
-        return null
-      }
-      return items.slice().sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())[0];
+  getEarliestExpiringItem(items: any[]): any {
+    if (!items || items.length === 0) {
+      return null
     }
+    return items.slice().sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())[0];
+  }
 
+  get paginatedExpData(): any[] { //Tu chceme pre tu tabulku vypocitat ktore items sa maju zobrazovat na ktorej stranke, napr items 1-3 na prvej stranke, items 4-6 na druhej stranke etc
+    const startIndex = this.page * this.size; // Startovaci index, cim zaciname bude 0. Kedze startovacia page je 0, a nula krat 3 je stale 0. A prvy item v array ma poradove cislo? Nula.
+    const paginatedData = this.sortedExpData.slice(startIndex, startIndex + this.size); //Tu si budeme vyratavat ktore items na ktorej stranke zobrazime. Na prvej stranke je startIndex 0 a potom 0 + size
+    return paginatedData;
+  }
 
 
   items = [

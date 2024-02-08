@@ -1,44 +1,38 @@
 <tui-tiles class="tiles" [debounce]="500" [(order)]="order">
-  <tui-tile
-    *ngFor="let item of items; let index = index"
-    class="tile"
-    [height]="item.h"
-    [style.order]="order.get(index)"
-    [width]="item.w"
-    tuiTile
-  >
+  <tui-tile *ngFor="let item of items; let index = index" class="tile" [height]="item.h"
+    [style.order]="order.get(index)" [width]="item.w" tuiTile>
     <div class="content">
       <div [ngSwitch]="item.type">
         <div *ngSwitchCase="'recipes'">
           <h2>{{ item.content }}</h2>
           <table tuiTable class="table" [columns]="columns">
             <thead tuiThead>
-                <tr tuiThGroup>
-                    <th tuiTh [resizable]="true" class="nameColumn">
-                        Name
-                    </th>
-                    <th tuiTh>
-                      CookTime
-                  </th>
-                    <th tuiTh>
-                        Action
-                    </th>
-                </tr>
+              <tr tuiThGroup>
+                <th tuiTh [resizable]="true" class="nameColumn">
+                  Name
+                </th>
+                <th tuiTh>
+                  CookTime
+                </th>
+                <th tuiTh>
+                  Action
+                </th>
+              </tr>
             </thead>
             <tbody tuiTbody [data]="recipesData">
-                <tr tuiTr *ngFor="let recipe of recipesData">
-                    <td tuiTd *tuiCell="'name'">
-                        {{ recipe.name }}
-                    </td>
-                    <td tuiTd *tuiCell="'cookTime'">
-                      {{ recipe.cookTime }} minutes
-                  </td>
-                    <td tuiTd *tuiCell="'actionbuttons'">
-                        <button [routerLink]="'/edit-recipes/' + recipe._id">
-                          Edit
-                        </button>
-                    </td>
-                </tr>
+              <tr tuiTr *ngFor="let recipe of recipesData">
+                <td tuiTd *tuiCell="'name'">
+                  {{ recipe.name }}
+                </td>
+                <td tuiTd *tuiCell="'cookTime'">
+                  {{ recipe.cookTime }} minutes
+                </td>
+                <td tuiTd *tuiCell="'actionbuttons'">
+                  <button [routerLink]="'/edit-recipes/' + recipe._id">
+                    Edit
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -47,47 +41,31 @@
           <h2 routerLink="/add-item" class="add-item-btn">{{ item.content }}</h2>
         </div>
         <div *ngSwitchCase="'expiration-date'">
-            <!-- Custom content for add-item -->
-            <h2>{{ item.content }}</h2>
-          
-
-            <table tuiTable class="table" [columns]="expColumns">
-              <thead tuiThead>
-                  <tr tuiThGroup>
-                      <th tuiTh [resizable]="true" class="nameExpColumn">
-                          Name
-                      </th>
-                      <th tuiTh>
-                        Expiration Date
-                    </th>
-                      <th tuiTh>
-                          Amount
-                      </th>
-                  </tr>
-              </thead>
-              <tbody tuiTbody [data]="expData">
-                <tr tuiTr *ngFor="let inventoryGroup of sortedExpData"> 
-                  <!-- V tomto uz nebudeme brat kazdu inventoryGroup z expData, ktore sme dostali z backendu, ale z sortedExpData, z tych vysortovanych podla expiration date -->
-                  <td tuiTd *tuiCell="'name'">
-                    {{ inventoryGroup.name }}
-                  </td>
-                  <td tuiTd *tuiCell="'expirationDate'">
-                    {{ getEarliestExpiringItem(inventoryGroup.items)?.expirationDate | date: 'dd.MM.yyyy' }}
-                  </td>
-                  <td tuiTd *tuiCell="'amount'">
-                    {{ getEarliestExpiringItem(inventoryGroup.items)?.amount }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <tui-table-pagination
-            [total]="100"
-            [(page)]="page"
-            [items]="[4, 8, 12]"
-  ></tui-table-pagination>
-   
-          </div>
+          <h2>{{ item.content }}</h2>
+          <table tuiTable class="table" [columns]="expColumns">
+            <thead tuiThead>
+              <tr tuiThGroup>
+                <th tuiTh [resizable]="true" class="nameExpColumn">Name</th>
+                <th tuiTh>Expiration Date</th>
+                <th tuiTh>Amount</th>
+              </tr>
+            </thead>
+            <tbody tuiTbody [data]="paginatedExpData"> 
+              <!-- Tu sme definovali, ze tie data pridu z tych, ktore su uz na paginator pripravene, takze je vyratane kolko sa ma zobrazit na kazdej stranke -->
+              <tr tuiTr *ngFor="let inventoryGroup of paginatedExpData">
+                <td tuiTd *tuiCell="'name'">{{ inventoryGroup.name }}</td>
+                <td tuiTd *tuiCell="'expirationDate'">
+                  {{ getEarliestExpiringItem(inventoryGroup.items)?.expirationDate | date: 'dd.MM.yyyy' }}
+                </td>
+                <td tuiTd *tuiCell="'amount'">
+                  {{ getEarliestExpiringItem(inventoryGroup.items)?.amount }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        
+          <tui-table-pagination [total]="total" [(page)]="page" [size]="size"></tui-table-pagination>
+        </div>
         <div *ngSwitchDefault>
           <!-- Default content for other types -->
           <h2 class="title">{{ item.content }}</h2>
