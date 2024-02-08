@@ -19,8 +19,8 @@
                 </th>
               </tr>
             </thead>
-            <tbody tuiTbody [data]="recipesData">
-              <tr tuiTr *ngFor="let recipe of recipesData">
+            <tbody tuiTbody [data]="paginatedRecipes">
+              <tr tuiTr *ngFor="let recipe of paginatedRecipes">
                 <td tuiTd *tuiCell="'name'">
                   {{ recipe.name }}
                 </td>
@@ -35,6 +35,7 @@
               </tr>
             </tbody>
           </table>
+          <tui-table-pagination [total]="totalRecipes" [(page)]="pageRecipes" [size]="sizeRecipes"></tui-table-pagination>
         </div>
         <div *ngSwitchCase="'add-item'" class="add-item">
           <!-- Custom content for add-item -->
@@ -48,6 +49,7 @@
                 <th tuiTh [resizable]="true" class="nameExpColumn">Name</th>
                 <th tuiTh>Expiration Date</th>
                 <th tuiTh>Amount</th>
+                <th tuiTh>Delete</th>
               </tr>
             </thead>
             <tbody tuiTbody [data]="paginatedExpData"> 
@@ -60,6 +62,7 @@
                 <td tuiTd *tuiCell="'amount'">
                   {{ getEarliestExpiringItem(inventoryGroup.items)?.amount }}
                 </td>
+                <td tuiTd *tuiCell="'delete'" (click)="deleteItem(inventoryGroup._id, getEarliestExpiringItem(inventoryGroup.items)?._id)"><tui-svg src="tuiIconClose" class="remove"></tui-svg></td>
               </tr>
             </tbody>
           </table>

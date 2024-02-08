@@ -13,35 +13,54 @@ import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
 export class DashboardComponent implements OnInit {
   readonly columns = ['name', 'cookTime', 'actionbuttons'];
   recipesData: any;
-  readonly expColumns = ['name', 'expirationDate', 'amount'];
+  readonly expColumns = ['name', 'expirationDate', 'amount', 'delete'];
   expData: any; //Prazdny objekt na data z backendu
 
   sortedExpData: any[] = []; // Prazdny objekt na sortovane data, podla expiration date
 
-  page = 0; //Toto definuje na ktorej stranke chces zacinat, my chceme na prvej stranke ;) 
+  //Pagination expiration date
+
+  page = 0; //Toto definuje na ktorej stranke chces zacinat, my chceme na prvej stranke ;)
   size = 3; // Toto definuje kolko veci na jednej stranke chceme zobrazit, mame maly komponent, dajme 5
   total: number = 0; //Najprv ze to je cislo a zaciname s nulou, potom ho nahradime celkovym poctom inventory
 
+  //Pagination recipes
+
+  pageRecipes = 0;
+  sizeRecipes = 5;
+  totalRecipes: number = 0;
+
   order = new Map<number, number>();
 
-  constructor(private recipesService: RecipesService, private inventoryService: InventoryService) { }
+  constructor(
+    private recipesService: RecipesService,
+    private inventoryService: InventoryService
+  ) {}
 
   ngOnInit(): void {
     this.recipesService.getAllRecipes().subscribe(
       (response) => {
         console.log('recipes', response);
         this.recipesData = response;
+        this.totalRecipes = this.recipesData.length;
+        console.log(this.totalRecipes);
       },
       (error) => {
         console.log('no recipes', error);
       }
     );
+
+    this.fetchInventory();
+}
+
+
+  fetchInventory(): void {
     //Pri nacitani stranky zavola getAllInventoryItems a dostane z backendu vsetky inventory items ktore ulozi do ExpData
     this.inventoryService.getAllInventoryItems().subscribe(
       (response) => {
         console.log('inventory', response);
         this.expData = response;
-        this.total = response.length;// Tu chceme definovat kolko mame realne tych items, tie items dostaneme z backendu a su ulozene do expData
+        this.total = response.length; // Tu chceme definovat kolko mame realne tych items, tie items dostaneme z backendu a su ulozene do expData
         this.sortInventoryGroupsByExpiration(); //Potom ako do expData ulozi data z backendu, zavola funkciu sortInventoryGroupsByExpiration, aby vysortovalo tie data podla expiration date
         console.log(`Vysortovane podla expiration date`, this.sortedExpData);
       },
@@ -63,18 +82,50 @@ export class DashboardComponent implements OnInit {
 
   getEarliestExpiringItem(items: any[]): any {
     if (!items || items.length === 0) {
-      return null
+      return null;
     }
-    return items.slice().sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())[0];
+    return items
+      .slice()
+      .sort(
+        (a, b) =>
+          new Date(a.expirationDate).getTime() -
+          new Date(b.expirationDate).getTime()
+      )[0];
   }
 
-  get paginatedExpData(): any[] { //Tu chceme pre tu tabulku vypocitat ktore items sa maju zobrazovat na ktorej stranke, napr items 1-3 na prvej stranke, items 4-6 na druhej stranke etc
+  get paginatedExpData(): any[] {
+    //Tu chceme pre tu tabulku vypocitat ktore items sa maju zobrazovat na ktorej stranke, napr items 1-3 na prvej stranke, items 4-6 na druhej stranke etc
     const startIndex = this.page * this.size; // Startovaci index, cim zaciname bude 0. Kedze startovacia page je 0, a nula krat 3 je stale 0. A prvy item v array ma poradove cislo? Nula.
-    const paginatedData = this.sortedExpData.slice(startIndex, startIndex + this.size); //Tu si budeme vyratavat ktore items na ktorej stranke zobrazime. Na prvej stranke je startIndex 0 a potom 0 + size
+    const paginatedData = this.sortedExpData.slice(
+      startIndex,
+      startIndex + this.size
+    ); //Tu si budeme vyratavat ktore items na ktorej stranke zobrazime. Na prvej stranke je startIndex 0 a potom 0 + size
     return paginatedData;
   }
 
+  get paginatedRecipes(): any[] {
+    //Tu chceme pre tu tabulku vypocitat ktore items sa maju zobrazovat na ktorej stranke, napr items 1-3 na prvej stranke, items 4-6 na druhej stranke etc
+    const startIndexRecipes = this.pageRecipes * this.sizeRecipes; // Startovaci index, cim zaciname bude 0. Kedze startovacia page je 0, a nula krat 3 je stale 0. A prvy item v array ma poradove cislo? Nula.
+    const paginatedRecipes = this.recipesData.slice(
+      startIndexRecipes,
+      startIndexRecipes + this.sizeRecipes
+    ); //Tu si budeme vyratavat ktore items na ktorej stranke zobrazime. Na prvej stranke je startIndex 0 a potom 0 + size
+    return paginatedRecipes;
+  }
 
+  deleteItem(inventoryId: string, itemId: string): void {
+    this.inventoryService
+      .deleteInventoryItemById(inventoryId, itemId)
+      .subscribe(
+        (response) => {
+          console.log('Item successfully deleted', response);
+          this.fetchInventory();
+        },
+        (error) => {
+          console.log('Item not deleted', error);
+        }
+      );
+  }
   items = [
     { w: 2, h: 4, content: 'Latest recipes', type: 'recipes' },
     { w: 1, h: 1, content: 'Click here to add item', type: 'add-item' },

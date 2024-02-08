@@ -1,6 +1,6 @@
 <div class="recipe-section">
     <div class="form-section-container">
-        <form [formGroup]="addRecipeForm" class="recipe-form">
+        <form class="recipe-form">
             <!-- Top Section for Image and Fields -->
             <div class="top-section">
                 <div class="image-section">
@@ -22,13 +22,13 @@
                         </ng-template>
                     </tui-input-files>
                     <!-- Display uploaded file names -->
-                    <div class="uploaded-files">
+                    <!-- <div class="uploaded-files">
                         <ul *ngIf="addRecipeForm.get('image')?.value">
                             <li *ngFor="let file of addRecipeForm.get('image')?.value">
                                 {{ file.name }}
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="fields-section">
@@ -52,7 +52,7 @@
                 <div class="ingredients-section" formArrayName="ingredients">
                     <h2>Ingredients</h2>
                     <button type="button" class="button" appearance="secondary" tuiButton type="button">+ Add ingredient</button>
-                    <div *ngFor="let ingredient of ingredients().controls; let i = index" [formGroupName]="i" class="ingredient">
+                    <!-- <div *ngFor="let ingredient of ingredients().controls; let i = index" [formGroupName]="i" class="ingredient">
                         <tui-input class="ingredients-input tui-space_right-2 tui-space_vertical-3" formControlName="name">
                             Name
                             <input tuiTextfield />
@@ -66,18 +66,18 @@
                             <input tuiTextfield />
                         </tui-input>
                         <tui-svg src="tuiIconClose" class="tui-space_left-3 remove-ingredient"></tui-svg>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="instructions-section" formArrayName="instructions">
                     <h2>instructions</h2>
                     <button type="button" class="button" appearance="secondary" tuiButton>+ Add instruction</button>
-                    <div *ngFor="let instruction of instructions().controls; let i = index" class="instruction">
+                    <!-- <div *ngFor="let instruction of instructions().controls; let i = index" class="instruction">
                         <tui-input class="tui-space_vertical-3 instruction-input" [formControlName]="i">
                           Instruction
                           <input tuiTextfield />
                         </tui-input>
                         <tui-svg src="tuiIconClose" class="remove-instruction"></tui-svg>
-                      </div>
+                      </div> -->
                     </div>
             </div>
 

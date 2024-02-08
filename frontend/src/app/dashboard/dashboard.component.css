@@ -75,3 +75,7 @@ h2:hover{
 .nameColumn{
     width: 55%;
 }
+
+.remove {
+    color: red;
+}
