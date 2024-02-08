@@ -66,19 +66,16 @@
                   </tr>
               </thead>
               <tbody tuiTbody [data]="expData">
-                <tr tuiTr *ngFor="let inventoryGroup of expData">
+                <tr tuiTr *ngFor="let inventoryGroup of sortedExpData"> 
+                  <!-- V tomto uz nebudeme brat kazdu inventoryGroup z expData, ktore sme dostali z backendu, ale z sortedExpData, z tych vysortovanych podla expiration date -->
                   <td tuiTd *tuiCell="'name'">
                     {{ inventoryGroup.name }}
                   </td>
                   <td tuiTd *tuiCell="'expirationDate'">
-                    <ng-container *ngFor="let inventory of inventoryGroup.items">
-                      {{ inventory.expirationDate }}
-                    </ng-container>
+                    {{ getEarliestExpiringItem(inventoryGroup.items)?.expirationDate | date: 'dd.MM.yyyy' }}
                   </td>
                   <td tuiTd *tuiCell="'amount'">
-                    <ng-container *ngFor="let inventory of inventoryGroup.items">
-                      {{ inventory.amount }}
-                    </ng-container>
+                    {{ getEarliestExpiringItem(inventoryGroup.items)?.amount }}
                   </td>
                 </tr>
               </tbody>
