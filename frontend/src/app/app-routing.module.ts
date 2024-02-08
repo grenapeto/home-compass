@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'add-item', component: AddItemsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-recipe', component: AddRecipeComponent },
-  { path: 'edit-recipes', component: EditRecipesComponent },
+  { path: 'edit-recipes/:id', component: EditRecipesComponent },
   { path: '**', redirectTo: '/home' },
   
 ];

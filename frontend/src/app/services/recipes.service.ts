@@ -11,7 +11,7 @@ export class RecipesService {
   constructor(private http: HttpClient) { }
   private apiUrl = environment.apiUrl;
 
-  getAllRecipes(){
+  getAllRecipes() {
     return this.http.get(`${this.apiUrl}/recipes`)
   }
 
@@ -19,16 +19,16 @@ export class RecipesService {
     return this.http.post(`${this.apiUrl}/recipes`, { title, ingredients, instructions })
   }
 
-  getSingleRecipe(recipeId: string): Observable<any>{
-    return this.http.get(`${this.apiUrl}/${recipeId}`)
+  getSingleRecipe(recipeId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/recipes/${recipeId}`)
   }
-updateSingleRecipe(id: string, title: string, ingredients: [string], instructions: [string]): Observable<any>{
-  return this.http.put(`${this.apiUrl}/recipes/${id}`, { title, ingredients, instructions })
-}
+  updateSingleRecipe(id: string, title: string, ingredients: [string], instructions: [string]): Observable<any> {
+    return this.http.put(`${this.apiUrl}/recipes/${id}`, { title, ingredients, instructions })
+  }
 
 
-deleteSingleRecipe(id: string): Observable<any>{
-  return this.http.delete(`${this.apiUrl}/recipes/${id}`)
-}
+  deleteSingleRecipe(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/recipes/${id}`)
+  }
 }
 

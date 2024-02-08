@@ -16,6 +16,7 @@ const getAllRecipes = async (req, res) => {
 const getRecipe = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
+    console.info(req.params.id);
     if (!recipe) {
       return handleErrorResponse(res, 404, 'Recipe not found');
     }

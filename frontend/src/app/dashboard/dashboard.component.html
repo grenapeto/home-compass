@@ -34,7 +34,7 @@
                       {{ recipe.cookTime }} minutes
                   </td>
                     <td tuiTd *tuiCell="'actionbuttons'">
-                        <button routerLink="/edit-recipes">
+                        <button [routerLink]="'/edit-recipes/' + recipe._id">
                           Edit
                         </button>
                     </td>
