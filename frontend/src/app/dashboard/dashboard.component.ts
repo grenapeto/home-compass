@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { InventoryService } from '../services/inventory.service';
 import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
+import { TuiDay } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,19 +16,20 @@ export class DashboardComponent implements OnInit {
   recipesData: any;
   readonly expColumns = ['name', 'expirationDate', 'amount', 'delete'];
   expData: any; //Prazdny objekt na data z backendu
-
+  date: any = '';
+  mealplanDates: Date[] = [];
   sortedExpData: any[] = []; // Prazdny objekt na sortovane data, podla expiration date
 
   //Pagination expiration date
 
   page = 0; //Toto definuje na ktorej stranke chces zacinat, my chceme na prvej stranke ;)
-  size = 3; // Toto definuje kolko veci na jednej stranke chceme zobrazit, mame maly komponent, dajme 5
+  size = 4; // Toto definuje kolko veci na jednej stranke chceme zobrazit, mame maly komponent, dajme 5
   total: number = 0; //Najprv ze to je cislo a zaciname s nulou, potom ho nahradime celkovym poctom inventory
 
   //Pagination recipes
 
   pageRecipes = 0;
-  sizeRecipes = 6;
+  sizeRecipes = 7;
   totalRecipes: number = 0;
 
   order = new Map<number, number>();
@@ -35,7 +37,12 @@ export class DashboardComponent implements OnInit {
   constructor(
     private recipesService: RecipesService,
     private inventoryService: InventoryService
-  ) {}
+  ) {
+    const currentDay = TuiDay.currentLocal();
+    this.date = currentDay;
+    this.updateDates(currentDay);
+
+  }
 
   ngOnInit(): void {
     this.recipesService.getAllRecipes().subscribe(
@@ -126,15 +133,34 @@ export class DashboardComponent implements OnInit {
         }
       );
   }
+
+  private updateDates(tuiDay: TuiDay): void {
+    const selectedDate = new Date(tuiDay.year, tuiDay.month - 1, tuiDay.day);
+    this.mealplanDates = [];
+
+    // Calculate the start date (Monday) of the week containing the selected date
+    const startDate = new Date(selectedDate);
+    startDate.setDate(startDate.getDate() - (startDate.getDay() - 1));
+
+    // Calculate the end date (Sunday) of the week containing the selected date
+    const endDate = new Date(selectedDate);
+    endDate.setDate(endDate.getDate() + (7 - endDate.getDay()));
+
+    // Populate mealplanDates with dates spanning the entire week
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+        this.mealplanDates.push(new Date(currentDate));
+        console.log(this.mealplanDates)
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+}
+
+
   items = [
-    { w: 2, h: 4, content: 'Latest recipes', type: 'recipes' },
-    { w: 1, h: 1, content: 'Click here to add item', type: 'add-item' },
+    { w: 1, h: 6, content: 'Latest recipes', type: 'recipes' },
+    { w: 1, h: 3, content: 'Click here to add item', type: 'add-item' },
     { w: 1, h: 3, content: 'Closest expiration date', type: 'expiration-date' },
-    { w: 1, h: 1, content: 'Item 4' },
-    { w: 3, h: 1, content: 'Item 5' },
-    { w: 1, h: 1, content: 'Item 6' },
-    { w: 1, h: 1, content: 'Item 7' },
-    { w: 1, h: 1, content: 'Item 8' },
-    { w: 1, h: 1, content: 'Item 9' },
+    { w: 2, h: 3, content: 'Mealplan for the week', type: 'mealplan'},
+    
   ];
 }

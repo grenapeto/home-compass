@@ -25,7 +25,7 @@ export class AddMealplanComponent {
 
   hoveredItem: TuiDay | null = null;
 
-  mealplanDates: Date[] = []
+  mealplanDates: Date[] = [];
 
   readonly markerHandler: TuiMarkerHandler = (day: TuiDay) =>
     // Attention: do not create new arrays in handler, use constants instead

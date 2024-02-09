@@ -8,6 +8,7 @@ import { Component ,Input, OnChanges, SimpleChanges, input } from '@angular/core
 export class MealplanDetailComponent implements OnChanges {
   
 @Input() currentDate!: Date;
+@Input() currentWeek!: Date;
 
 currentDayName: string = '';
 previousDays: Date[] = [];
@@ -17,6 +18,9 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['currentDate'] && this.currentDate){
     this.updateDays();
   };
+  if (changes['currentWeek'] && this.currentWeek) {
+    this.updateDaysInWeek();
+  };
 }
 
 private updateDays(): void {
@@ -24,6 +28,18 @@ private updateDays(): void {
   this.previousDays = this.calculateDays(-2, -1);
   this.followingDays = this.calculateDays(1, 2);
 }
+
+private updateDaysInWeek(): void {
+  this.currentDayName = this.currentWeek.toLocaleDateString('en-US', { weekday: 'long' });
+
+  // Calculate the start and end offset for the previous and following days
+  const startOffset = 1 - this.currentWeek.getDay(); // Start from Monday (1)
+  const endOffset = 7 - this.currentWeek.getDay(); // End at the end of the week (Sunday)
+
+  this.previousDays = this.calculateDays(startOffset, -1); // Calculate previous days
+  this.followingDays = this.calculateDays(1, endOffset); // Calculate following days
+}
+
 
 private calculateDays(startOffset: number, endOffset: number): Date[] {
  const dates: Date[] = [];

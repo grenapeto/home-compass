@@ -69,6 +69,12 @@
         
           <tui-table-pagination [total]="total" [(page)]="page" [size]="size"></tui-table-pagination>
         </div>
+        <div *ngSwitchCase="'mealplan'">
+          <h2>{{ item.content }}</h2>
+          <ng-container *ngFor="let date of mealplanDates">
+            <app-mealplan-detail [currentWeek]="date" class="tui-space_horizontal-3"></app-mealplan-detail>
+        </ng-container>        
+      </div>
         <div *ngSwitchDefault>
           <!-- Default content for other types -->
           <h2 class="title">{{ item.content }}</h2>
