@@ -31,6 +31,9 @@ import { TuiTilesModule } from '@taiga-ui/kit';
 import { TuiTablePaginationModule } from '@taiga-ui/addon-table';
 import { TuiInputFilesModule } from '@taiga-ui/kit';
 import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-scanner.component';
+import { AddMealplanComponent } from './mealplans/add-mealplan/add-mealplan.component';
+import {TuiCalendarModule} from '@taiga-ui/core';
+import { MealplanDetailComponent } from './mealplans/mealplan-detail/mealplan-detail.component';
 
 
 @NgModule({
@@ -44,6 +47,8 @@ import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-sca
     AddRecipeComponent,
     AddItemsComponent,
     BarcodeScannerComponent,
+    AddMealplanComponent,
+    MealplanDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import { BarcodeScannerComponent } from './inventory/barcode-scanner/barcode-sca
     TuiMarkerIconModule,
     TuiInputFilesModule,
     TuiPaginationModule,
-    BarcodeScannerLivestreamModule
+    BarcodeScannerLivestreamModule,
+    TuiCalendarModule
   ],
   providers:[
     {

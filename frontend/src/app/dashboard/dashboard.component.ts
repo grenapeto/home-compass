@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   //Pagination recipes
 
   pageRecipes = 0;
-  sizeRecipes = 5;
+  sizeRecipes = 6;
   totalRecipes: number = 0;
 
   order = new Map<number, number>();

@@ -1,0 +1,28 @@
+<div class="mealplan-detail">
+  <h2>
+    {{ currentDate | date : "dd.MM" }}
+  </h2>
+  <p>{{ currentDayName }}</p>
+  <div class="obed">
+    <tui-input
+      class="tui-space_vertical-3"
+      formControlName="testValue"
+      tuiTextfieldSize="s"
+    >
+      Obed
+      <input autocomplete="email" tuiTextfield type="email" />
+    </tui-input>
+    <tui-svg src="tuiIconClose" class="remove"></tui-svg>
+  </div>
+  <div class="vecera">
+    <tui-input
+      class="tui-space_vertical-3"
+      formControlName="testValue"
+      tuiTextfieldSize="s"
+    >
+      Vecera
+      <input autocomplete="email" tuiTextfield type="email" />
+    </tui-input>
+    <tui-svg src="tuiIconClose" class="remove"></tui-svg>
+  </div>
+</div>

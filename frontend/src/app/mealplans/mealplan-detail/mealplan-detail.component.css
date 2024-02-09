@@ -1,0 +1,16 @@
+.mealplan-detail {
+    width: 250px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+tui-input {
+    display: inline-block;
+    width: 90%;
+}
+
+.remove {
+    color: red;
+}
