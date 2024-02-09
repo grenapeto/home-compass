@@ -5,3 +5,11 @@ tui-calendar {
 .calendar-section {
     text-align: center;
 }
+
+.mealplan-section {
+    text-align: center;
+}
+app-mealplan-detail {
+    display: inline-block;
+   
+}
